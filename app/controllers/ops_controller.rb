@@ -1,6 +1,6 @@
 class OpsController < ApplicationController
   def status
-    render json: { status: "test-deploy" }, status: :ok
+    render json: { status: "hola joha" }, status: :ok
   end
 
 end
