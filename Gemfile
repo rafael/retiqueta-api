@@ -9,4 +9,5 @@ gem 'authlogic', '3.4.6'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  gem 'pry-byebug'
 end
