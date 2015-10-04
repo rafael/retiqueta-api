@@ -30,7 +30,7 @@ module Registrations
     ## Instance Methods ##
     ######################
 
-    attr_accessor :outcome, :type, :password, :email, :username, :attributes, :name, :data
+    attr_accessor :success_result, :failure_result, :type, :password, :email, :username, :attributes, :name, :data
 
     def initialize(params = {})
       @data = params[:data]
@@ -49,12 +49,18 @@ module Registrations
     def generate_result!
       user = User.new(attributes)
       if user.valid? && user.save
-        self.outcome = user
+        self.success_result = user
       else
         user.errors.each do |k, v|
           self.errors.add(k, v)
         end
       end
+    end
+
+    def failure_result
+      @failure_result ||= ApiError.new(title: ApiError.title_for_error(ApiError::FAILED_VALIDATION),
+                                       code: ApiError::FAILED_VALIDATION,
+                                       detail: errors.full_messages.join(', '))
     end
 
     private

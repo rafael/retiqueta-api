@@ -1,10 +1,10 @@
 class V1::RegistrationsController < ApplicationController
   def create
-    @user = User.new(user_params[:attributes])
-    if @user.valid? && @user.save
-      render json: @user, serializer: UserSerializer, status: 201
+    outcome = ::Registrations::Create.call(data:  user_params )
+    if outcome.valid?
+      render json: outcome.success_result, serializer: UserSerializer, status: 201
     else
-      render json: @user, status: 422
+      render json: outcome.failure_result.to_json, status: 422
     end
   end
 

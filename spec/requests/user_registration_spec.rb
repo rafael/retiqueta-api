@@ -1,9 +1,9 @@
 require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe "User Registration", type: :request do
-
-  it "creates an user and responds with valid json" do
-    params = {
+  let(:params) {
+    {
       data: {
         type: "users",
         attributes: {
@@ -14,6 +14,10 @@ RSpec.describe "User Registration", type: :request do
         }
       }
     }
+  }
+
+  it "creates an user and responds with valid json" do
+
     post "/v1/registrations", params
     expect(response.status).to eq(201)
     user = User.last
@@ -27,19 +31,15 @@ RSpec.describe "User Registration", type: :request do
   end
 
   it "responds with valid json on errors" do
-    params = {
-      data: {
-        type: "users",
-        attributes: {
-          password: "123456",
-          email: "rafaelchacon@gmail.com",
-          username: "rafael"
-        }
-      }
-    }
+    params[:data][:attributes].delete(:name)
     post "/v1/registrations", params
     expect(response.status).to eq(422)
     expect(json["data"]).to be_nil
-    expect(json).to eq("")
+    expect(json).to eq({
+                         "code" => ApiError::FAILED_VALIDATION,
+                         "title" =>  ApiError.title_for_error(ApiError::FAILED_VALIDATION),
+                         "detail" => "Name can't be blank"
+                       })
+
   end
 end
