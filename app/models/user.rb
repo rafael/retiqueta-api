@@ -1,5 +1,21 @@
 class User < ActiveRecord::Base
+
+  #################
+  ## Validations ##
+  #################
+
+  validates :name, presence: true
+
+  ###############
+  ## Callbacks ##
+  ###############
+
   before_create :generate_uuid
+
+
+  ################
+  ## Extensions ##
+  ################
 
   acts_as_authentic do |c|
     c.require_password_confirmation = false
