@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
     c.require_password_confirmation = false
   end
 
+  attr_accessor :password
+
   private
 
   def generate_uuid
