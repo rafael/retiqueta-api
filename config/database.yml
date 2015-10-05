@@ -19,3 +19,4 @@ production:
   database: retiqueta_api_production
   username: retiqueta_api
   password: <%= ENV['RETIQUETA_API_DATABASE_PASSWORD'] %>
+  host: <%= ENV['MYSQL_SERVICE_HOST'] %>
