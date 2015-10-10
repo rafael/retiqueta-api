@@ -11,29 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929061138) do
+ActiveRecord::Schema.define(version: 20151010173410) do
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",           limit: 255,                 null: false
-    t.string   "name",               limit: 255,                 null: false
-    t.string   "uuid",               limit: 255,                 null: false
-    t.string   "email",              limit: 255,                 null: false
+    t.string   "username",           limit: 255,             null: false
+    t.string   "name",               limit: 255,             null: false
+    t.string   "uuid",               limit: 255,             null: false
+    t.string   "email",              limit: 255,             null: false
     t.string   "crypted_password",   limit: 255
     t.string   "password_salt",      limit: 255
     t.string   "persistence_token",  limit: 255
     t.string   "perishable_token",   limit: 255
-    t.integer  "login_count",        limit: 4,   default: 0,     null: false
-    t.integer  "failed_login_count", limit: 4,   default: 0,     null: false
+    t.integer  "login_count",        limit: 4,   default: 0, null: false
+    t.integer  "failed_login_count", limit: 4,   default: 0, null: false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
     t.string   "current_login_ip",   limit: 255
     t.string   "last_login_ip",      limit: 255
-    t.boolean  "active",                         default: false
-    t.boolean  "approved",                       default: false
-    t.boolean  "confirmed",                      default: false
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
