@@ -39,19 +39,8 @@ module Authenticate
     end
 
     def generate_result!
-      user =  User.find_by_email(login)
-      user ||= User.find_by_username(login)
       if user && user.valid_password?(password)
-        body =  {
-          client_secret: "c4c6f41e11294965c998379111143ba8",
-          client_id: "ret-mobile-ios",
-          scope: 'app',
-          provision_key: 'a2a1ed0c2ef64868c85fa56e5770831a',
-          grant_type: 'password',
-          authenticated_userid: user.uuid
-        }
-
-        response = kong_client.post '/users/oauth2/token', URI.encode_www_form(body)
+        response = kong_client.post Rails.configuration.x.kong.users_ouath_token_path, URI.encode_www_form(kong_request_body)
         self.success_result = response.body
         self.status = response.status
       else
@@ -68,15 +57,35 @@ module Authenticate
 
     private
 
+
+    def user
+      @user ||= begin
+                  user =  User.find_by_email(login)
+                  user ||= User.find_by_username(login)
+                  user
+                end
+    end
+
+    def kong_request_body
+      {
+        client_secret: Rails.application.secrets.kong_client_secret,
+        client_id: Rails.application.secrets.kong_client_id ,
+        scope: 'app',
+        provision_key: Rails.application.secrets.kong_client_provision_key,
+        grant_type: 'password',
+        authenticated_userid: user.uuid
+      }
+    end
+
     def kong_client
       headers = {
         'Content-Type' => 'application/x-www-form-urlencoded',
         'Accept' => 'application/json',
       }
       conn_options = {
-        url: 'https://kong:8443',
+        url: Rails.configuration.x.kong.internal_url,
         headers: headers,
-        ssl:  {verify: false}
+        ssl: { verify: false }
       }
       @conn ||= Faraday.new(conn_options) do |connection|
         connection.adapter Faraday.default_adapter
