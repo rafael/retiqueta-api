@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   get 'ops/status' => 'ops#status'
 
   namespace :v1 do
-    resource :registrations, only: :create
+    resources :registrations, only: :create
     resource :authenticate, only: :create
+    resources :users, only: :show
   end
 end
