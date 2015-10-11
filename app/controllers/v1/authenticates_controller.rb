@@ -4,7 +4,7 @@ class V1::AuthenticatesController < ApplicationController
     if outcome.valid?
       render json: outcome.success_result, status: outcome.status
     else
-      render json: outcome.failure_result.to_json, status: 400
+      render json: outcome.failure_result.to_json, status: outcome.status
     end
   end
 

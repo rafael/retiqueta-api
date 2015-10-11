@@ -55,7 +55,7 @@ module Authenticate
         self.success_result = response.body
         self.status = response.status
       else
-        self.status = 400
+        self.status = 401
         self.errors.add(:base, 'Invalid username or password')
       end
     end
