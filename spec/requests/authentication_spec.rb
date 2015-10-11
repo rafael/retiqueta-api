@@ -5,7 +5,7 @@ RSpec.describe "User authenticasion", type: :request do
 
   it "authenticates an user with valid email and password" do
 
-    post "/authentication", login: user.username, password: '123456'
-    expect(response.status).to eq(201)
+    post "/v1/authenticate", login: user.username, password: '123456'
+    expect(response.status).to eq(200)
   end
 end
