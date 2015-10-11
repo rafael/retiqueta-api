@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://kong:8443/users/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: client_secret=c4c6f41e11294965c998379111143ba8&client_id=ret-mobile-ios&scope=app&provision_key=a2a1ed0c2ef64868c85fa56e5770831a&grant_type=password&authenticated_userid=42cacd37-5509-4eda-9190-ec6f94931d06
+    headers:
+      content-type:
+      - application/x-www-form-urlencoded
+      accept:
+      - application/json
+      user-agent:
+      - Faraday v0.9.2
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Sun, 11 Oct 2015 02:09:17 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - close
+      server:
+      - kong/0.5.0
+      pragma:
+      - no-cache
+      cache-control:
+      - no-store
+    body:
+      encoding: UTF-8
+      string: |
+        {"refresh_token":"e86298ca8a134a23ca0ad6742333df91","token_type":"bearer","access_token":"e711d4958a5e46bbc64d05916209d586","expires_in":7200}
+    http_version: '1.1'
+  recorded_at: Sun, 11 Oct 2015 02:09:17 GMT
+recorded_with: VCR 2.9.3
