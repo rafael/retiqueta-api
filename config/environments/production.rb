@@ -67,4 +67,10 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.x.kong.internal_url = "https://#{ENV['KONG_PORT_443_TCP_ADDR']}"
+
+  # Note - this path needs to be registered in Kong as API with the
+  # OAuth2 plugin enabled.
+  config.x.kong.users_ouath_token_path = "/v1/users/oauth2/token"
 end

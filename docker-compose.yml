@@ -6,9 +6,22 @@ web:
     - "3000:3000"
   links:
     - db
+    - kong
 db:
   image: library/mysql:5.6.22
   ports:
     - "3306:3306"
   environment:
     MYSQL_ROOT_PASSWORD: 123456
+kong:
+  image: rafael/kong
+  ports:
+    - "8000:8000"
+    - "8443:8443"
+    - "8001:8001"
+  links:
+    - cassandra
+cassandra:
+  image: mashape/cassandra
+  ports:
+    - "9042:9042"
