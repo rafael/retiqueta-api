@@ -10,12 +10,12 @@ The backend entry point to the retiqueta platform.
 The retiqueta API will follow the *[jsonapi specification](www.jsonapi.org)*.
 
 ## Authentication
-*Retiqueta* uses OAuth Authorization. First you create a new (or acquire existing) OAuth token using Basic Authentication. 
+*Retiqueta* uses OAuth Authorization. First you create a new (or acquire existing) OAuth token using Basic Authentication.
 After you have acquired your token you can use it to access other resources within token' scope.
 
 ##  Security
 
-All endpoints should be secured with SSL. 
+All endpoints should be secured with SSL.
 
 ## Authenticate Users [/v1/authenticate]
 
@@ -26,40 +26,83 @@ login and password. The login could be either the email or the username. The api
 return an *access_token* and *refresh_token* that user can use for subsequent requests.
 
 + Payload
-    + Headers 
+    + Headers
 
             Accept: application/json
             Content-Type: application/json
 
-    + Attributes    
+    + Attributes
         + login (string) - The email or username.
         + password (string) - The password of the user.
-        
+
     + Body
-        
+
              {
                     "login": "rafaelchacon",
-                    "password": "123456"
+                    "password": "123456",
+                    "client_id": "ret-mobile-ios"
             }
-            
+
 + Request (application/json)
 
             {
                 "login": "rafaelchacon",
-                "password": "123456"
+                "password": "123456",
+                "client_id": "ret-mobile-ios"
             }
-            
-+ Response 202 (application/json)
+
++ Response 200 (application/json)
 
     + Body
 
             {
-                 "refresh_token": "5b0ade916e4d444cc493a5746e5cf292",
+                  "refresh_token": "5b0ade916e4d444cc493a5746e5cf292",
                   "token_type": "bearer",
                   "access_token": "48e1358c41e14498c42ee4d5df3b0b5d",
                   "expires_in": 7200
             }
-            
+
+## Authenticate Users [/v1/authenticate/token]
+
+###  Request access [POST]
+
+This endpoint allows the user to get refresh a token and get a new access token.
+
++ Payload
+    + Headers
+
+            Accept: application/json
+            Content-Type: application/json
+
+    + Attributes
+        + login (string) - The email or username.
+        + password (string) - The password of the user.
+
+    + Body
+
+             {
+                    "refresh_token": "5b0ade916e4d444cc493a5746e5cf292",
+                    "client_id": "123456"
+            }
+
++ Request (application/json)
+
+            {
+                "refresh_token": "rafaelchacon",
+                "client_id": "ret-mobile-ios"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                  "refresh_token": "5b0ade916e4d444cc493a5746e5cf292",
+                  "token_type": "bearer",
+                  "access_token": "48e1358c41e14498c42ee4d5df3b0b5d",
+                  "expires_in": 7200
+            }
+
 ## User Registration [/v1/registrations]
 
 
@@ -69,16 +112,16 @@ This is the endpoint used to create users. It takes a JSON
 object containing the required attributes for an user.
 
 + Payload
-    + Headers 
+    + Headers
 
             Accept: application/json
 
-    + Attributes    
+    + Attributes
         + email (string) - The email of the user being created.
         + password (string) - The password of the user being created.
         + name (string) - The name of the user being created.
     + Body
-        
+
             {
                 "data": {
                 "type": "users",
@@ -90,7 +133,7 @@ object containing the required attributes for an user.
                     }
                 }
             }
-            
+
 + Request (application/json)
 
             {
@@ -104,7 +147,7 @@ object containing the required attributes for an user.
                     }
                 }
             }
-            
+
 + Response 201 (application/json)
 
     + Headers
@@ -124,21 +167,19 @@ object containing the required attributes for an user.
                     }
                 }
             }
-            
-            
-## Refresh Access Token [/v1/users/oauth2/token]
+
 
 ## Users [/v1/users/{user_id}]
 
 
 ### Get User [GET]
 
-This is the endpoint used to retrieve user information. 
+This is the endpoint used to retrieve user information.
 
-+ Payload 
++ Payload
 
-    + Headers 
-    
+    + Headers
+
             Accept: application/json
             Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
             Content-Type: application/json
@@ -158,4 +199,3 @@ This is the endpoint used to retrieve user information.
                     }
                 }
             }
-
