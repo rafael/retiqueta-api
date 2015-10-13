@@ -1,0 +1,83 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://kong:8443/users/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: client_secret=c4c6f41e11294965c998379111143ba8&client_id=ret-mobile-ios&scope=app&provision_key=a2a1ed0c2ef64868c85fa56e5770831a&grant_type=password&authenticated_userid=8780822c-d54b-4f26-962b-49644f01c9ce
+    headers:
+      content-type:
+      - application/x-www-form-urlencoded
+      accept:
+      - application/json
+      user-agent:
+      - Faraday v0.9.2
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Tue, 13 Oct 2015 02:27:27 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - close
+      server:
+      - kong/0.5.0
+      pragma:
+      - no-cache
+      cache-control:
+      - no-store
+    body:
+      encoding: UTF-8
+      string: |
+        {"refresh_token":"631de26bed294faacf67db9283387637","token_type":"bearer","access_token":"23e265a2b5494a90ca0d6cd966ed6202","expires_in":7200}
+    http_version: '1.1'
+  recorded_at: Tue, 13 Oct 2015 02:27:27 GMT
+- request:
+    method: post
+    uri: https://kong:8443/users/oauth2/token
+    body:
+      encoding: US-ASCII
+      string: client_secret=c4c6f41e11294965c998379111143ba8&client_id=ret-mobile-ios&refresh_token=631de26bed294faacf67db9283387637&provision_key=a2a1ed0c2ef64868c85fa56e5770831a&grant_type=refresh_token
+    headers:
+      content-type:
+      - application/x-www-form-urlencoded
+      accept:
+      - application/json
+      user-agent:
+      - Faraday v0.9.2
+      accept-encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Tue, 13 Oct 2015 02:27:27 GMT
+      content-type:
+      - application/json; charset=utf-8
+      transfer-encoding:
+      - chunked
+      connection:
+      - close
+      server:
+      - kong/0.5.0
+      pragma:
+      - no-cache
+      cache-control:
+      - no-store
+    body:
+      encoding: UTF-8
+      string: |
+        {"refresh_token":"b0547308fe97433dc3b1d07a46832b75","token_type":"bearer","access_token":"1e35a79f6f0d45adc5c0a139bba97e73","expires_in":7200}
+    http_version: '1.1'
+  recorded_at: Tue, 13 Oct 2015 02:27:27 GMT
+recorded_with: VCR 2.9.3

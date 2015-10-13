@@ -1,5 +1,5 @@
 module Authenticate
-  class Create
+  class RefreshToken
 
     #################
     ## Extensions  ##
@@ -11,7 +11,7 @@ module Authenticate
     ## Validations ##
     #################
 
-    validates :login, :password, :client_id, presence: true
+    validates :refresh_token, :client_id, presence: true
 
     ###################
     ## Class Methods ##
@@ -27,11 +27,10 @@ module Authenticate
     ## Instance Methods ##
     ######################
 
-    attr_accessor :success_result, :failure_result, :login, :password, :client_id, :status
+    attr_accessor :success_result, :status, :refresh_token, :client_id
 
     def initialize(params = {})
-      @login = params[:login]
-      @password = params[:password]
+      @refresh_token = params[:refresh_token]
       @client_id = params[:client_id]
     end
 
@@ -40,14 +39,9 @@ module Authenticate
     end
 
     def generate_result!
-      if user && user.valid_password?(password)
-        response = kong_client.post Rails.configuration.x.kong.users_ouath_token_path, URI.encode_www_form(kong_request_body)
-        self.success_result = response.body
-        self.status = response.status
-      else
-        self.status = 401
-        self.errors.add(:base, 'Invalid username or password')
-      end
+      response = kong_client.post Rails.configuration.x.kong.users_ouath_token_path, URI.encode_www_form(kong_request_body)
+      self.success_result = response.body
+      self.status = response.status
     end
 
     def failure_result
@@ -58,23 +52,13 @@ module Authenticate
 
     private
 
-
-    def user
-      @user ||= begin
-                  user =  User.find_by_email(login)
-                  user ||= User.find_by_username(login)
-                  user
-                end
-    end
-
     def kong_request_body
       {
         client_secret: Rails.application.secrets.kong_client_secret,
         client_id: Rails.application.secrets.kong_client_id ,
-        scope: 'app',
+        refresh_token: refresh_token,
         provision_key: Rails.application.secrets.kong_client_provision_key,
-        grant_type: 'password',
-        authenticated_userid: user.uuid
+        grant_type: 'refresh_token',
       }
     end
 

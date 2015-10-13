@@ -5,7 +5,7 @@ http_interactions:
     uri: https://kong:8443/users/oauth2/token
     body:
       encoding: US-ASCII
-      string: client_secret=c4c6f41e11294965c998379111143ba8&client_id=ret-mobile-ios&scope=app&provision_key=a2a1ed0c2ef64868c85fa56e5770831a&grant_type=password&authenticated_userid=b582cec9-d4f3-48a6-a689-a137579efac8
+      string: client_secret=c4c6f41e11294965c998379111143ba8&client_id=ret-mobile-ios&scope=app&provision_key=a2a1ed0c2ef64868c85fa56e5770831a&grant_type=password&authenticated_userid=b1c0fff0-b2ec-468b-81bc-3ca4657e1051
     headers:
       content-type:
       - application/x-www-form-urlencoded
@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       date:
-      - Sun, 11 Oct 2015 02:09:18 GMT
+      - Tue, 13 Oct 2015 02:27:28 GMT
       content-type:
       - application/json; charset=utf-8
       transfer-encoding:
@@ -37,7 +37,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"refresh_token":"213df84bccc24efbceb2e3969e55cc03","token_type":"bearer","access_token":"6e859ac691f04958c9b47a7c019bfddc","expires_in":7200}
+        {"refresh_token":"2dcf6a66a224484fc827cc5e9db7be5c","token_type":"bearer","access_token":"be136d6553564effce45de0eba04ff4d","expires_in":7200}
     http_version: '1.1'
-  recorded_at: Sun, 11 Oct 2015 02:09:18 GMT
+  recorded_at: Tue, 13 Oct 2015 02:27:28 GMT
 recorded_with: VCR 2.9.3
