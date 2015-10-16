@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
 
   before_create :generate_uuid
 
-
   ################
   ## Extensions ##
   ################
@@ -20,6 +19,12 @@ class User < ActiveRecord::Base
   acts_as_authentic do |c|
     c.require_password_confirmation = false
   end
+
+  ##################
+  ## associations ##
+  ##################
+
+  has_one :profile
 
   private
 
