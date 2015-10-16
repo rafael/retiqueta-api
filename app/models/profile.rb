@@ -7,7 +7,8 @@ class Profile < ActiveRecord::Base
                       square: '200x200#',
                       medium: '300x300>'
                     },
-                    url: "/system/:hash.:extension",
+                    url: ':s3_domain_url',
+                    path: "/system/:hash.:extension",
                     hash_secret: Rails.application.secrets.secret_key_base
 
   validates_attachment_content_type :pic, :content_type => /\Aimage\/.*\Z/
