@@ -73,4 +73,13 @@ Rails.application.configure do
   # Note - this path needs to be registered in Kong as API with the
   # OAuth2 plugin enabled.
   config.x.kong.users_ouath_token_path = "/v1/users/oauth2/token"
+
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_credentials:  {
+      bucket: ENV['S3_BUCKET_NAME'],
+      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+    }
+  }
 end

@@ -7,6 +7,8 @@ gem 'mysql2', '0.3.18'
 gem 'active_model_serializers', '0.10.0.rc3'
 gem 'authlogic', '3.4.6'
 gem 'faraday', '0.9.2'
+gem 'paperclip', '4.3.1'
+gem 'aws-sdk', '~> 1.6'
 
 group :development, :test do
   gem 'pry-byebug'

@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   ###############
 
   before_create :generate_uuid
-
+  before_create :initialize_profile
 
   ################
   ## Extensions ##
@@ -21,9 +21,19 @@ class User < ActiveRecord::Base
     c.require_password_confirmation = false
   end
 
+  ##################
+  ## associations ##
+  ##################
+
+  has_one :profile
+
   private
 
   def generate_uuid
     self.uuid = SecureRandom.uuid
+  end
+
+  def initialize_profile
+    build_profile
   end
 end
