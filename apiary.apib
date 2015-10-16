@@ -163,7 +163,8 @@ object containing the required attributes for an user.
                     "attributes": {
                     "name": "Rafael Chacon",
                     "username": "rafael",
-                    "email": "jose@gmail.com"
+                    "email": "jose@gmail.com",
+                    "profile_pic" null
                     }
                 }
             }
@@ -195,7 +196,73 @@ This is the endpoint used to retrieve user information.
                     "attributes": {
                     "name": "Rafael Chacon",
                     "username": "rafael",
-                    "email": "jose@gmail.com"
+                    "email": "jose@gmail.com",
+                    "profile_pic": "http://s3.amazonaws.com/retiqueta-dev-images/73ede61af99add88d8c32e61a43ab920fdeab818.jpg?1444979019"
+                    }
+                }
+            }
+
+
+## Upload profile picture [/v1/users/{user_id}/upload-profile-pic]
+
+
+### Sets a new profile picture for the user [PUT]
+
+TBD
+
++ Payload
+    + Headers
+
+            Accept: application/json
+
+    + Attributes
+        + pic (string) - Base 64 enconded picture.
+    + Body
+
+            {
+              "data": {
+                "type": "users",
+                "attributes": {
+                  "pic": {
+                    "filename": "123456",
+                    "content": "rafaelchacon@gmail.com",
+                    "content_type": "rafael"
+                  }
+                }
+              }
+            }
+
++ Request (application/json)
+
+            {
+                "data": {
+                "type": "users",
+                "attributes": {
+                    "name": "Rafael Chacon",
+                    "password": "123456",
+                    "email": "rafaelchacon@gmail.com",
+                    "username": "rafael"
+                    }
+                }
+            }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /users/686f3602-fbff-421f-8372-ecb4c156be2b
+
+    + Body
+
+            {
+                 "data": {
+                    "id": "f52c3d57-02d3-4780-bb15-180854169967",
+                    "type": "users",
+                    "attributes": {
+                    "name": "Rafael Chacon",
+                    "username": "rafael",
+                    "email": "jose@gmail.com",
+                    "profile_pic": "http://s3.amazonaws.com/retiqueta-dev-images/73ede61af99add88d8c32e61a43ab920fdeab818.jpg?1444979019"
                     }
                 }
             }

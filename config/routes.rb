@@ -3,9 +3,13 @@ Rails.application.routes.draw do
 
   namespace :v1 do
     resources :registrations, only: :create
+
+    resources :users, only: :show do
+      put 'upload-profile-pic' => 'users#upload_profile_pic'
+    end
+
     resource :authenticate, only: :create do
       post 'token' => 'authenticates#refreh_token'
     end
-    resources :users, only: :show
   end
 end
