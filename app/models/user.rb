@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   ###############
 
   before_create :generate_uuid
+  before_create :initialize_profile
 
   ################
   ## Extensions ##
@@ -30,5 +31,9 @@ class User < ActiveRecord::Base
 
   def generate_uuid
     self.uuid = SecureRandom.uuid
+  end
+
+  def initialize_profile
+    build_profile
   end
 end
