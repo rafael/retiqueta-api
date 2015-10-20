@@ -42,8 +42,12 @@ module Authenticate
     def generate_result!
       if user && user.valid_password?(password)
         response = kong_client.post Rails.configuration.x.kong.users_ouath_token_path, URI.encode_www_form(kong_request_body)
-        self.success_result = response.body
-        self.status = response.status
+        if response.success?
+          self.success_result = JSON.parse(response.body).merge(user_id: user.uuid)
+        else
+          self.success_result = response.body
+          self.status = response.status
+        end
       else
         self.status = 401
         self.errors.add(:base, 'Invalid username or password')

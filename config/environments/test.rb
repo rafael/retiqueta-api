@@ -7,6 +7,7 @@ Rails.application.configure do
   config.action_controller.allow_forgery_protection = false
   config.action_mailer.delivery_method = :test
   config.active_support.deprecation = :stderr
+  config.active_record.raise_in_transactional_callbacks = true
   config.x.kong.internal_url = "https://kong:8443"
   config.x.kong.users_ouath_token_path = "/users/oauth2/token"
 
