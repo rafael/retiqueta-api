@@ -32,13 +32,9 @@ RSpec.describe "User Registration", type: :request do
   it "responds with valid json on errors" do
     params[:data][:attributes].delete(:name)
     post "/v1/registrations", params
-    expect(response.status).to eq(422)
+    failed_error = ApiError::FailedValidation.new("Name #{I18n.t("errors.messages.blank")}")
+    expect(response.status).to eq(failed_error.status)
     expect(json["data"]).to be_nil
-    expect(json).to eq({
-                         "code" => ApiError::FAILED_VALIDATION,
-                         "title" =>  ApiError.title_for_error(ApiError::FAILED_VALIDATION),
-                         "detail" => "Name can't be blank"
-                       })
-
+    expect(json).to have_error_json_as(failed_error)
   end
 end

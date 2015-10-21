@@ -11,7 +11,9 @@ module Authenticate
     ## Validations ##
     #################
 
-    validates :login, :password, :client_id, presence: true
+    validates :login, :password, :client_id, presence: true, strict: ApiError::FailedValidation
+    validate :user_exists
+    validate :valid_password
 
     ###################
     ## Class Methods ##
@@ -19,7 +21,8 @@ module Authenticate
 
     def self.call(params = {})
       service = self.new(params)
-      service.generate_result! if service.valid?
+      service.valid?
+      service.generate_result!
       service
     end
 
@@ -27,7 +30,7 @@ module Authenticate
     ## Instance Methods ##
     ######################
 
-    attr_accessor :success_result, :failure_result, :login, :password, :client_id, :status
+    attr_accessor :success_result, :login, :password, :client_id, :status
 
     def initialize(params = {})
       @login = params[:login]
@@ -35,33 +38,19 @@ module Authenticate
       @client_id = params[:client_id]
     end
 
-    def valid?
-      errors.empty? && super
-    end
-
     def generate_result!
-      if user && user.valid_password?(password)
-        response = kong_client.post Rails.configuration.x.kong.users_ouath_token_path, URI.encode_www_form(kong_request_body)
-        if response.success?
-          self.success_result = JSON.parse(response.body).merge(user_id: user.uuid)
-        else
-          self.success_result = response.body
-          self.status = response.status
-        end
+      response = kong_client.post Rails.configuration.x.kong.users_ouath_token_path, URI.encode_www_form(kong_request_body)
+      if response.success?
+        self.success_result = JSON.parse(response.body).merge(user_id: user.uuid)
+        self.status = response.status
       else
-        self.status = 401
-        self.errors.add(:base, 'Invalid username or password')
+        # We treat this as a success because we are returning whatever comes back from Kong
+        self.success_result = response.body
+        self.status = response.status
       end
     end
 
-    def failure_result
-      @failure_result ||= ApiError.new(title: ApiError.title_for_error(ApiError::FAILED_VALIDATION),
-                                       code: ApiError::FAILED_VALIDATION,
-                                       detail: errors.full_messages.join(', '))
-    end
-
     private
-
 
     def user
       @user ||= begin
@@ -69,6 +58,18 @@ module Authenticate
                   user ||= User.find_by_username(login)
                   user
                 end
+    end
+
+    def user_exists
+      unless user
+        self.errors.add(:base, i18n.t("user.not_found"))
+      end
+    end
+
+    def valid_password
+      unless user.valid_password?(password)
+        raise ApiError::Unauthorized.new(I18n.t("user.invalid_password"))
+      end
     end
 
     def kong_request_body

@@ -1,20 +1,12 @@
 class V1::AuthenticatesController < ApplicationController
   def create
     outcome = ::Authenticate::Create.call(authenticate_params)
-    if outcome.valid?
-      render json: outcome.success_result, status: outcome.status
-    else
-      render json: outcome.failure_result.to_json, status: outcome.status
-    end
+    render json: outcome.success_result, status: 200
   end
 
   def refreh_token
     outcome = ::Authenticate::RefreshToken.call(refresh_token_params)
-    if outcome.valid?
-      render json: outcome.success_result, status: outcome.status
-    else
-      render json: outcome.failure_result.to_json, status: 400
-    end
+    render json: outcome.success_result, status: outcome.status
   end
 
   private
