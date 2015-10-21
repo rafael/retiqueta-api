@@ -45,4 +45,18 @@ module ApiError
       "unauthorized"
     end
   end
+
+  class NotFound < BaseError
+    def code
+      102
+    end
+
+    def status
+      404
+    end
+
+    def title
+      "not-found"
+    end
+  end
 end
