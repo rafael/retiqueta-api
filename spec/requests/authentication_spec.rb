@@ -40,7 +40,7 @@ RSpec.describe "User authentication", type: :request do
 
   it "gives error when the password is invalid" do
     post "/v1/authenticate", login: user.email, password: '1234567', client_id: 'ret-mobile-ios'
-    unauthorized_error = ApiError::Unauthorized.new(I18n.t("user.invalid_password"))
+    unauthorized_error = ApiError::Unauthorized.new(I18n.t("user.errors.invalid_password"))
     expect(response.status).to eq(unauthorized_error.status)
     expect(json).to have_error_json_as(unauthorized_error)
   end

@@ -25,7 +25,7 @@ module Users
     ## Instance Methods ##
     ######################
 
-    attr_accessor :success_result, :failure_result, :id
+    attr_accessor :success_result, :id
 
     def initialize(params = {})
       @id = params.fetch(:id)
@@ -40,14 +40,8 @@ module Users
       if user
         self.success_result = user
       else
-        self.errors.add(:base, 'User not found')
+        raise ApiError::NotFound.new(I18n.t("user.errors.not_found"))
       end
-    end
-
-    def failure_result
-      @failure_result ||= ApiError.new(title: ApiError.title_for_error(ApiError::FAILED_VALIDATION),
-                                       code: ApiError::FAILED_VALIDATION,
-                                       detail: errors.full_messages.join(', '))
     end
   end
 end

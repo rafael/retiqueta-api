@@ -62,13 +62,13 @@ module Authenticate
 
     def user_exists
       unless user
-        self.errors.add(:base, i18n.t("user.not_found"))
+        self.errors.add(:base, i18n.t("user.invalid_username"))
       end
     end
 
     def valid_password
       unless user.valid_password?(password)
-        raise ApiError::Unauthorized.new(I18n.t("user.invalid_password"))
+        raise ApiError::Unauthorized.new(I18n.t("user.errors.invalid_password"))
       end
     end
 
