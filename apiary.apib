@@ -17,6 +17,15 @@ After you have acquired your token you can use it to access other resources with
 
 All endpoints should be secured with SSL.
 
+## Errors
+
+The following are the existent errors returned by the API:
+
+| Title                 | Http Status   | Error Code  | Description                              |
+| --------------------- |:-------------:|:-----------:|-----------------------------------------:|
+| failed-validation     | 400           | 100         | Resource failed to pass validations      |
+| unauthorized          | 401           | 101         | User is not authorized
+
 ## Authenticate Users [/v1/authenticate]
 
 ###  Request access [POST]
