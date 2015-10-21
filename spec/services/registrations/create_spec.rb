@@ -23,10 +23,9 @@ RSpec.describe Registrations::Create, type: :model do
 
     it "delegates errors from user object" do
       params[:data][:attributes][:password] = "12"
-      service_result = Registrations::Create.call(params)
-      expect(service_result).to_not be_valid
-      expect(service_result.failure_result.code).to eq(ApiError::FAILED_VALIDATION)
-      expect(service_result.failure_result.title).to eq(ApiError.title_for_error(ApiError::FAILED_VALIDATION))
+      expect do
+        Registrations::Create.call(params)
+      end.to raise_error(ApiError::FailedValidation)
     end
   end
 end
