@@ -21,10 +21,11 @@
 
 en:
   user:
-    invalid_password: "Invalid password"
-    not_found: "Invalid username"
     errors:
       invalid_type: "Type is invalid. Provided %{type}, required %{resource_type}"
+      not_found: "User not found"
+      invalid_password: "Invalid password"
+      invalid_username: "Invalid username"
   errors:
     # The default format to use in full error messages.
     format: "%{attribute} %{message}"
@@ -59,3 +60,4 @@ en:
       other_than: "must be other than %{count}"
       odd: "must be odd"
       even: "must be even"
+      unauthorized: "You don't have access to see the requested resource"

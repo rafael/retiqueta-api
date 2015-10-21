@@ -1,4 +1,7 @@
 class V1::UsersController < ApplicationController
+
+  before_action :authorize_user!
+
   def show
     outcome = ::Users::Read.call(id:  params[:id])
     if outcome.valid?
