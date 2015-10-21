@@ -17,6 +17,15 @@ After you have acquired your token you can use it to access other resources with
 
 All endpoints should be secured with SSL.
 
+## Errors
+
+The following are the existent errors returned by the API:
+
+| Title                 | Http Status   | Error Code  | Description                              |
+| --------------------- |:-------------:|:-----------:|-----------------------------------------:|
+| failed-validation     | 400           | 100         | Resource failed to pass validations      |
+| unauthorized          | 401           | 101         | User is not authorized
+
 ## Authenticate Users [/v1/authenticate]
 
 ###  Request access [POST]
@@ -60,6 +69,7 @@ return an *access_token* and *refresh_token* that user can use for subsequent re
                   "token_type": "bearer",
                   "access_token": "48e1358c41e14498c42ee4d5df3b0b5d",
                   "expires_in": 7200
+                  "user_id": "5a735a68-c845-44d4-9e5a-c8546bc34a2e"
             }
 
 ## Refresh user tokens [/v1/authenticate/token]

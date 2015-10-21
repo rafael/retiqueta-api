@@ -11,7 +11,7 @@ module Authenticate
     ## Validations ##
     #################
 
-    validates :refresh_token, :client_id, presence: true
+    validates :refresh_token, :client_id, presence: true, strict: ApiError::FailedValidation
 
     ###################
     ## Class Methods ##
@@ -19,7 +19,7 @@ module Authenticate
 
     def self.call(params = {})
       service = self.new(params)
-      service.generate_result! if service.valid?
+      service.generate_result!
       service
     end
 
@@ -32,22 +32,13 @@ module Authenticate
     def initialize(params = {})
       @refresh_token = params[:refresh_token]
       @client_id = params[:client_id]
-    end
-
-    def valid?
-      errors.empty? && super
+      valid?
     end
 
     def generate_result!
       response = kong_client.post Rails.configuration.x.kong.users_ouath_token_path, URI.encode_www_form(kong_request_body)
       self.success_result = response.body
       self.status = response.status
-    end
-
-    def failure_result
-      @failure_result ||= ApiError.new(title: ApiError.title_for_error(ApiError::FAILED_VALIDATION),
-                                       code: ApiError::FAILED_VALIDATION,
-                                       detail: errors.full_messages.join(', '))
     end
 
     private

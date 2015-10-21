@@ -12,7 +12,7 @@ module Registrations
     #################
 
     validate :type_is_users
-    validates :data, :attributes, :type, :email, :username, :password, presence: true
+    validates :data, :attributes, :type, :email, :username, :password, presence: true, strict: ApiError::FailedValidation
 
     RESOURCE_TYPE = "users"
 
@@ -22,7 +22,7 @@ module Registrations
 
     def self.call(params = {})
       service = self.new(params)
-      service.generate_result! if service.valid?
+      service.generate_result!
       service
     end
 
@@ -30,7 +30,7 @@ module Registrations
     ## Instance Methods ##
     ######################
 
-    attr_accessor :success_result, :failure_result, :type, :password, :email, :username, :attributes, :name, :data
+    attr_accessor :success_result, :type, :password, :email, :username, :attributes, :name, :data
 
     def initialize(params = {})
       @data = params[:data]
@@ -40,10 +40,7 @@ module Registrations
       @username = attributes[:username]
       @password = attributes[:password]
       @name = attributes[:name]
-    end
-
-    def valid?
-      errors.empty? && super
+      valid?
     end
 
     def generate_result!
@@ -54,20 +51,15 @@ module Registrations
         user.errors.each do |k, v|
           self.errors.add(k, v)
         end
+        raise ApiError::FailedValidation.new(errors.full_messages.join(', '))
       end
-    end
-
-    def failure_result
-      @failure_result ||= ApiError.new(title: ApiError.title_for_error(ApiError::FAILED_VALIDATION),
-                                       code: ApiError::FAILED_VALIDATION,
-                                       detail: errors.full_messages.join(', '))
     end
 
     private
 
     def type_is_users
       unless type == RESOURCE_TYPE
-        self.errors.add(:type, "is invalid. Provied: #{type}, required #{RESOURCE_TYPE}")
+        raise ApiError::FailedValidation.new(I18n.t("users.errors.invalid_type", type: type, resource_type: RESOURCE_TYPE))
       end
     end
   end
