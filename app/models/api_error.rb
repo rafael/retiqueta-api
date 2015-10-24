@@ -59,4 +59,19 @@ module ApiError
       "not-found"
     end
   end
+
+  class InternalServer < BaseError
+    def code
+      103
+    end
+
+    def status
+      500
+    end
+
+    def title
+      "internal-error"
+    end
+  end
+
 end
