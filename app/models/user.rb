@@ -19,9 +19,9 @@ class User < ActiveRecord::Base
   ## associations ##
   ##################
 
-  has_one :profile
+  has_one :profile, autosave: true
 
-  delegate :pic, :first_name, :last_name, :bio, :website, to: :profile
+  delegate :pic, :first_name, :last_name, :bio, :website, :country, to: :profile
 
   private
 

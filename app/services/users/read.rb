@@ -1,23 +1,12 @@
 module Users
   class Read
 
-    #################
-    ## Extensions  ##
-    #################
-
-    include ActiveModel::Validations
-
-    #################
-    ## Validations ##
-    #################
-
     ###################
     ## Class Methods ##
     ###################
 
     def self.call(params = {})
       service = self.new(params)
-      service.generate_result! if service.valid?
       service
     end
 
@@ -29,10 +18,6 @@ module Users
 
     def initialize(params = {})
       @id = params.fetch(:id)
-    end
-
-    def valid?
-      errors.empty? && super
     end
 
     def generate_result!
