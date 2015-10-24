@@ -30,7 +30,7 @@ module Registrations
     ## Instance Methods ##
     ######################
 
-    attr_accessor :success_result, :type, :password, :email, :username, :attributes, :name, :data
+    attr_accessor :success_result, :type, :password, :email, :username, :attributes, :data
 
     def initialize(params = {})
       @data = params[:data]
@@ -39,7 +39,6 @@ module Registrations
       @email = attributes[:email]
       @username = attributes[:username]
       @password = attributes[:password]
-      @name = attributes[:name]
       valid?
     end
 

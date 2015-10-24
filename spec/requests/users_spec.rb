@@ -12,7 +12,6 @@ RSpec.describe "Users", type: :request do
     expect(json["data"]["id"]).to eq(user.uuid)
     expect(json["data"]["type"]).to eq("users")
     user_response_attributes = json["data"]["attributes"]
-    expect(user_response_attributes["name"]).to eq(user.name)
     expect(user_response_attributes["email"]).to eq(user.email)
     expect(user_response_attributes["username"]).to eq(user.username)
   end

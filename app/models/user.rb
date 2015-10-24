@@ -1,11 +1,5 @@
 class User < ActiveRecord::Base
 
-  #################
-  ## Validations ##
-  #################
-
-  validates :name, presence: true
-
   ###############
   ## Callbacks ##
   ###############
@@ -26,6 +20,8 @@ class User < ActiveRecord::Base
   ##################
 
   has_one :profile
+
+  delegate :pic, :first_name, :last_name, :bio, :website, to: :profile
 
   private
 

@@ -6,7 +6,6 @@ RSpec.describe Registrations::Create, type: :model do
                      data: {
                        type: "users",
                        attributes: {
-                         name: "Rafael Chacon",
                          password: "123456",
                          email: "rafaelchacon@gmail.com",
                          username: "rafael"

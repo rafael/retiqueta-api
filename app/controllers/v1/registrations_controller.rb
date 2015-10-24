@@ -11,6 +11,6 @@ class V1::RegistrationsController < ApplicationController
   private
 
   def user_params
-     params.require(:data).permit(:type, attributes: [:name, :email, :username, :password ])
+     params.require(:data).permit(:type, attributes: [:email, :username, :password ])
   end
 end
