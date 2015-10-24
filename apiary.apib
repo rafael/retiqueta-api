@@ -129,14 +129,13 @@ object containing the required attributes for an user.
     + Attributes
         + email (string) - The email of the user being created.
         + password (string) - The password of the user being created.
-        + name (string) - The name of the user being created.
+        + username (string) - The name of the user being created.
     + Body
 
             {
                 "data": {
                 "type": "users",
                 "attributes": {
-                    "name": "Rafael Chacon",
                     "password": "123456",
                     "email": "rafaelchacon@gmail.com",
                     "username": "rafael"
@@ -150,7 +149,6 @@ object containing the required attributes for an user.
                 "data": {
                 "type": "users",
                 "attributes": {
-                    "name": "Rafael Chacon",
                     "password": "123456",
                     "email": "rafaelchacon@gmail.com",
                     "username": "rafael"
@@ -171,10 +169,9 @@ object containing the required attributes for an user.
                     "id": "f52c3d57-02d3-4780-bb15-180854169967",
                     "type": "users",
                     "attributes": {
-                    "name": "Rafael Chacon",
-                    "username": "rafael",
-                    "email": "jose@gmail.com",
-                    "profile_pic" null
+                      "username": "rafael",
+                      "email": "jose@gmail.com",
+                      "profile_pic" null
                     }
                 }
             }
@@ -204,10 +201,14 @@ This is the endpoint used to retrieve user information.
                     "id": "f52c3d57-02d3-4780-bb15-180854169967",
                     "type": "users",
                     "attributes": {
-                    "name": "Rafael Chacon",
-                    "username": "rafael",
-                    "email": "jose@gmail.com",
-                    "profile_pic": "http://s3.amazonaws.com/retiqueta-dev-images/73ede61af99add88d8c32e61a43ab920fdeab818.jpg?1444979019"
+                      "first_name": "Rafael",
+                      "last_name": "Chacon",
+                      "bio": "My super bio",
+                      "website": "http://www.rafael-chacon.com",
+                      "country": "Venezuela",
+                      "username": "rafael",
+                      "email": "jose@gmail.com",
+                      "profile_pic": "http://s3.amazonaws.com/retiqueta-dev-images/73ede61af99add88d8c32e61a43ab920fdeab818.jpg?1444979019"
                     }
                 }
             }
@@ -245,15 +246,16 @@ TBD
 + Request (application/json)
 
             {
-                "data": {
+              "data": {
                 "type": "users",
                 "attributes": {
-                    "name": "Rafael Chacon",
-                    "password": "123456",
-                    "email": "rafaelchacon@gmail.com",
-                    "username": "rafael"
-                    }
+                  "pic": {
+                    "filename": "123456",
+                    "content": "<Base 64 Encoded file>",
+                    "content_type": "rafael"
+                  }
                 }
+              }
             }
 
 + Response 201 (application/json)
@@ -269,7 +271,7 @@ TBD
                     "id": "f52c3d57-02d3-4780-bb15-180854169967",
                     "type": "users",
                     "attributes": {
-                    "name": "Rafael Chacon",
+                    "first_name": "rafael",
                     "username": "rafael",
                     "email": "jose@gmail.com",
                     "profile_pic": "http://s3.amazonaws.com/retiqueta-dev-images/73ede61af99add88d8c32e61a43ab920fdeab818.jpg?1444979019"

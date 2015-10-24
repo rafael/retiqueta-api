@@ -8,7 +8,7 @@ gem 'active_model_serializers', '0.10.0.rc3'
 gem 'authlogic', '3.4.6'
 gem 'faraday', '0.9.2'
 gem 'paperclip', '4.3.1'
-gem 'aws-sdk', '~> 1.6'
+gem 'fog', '1.35.0'
 
 group :development, :test do
   gem 'pry-byebug'
@@ -19,5 +19,5 @@ group :test do
   gem 'pry-byebug'
   gem 'factory_girl_rails', '4.5.0'
   gem 'vcr', '2.9.3'
-  gem 'fakeweb', '1.3.0'
+  gem 'webmock', '1.22.1'
 end
