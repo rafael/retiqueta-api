@@ -7,6 +7,7 @@ module Users
 
     def self.call(params = {})
       service = self.new(params)
+      service.generate_result!
       service
     end
 

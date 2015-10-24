@@ -55,7 +55,8 @@ module Users
       user.profile.pic = pic
       user.profile.save!
       self.success_result = user
-    rescue
+    rescue => e
+      Rails.logger.error e.message
       raise ApiError::InternalServer.new("Failed to persist image.")
     ensure
       if @tempfile
@@ -78,7 +79,6 @@ module Users
       )
       uploaded_file.content_type = content_type
       uploaded_file
-
     end
 
     def type_is_users
