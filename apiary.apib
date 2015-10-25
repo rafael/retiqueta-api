@@ -214,6 +214,60 @@ This is the endpoint used to retrieve user information.
             }
 
 
+
+### Update user [PATCH]
+
+This is the endpoint used to create users. It takes a JSON
+object containing the required attributes for an user.
+
++ Payload
+    + Headers
+
+            Accept: application/json
+
+    + Attributes
+        + first_name (string) - New value for first_name.
+        + last_name (string) - New value for last_name.
+        + website (string) - New value for website.
+        + bio (string) - New value for bio.
+        + country (string) - New value for country.
+
+    + Body
+
+            {
+                "data": {
+                "type": "users",
+                "attributes": {
+                    "first_name": "rafael",
+                    "last_name": "chacon",
+                    "website": "http://www.rafael-chacon.com",
+                    "bio": "New bio",
+                    "country": "venezeula" 
+                    }
+                }
+            }
+
++ Request (application/json)
+
+            {
+                "data": {
+                "type": "users",
+                "attributes": {
+                    "first_name": "rafael",
+                    "last_name": "chacon",
+                    "website": "http://www.rafael-chacon.com",
+                    "bio": "New bio",
+                    "country": "venezeula" 
+                    }
+                }
+            }
+
++ Response 204 (application/json)
+
+    + Headers
+
+            Location: /users/686f3602-fbff-421f-8372-ecb4c156be2b
+            
 ## Upload profile picture [/v1/users/{user_id}/upload-profile-pic]
 
 

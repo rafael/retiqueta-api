@@ -13,11 +13,12 @@ class V1::UsersController < ApplicationController
   end
 
   def upload_profile_pic
-    outcome = ::Users::UploadProfilePic.call(id:  params[:user_id], data: user_params)
-    render json: outcome.success_result, serializer: UserSerializer, status: 200
+    outcome = ::Users::UploadProfilePic.call(id:  params[:user_id], data: upload_pic_params)
+    render json: outcome.success_result, serializer: UserSerializer, status: 201
   end
 
   private
+
 
 
   def user_params
@@ -26,7 +27,11 @@ class V1::UsersController < ApplicationController
                                               :last_name,
                                               :website,
                                               :bio,
-                                              :country,
-                                              pic: [:filename, :content, :content_type]])
+                                              :country])
+  end
+
+  def upload_pic_params
+    params.require(:data).permit(:type,
+                                 attributes: [pic: [:filename, :content, :content_type]])
   end
 end
