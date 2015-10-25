@@ -74,7 +74,7 @@ module Users
       @tempfile.rewind
 
       uploaded_file = ActionDispatch::Http::UploadedFile.new(
-        tempfile: tempfile,
+        tempfile: @tempfile,
         filename: filename
       )
       uploaded_file.content_type = content_type
