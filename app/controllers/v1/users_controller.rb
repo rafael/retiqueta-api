@@ -4,7 +4,7 @@ class V1::UsersController < ApplicationController
 
   def show
     outcome = ::Users::Read.call(id:  params[:id])
-    render json: outcome.success_result, serializer: UserSerializer, status: 200
+    render json: outcome.success_result, serializer: UserSerializer, status: 200, image_size: request.headers['image-size']
   end
 
   def update
