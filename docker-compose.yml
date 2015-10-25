@@ -7,11 +7,34 @@ web:
   links:
     - db
     - kong
+    - redis
   environment:
     S3_BUCKET_NAME: "retiqueta-dev-images"
     AWS_ACCESS_KEY_ID: "AKIAJPD6UFMMPDH2LNZA"
     AWS_SECRET_ACCESS_KEY: "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"
     MYSQL_ROOT_PASSWORD: 123456
+    REDIS_SERVICE_HOST: "redis"
+    REDIS_SERVICE_PORT: "6379"
+worker:
+  build: .
+  command: bundle exec sidekiq -q paperclip
+  volumes:
+    - .:/app
+  links:
+    - db
+    - kong
+    - redis
+  environment:
+    S3_BUCKET_NAME: "retiqueta-dev-images"
+    AWS_ACCESS_KEY_ID: "AKIAJPD6UFMMPDH2LNZA"
+    AWS_SECRET_ACCESS_KEY: "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"
+    MYSQL_ROOT_PASSWORD: 123456
+    REDIS_SERVICE_HOST: "redis"
+    REDIS_SERVICE_PORT: "6379"
+redis:
+ image: library/redis:2.6.17
+ ports:
+   - "6379:6379"
 db:
   image: library/mysql:5.6.22
   ports:

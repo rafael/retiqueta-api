@@ -4,6 +4,6 @@ class UserSerializer < ActiveModel::Serializer
   attribute :uuid, key: :id
 
   def profile_pic
-    object.pic.url(:medium)
+    object.pic.url
   end
 end
