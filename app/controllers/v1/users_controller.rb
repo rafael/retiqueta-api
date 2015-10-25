@@ -14,7 +14,7 @@ class V1::UsersController < ApplicationController
 
   def upload_profile_pic
     outcome = ::Users::UploadProfilePic.call(id:  params[:user_id], data: upload_pic_params)
-    render json: outcome.success_result, serializer: UserSerializer, status: 200
+    render json: outcome.success_result, serializer: UserSerializer, status: 201
   end
 
   private
