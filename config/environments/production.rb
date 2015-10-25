@@ -77,11 +77,12 @@ Rails.application.configure do
   config.x.kong.users_ouath_token_path = "/v1/users/oauth2/token"
 
   config.paperclip_defaults = {
-    storage: :s3,
-    s3_credentials:  {
-      bucket: ENV['S3_BUCKET_NAME'],
-      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
-    }
+    storage: :fog,
+    fog_credentials:  {
+      provider: "AWS",
+      aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+      aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
+    },
+    fog_directory: ENV['S3_BUCKET_NAME'],
   }
 end
