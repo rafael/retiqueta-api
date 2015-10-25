@@ -43,7 +43,8 @@ module Registrations
     end
 
     def generate_result!
-      user = User.new(attributes)
+      user = User.new(attributes.except(:password))
+      user.password = password
       if user.valid? && user.save
         self.success_result = user
       else
