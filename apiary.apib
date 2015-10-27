@@ -337,6 +337,51 @@ TBD
 
 ### Create product [POST]
 
++ Payload
+    + Headers
+
+            Accept: application/json
+
+    + Attributes
+        + description (String) - 
+        + currency (String) -
+        + original_price (Double) -
+        + price (Double)  -
+        + status (String) - 
+    + Body
+
+            {
+                 "data": [{
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "products",
+                    "attributes": {
+                      "description": "Camisa manga larga #zara color negro #casual.",
+                      "currency": "USD",
+                      "original_price": 40.20,
+                      "price": 20.0,
+                      "status": "published"
+                    }
+                    ]
+                }
+            }
+
++ Request (application/json)
+
+            {
+                 "data": [{
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "products",
+                    "attributes": {
+                      "description": "Camisa manga larga #zara color negro #casual.",
+                      "currency": "USD",
+                      "original_price": 40.20,
+                      "price": 20.0,
+                      "status": "published"
+                    }
+                    ]
+                }
+            }
+
 + Response 201 (application/json)
 
     + Body
@@ -383,7 +428,17 @@ TBD
 ### Update product [PATCH]
 
 + Payload
-        + Body
+    + Headers
+
+            Accept: application/json
+
+    + Attributes
+        + description (String) - 
+        + currency (String) -
+        + original_price (Double) -
+        + price (Double)  -
+        + status (String) - 
+    + Body
 
             {
                  "data": [{
@@ -399,6 +454,7 @@ TBD
                     ]
                 }
             }
+
 + Response 204 (application/json)
 
 ### Delete Product [DELETE]
