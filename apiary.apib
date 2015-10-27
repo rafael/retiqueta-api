@@ -177,7 +177,7 @@ object containing the required attributes for an user.
             }
 
 
-## Users [/v1/users/{user_id}]
+## User [/v1/users/{user_id}]
 
 
 ### Get User [GET]
@@ -332,3 +332,147 @@ TBD
                     }
                 }
             }
+
+## Products [/v1/products]
+
+### Create product [POST]
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                 "data": [{
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "products",
+                    "attributes": {
+                      "description": "Camisa manga larga #zara color negro #casual.",
+                      "currency": "USD",
+                      "original_price": 40.20,
+                      "price": 20.0,
+                      "status": "published"
+                    }
+                    ]
+                }
+            }
+
+## Product [/v1/products/{id}]
+         
+### Get product [GET]
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                 "data": [{
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "products",
+                    "attributes": {
+                      "description": "Camisa manga larga #zara color negro #casual.",
+                      "currency": "USD",
+                      "original_price": 40.20,
+                      "price": 20.0,
+                      "status": "published"
+                    }
+                    ]
+                }
+            }
+
++ Response 204 (application/json)
+
+### Update product [PATCH]
+
++ Payload
+        + Body
+
+            {
+                 "data": [{
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "products",
+                    "attributes": {
+                      "description": "Camisa manga larga #zara color negro #casual.",
+                      "currency": "USD",
+                      "original_price": 40.20,
+                      "price": 20.0,
+                      "status": "published"
+                    }
+                    ]
+                }
+            }
++ Response 204 (application/json)
+
+### Delete Product [DELETE]
+
++ Response 204 (application/json)
+
+            
+## Featured Products [/v1/products/featured]
+
+### Get all featured products products [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                 "data": [{
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "products",
+                    "attributes": {
+                      "description": "Camisa manga larga #zara color negro #casual.",
+                      "currency": "USD",
+                      "original_price": 40.20,
+                      "price": 20.0,
+                      "status": "published"
+                    }
+                    ]
+                }
+            }
+
+## Search Products [/v1/products/search]
+
+### Search products [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                 "data": [{
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "products",
+                    "attributes": {
+                      "description": "Camisa manga larga #zara color negro #casual.",
+                      "currency": "USD",
+                      "original_price": 40.20,
+                      "price": 20.0,
+                      "status": "published"
+                    }
+                    ]
+                }
+            }
+
+## User products [/v1/users/{user_id}/relationships/products]
+
+### Get all products associated to a given user [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                 "data": [{
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "products",
+                    "attributes": {
+                      "description": "Camisa manga larga #zara color negro #casual.",
+                      "currency": "USD",
+                      "original_price": 40.20,
+                      "price": 20.0,
+                      "status": "published"
+                    }
+                    ]
+                }
+            }
+
+
