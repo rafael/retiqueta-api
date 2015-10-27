@@ -263,17 +263,12 @@ object containing the required attributes for an user.
             }
 
 + Response 204 (application/json)
-
-    + Headers
-
-            Location: /users/686f3602-fbff-421f-8372-ecb4c156be2b
             
 ## Upload profile picture [/v1/users/{user_id}/upload-profile-pic]
 
-
 ### Sets a new profile picture for the user [PUT]
 
-TBD
+Upload profile picture for users. 
 
 + Payload
     + Headers
@@ -427,6 +422,7 @@ TBD
 
 ### Update product [PATCH]
 
+
 + Payload
     + Headers
 
@@ -439,6 +435,23 @@ TBD
         + price (Double)  -
         + status (String) - 
     + Body
+
+            {
+                 "data": [{
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "products",
+                    "attributes": {
+                      "description": "Camisa manga larga #zara color negro #casual.",
+                      "currency": "USD",
+                      "original_price": 40.20,
+                      "price": 20.0,
+                      "status": "published"
+                    }
+                    ]
+                }
+            }
+
++ Request (application/json)
 
             {
                  "data": [{
