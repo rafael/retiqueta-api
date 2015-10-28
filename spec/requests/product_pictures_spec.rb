@@ -20,13 +20,13 @@ RSpec.describe "ProductPicture", type: :request do
     }
   }
 
-  it "Uploads a product picture", :focus do
+  it "Uploads a product picture" do
     VCR.use_cassette('product/uploading_pic', match_requests_on: [:host, :method]) do
       post "/v1/product_pictures", valid_product_picture, { 'X-Authenticated-Userid' => user.uuid }
     end
     expect(response.status).to eq(201)
     product_pic = ProductPicture.last
     expect(json["data"]["id"]).to eq(product_pic.id.to_s)
-    expect(json["data"]["attributes"]["url"]).to eq(product_pic.url)
+    expect(json["data"]["attributes"]["url"]).to eq(product_pic.pic.url)
   end
 end
