@@ -58,7 +58,7 @@ module Users
 
     def type_is_users
       unless type == RESOURCE_TYPE
-        raise ApiError::FailedValidation.new(I18n.t("users.errors.invalid_type", type: type, resource_type: RESOURCE_TYPE))
+        raise ApiError::FailedValidation.new(I18n.t("errors.invalid_type", type: type, resource_type: RESOURCE_TYPE))
       end
     end
   end

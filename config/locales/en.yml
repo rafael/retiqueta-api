@@ -22,7 +22,6 @@
 en:
   user:
     errors:
-      invalid_type: "Type is invalid. Provided %{type}, required %{resource_type}"
       not_found: "User not found"
       invalid_password: "Invalid password"
       invalid_username: "Invalid username"
@@ -31,6 +30,7 @@ en:
     format: "%{attribute} %{message}"
     # The values :model, :attribute and :value are always available for interpolation
     # The value :count is available when applicable. Can be used for pluralization.
+    invalid_type: "Type is invalid. Provided %{type}, required %{resource_type}"
     messages:
       model_invalid: "Validation failed: %{errors}"
       inclusion: "is not included in the list"
