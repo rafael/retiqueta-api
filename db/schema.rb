@@ -14,8 +14,8 @@
 ActiveRecord::Schema.define(version: 20151028012221) do
 
   create_table "product_pictures", force: :cascade do |t|
-    t.integer  "user_id",          limit: 4
-    t.integer  "product_id",       limit: 4
+    t.string   "user_id",          limit: 255
+    t.string   "product_id",       limit: 255
     t.integer  "position",         limit: 4
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
@@ -29,9 +29,11 @@ ActiveRecord::Schema.define(version: 20151028012221) do
   add_index "product_pictures", ["user_id"], name: "index_product_pictures_on_user_id", using: :btree
 
   create_table "products", force: :cascade do |t|
+    t.string   "uuid",           limit: 255
     t.string   "title",          limit: 255
     t.text     "description",    limit: 65535
     t.string   "category",       limit: 255
+    t.string   "user_id",        limit: 255
     t.float    "price",          limit: 24
     t.float    "original_price", limit: 24
     t.float    "featured",       limit: 24
@@ -83,7 +85,5 @@ ActiveRecord::Schema.define(version: 20151028012221) do
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
   add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
 
-  add_foreign_key "product_pictures", "products"
-  add_foreign_key "product_pictures", "users"
   add_foreign_key "profiles", "users"
 end

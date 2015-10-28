@@ -26,7 +26,7 @@ RSpec.describe ProductPictures::Create, type: :model do
         expect do
           service_result = described_class.call(valid_product_picture)
           expect(service_result.success_result.position).to eq(0)
-          expect(service_result.success_result.user_id).to eq(user.id)
+          expect(service_result.success_result.user_id).to eq(user.uuid)
         end.to change { ProductPicture.count}.by(1)
       end
     end

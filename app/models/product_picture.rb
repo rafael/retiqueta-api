@@ -1,6 +1,6 @@
 class ProductPicture < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :product
+  belongs_to :user, primary_key: :uuid
+  belongs_to :product, primary_key: :uuid
 
   has_attached_file :pic,
                     styles: {

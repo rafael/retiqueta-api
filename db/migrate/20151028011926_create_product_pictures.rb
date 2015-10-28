@@ -1,8 +1,8 @@
 class CreateProductPictures < ActiveRecord::Migration
   def change
     create_table :product_pictures do |t|
-      t.references :user, index: true, foreign_key: true
-      t.references :product, index: true, foreign_key: true
+      t.string :user_id, index: true
+      t.string :product_id, index: true
       t.integer :position
       t.timestamps null: false
     end
