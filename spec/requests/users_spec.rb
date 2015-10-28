@@ -6,7 +6,6 @@ RSpec.describe "Users", type: :request do
 
   let(:update_params) {
     {
-      id: user.uuid,
       data: {
         type: "users",
         attributes: {

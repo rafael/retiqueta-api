@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   namespace :v1 do
     resources :registrations, only: :create
+    resources :product_pictures, only: :create
 
     resources :users, only: [:show, :update] do
       put 'upload-profile-pic' => 'users#upload_profile_pic'

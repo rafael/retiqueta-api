@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://retiqueta-dev-images.s3.amazonaws.com//product_pictures/ee6cc2a99649461bb5928da24901fef1eab6a993.jpg
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.35.0 fog-core/1.32.1
+      Content-Type:
+      - image/jpeg
+      X-Amz-Acl:
+      - public-read
+      X-Amz-Date:
+      - 20151028T015703Z
+      X-Amz-Content-Sha256:
+      - STREAMING-AWS4-HMAC-SHA256-PAYLOAD
+      X-Amz-Decoded-Content-Length:
+      - '17604'
+      Authorization:
+      - AWS4-HMAC-SHA256 Credential=AKIAJPD6UFMMPDH2LNZA/20151028/us-east-1/s3/aws4_request,
+        SignedHeaders=content-type;host;x-amz-acl;x-amz-content-sha256;x-amz-date;x-amz-decoded-content-length,
+        Signature=f8a6140ee1af91db40e70f79a4317f8cbc95966965746899f6ae23ac78443e4f
+  response:
+    status:
+      code: 200
+      message: ''
+    headers:
+      X-Amz-Id-2:
+      - FDrVMb5QK3UkUPCnGr6klI1/HObcU9ZLVYTN0ptesa+pWoENNHtoOZT0W/S7venJrcEIcFO4h6Q=
+      X-Amz-Request-Id:
+      - F39D9159A4ECA4AD
+      Date:
+      - Wed, 28 Oct 2015 01:57:05 GMT
+      Etag:
+      - '"302e55c966c1e4f0ed034192bfafbaaf"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Wed, 28 Oct 2015 01:57:04 GMT
+recorded_with: VCR 2.9.3

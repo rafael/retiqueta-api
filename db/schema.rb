@@ -11,7 +11,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151024183228) do
+ActiveRecord::Schema.define(version: 20151028012221) do
+
+  create_table "product_pictures", force: :cascade do |t|
+    t.string   "user_id",          limit: 255
+    t.string   "product_id",       limit: 255
+    t.integer  "position",         limit: 4
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "pic_file_name",    limit: 255
+    t.string   "pic_content_type", limit: 255
+    t.integer  "pic_file_size",    limit: 4
+    t.datetime "pic_updated_at"
+  end
+
+  add_index "product_pictures", ["product_id"], name: "index_product_pictures_on_product_id", using: :btree
+  add_index "product_pictures", ["user_id"], name: "index_product_pictures_on_user_id", using: :btree
+
+  create_table "products", force: :cascade do |t|
+    t.string   "uuid",           limit: 255
+    t.string   "title",          limit: 255
+    t.text     "description",    limit: 65535
+    t.string   "category",       limit: 255
+    t.string   "user_id",        limit: 255
+    t.float    "price",          limit: 24
+    t.float    "original_price", limit: 24
+    t.float    "featured",       limit: 24
+    t.string   "currency",       limit: 255
+    t.string   "status",         limit: 255
+    t.string   "location",       limit: 255
+    t.string   "lat_lon",        limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id",          limit: 4
