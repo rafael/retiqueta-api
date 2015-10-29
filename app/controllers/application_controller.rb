@@ -13,4 +13,8 @@ class ApplicationController < ActionController::API
       raise ApiError::Unauthorized.new(I18n.t("errors.messages.unauthorized"))
     end
   end
+
+  def user_id
+    @user_id ||= request.headers['X-Authenticated-Userid']
+  end
 end

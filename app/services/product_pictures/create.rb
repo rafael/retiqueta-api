@@ -1,5 +1,5 @@
-module Users
-  class UploadProfilePic
+module ProductPictures
+  class Create
 
     #################
     ## Extensions  ##
@@ -11,14 +11,14 @@ module Users
     ## Validations ##
     #################
 
-    validate :type_is_users
-    validates :data, :attributes, :pic, :content, :content_type, :filename, presence: true, strict: ApiError::FailedValidation
+    validate :type_is_valid
+    validates :data, :attributes, :pic, :content, :content_type, :filename, :position, presence: true, strict: ApiError::FailedValidation
 
     ###################
     ## Class Methods ##
     ###################
 
-    RESOURCE_TYPE = "users"
+    RESOURCE_TYPE = "product_pictures"
 
     def self.call(params = {})
       service = self.new(params)
@@ -30,12 +30,13 @@ module Users
     ## Instance Methods ##
     ######################
 
-    attr_accessor :success_result, :id, :type, :data, :attributes, :pic, :content, :content_type, :filename, :user, :tempfile
+    attr_accessor :success_result, :user_id, :type, :data, :attributes, :pic, :content, :content_type, :filename, :position, :user, :tempfile
 
     def initialize(params = {})
-      @id = params.fetch(:id)
+      @user_id = params.fetch(:user_id)
       @data = params[:data]
       @attributes = data[:attributes] if data
+      @position = attributes[:position] if attributes
       @pic = attributes[:pic] if attributes
       @content = pic[:content] if pic
       @filename = pic[:filename] if pic
@@ -44,17 +45,14 @@ module Users
       valid?
     end
 
-    def valid?
-      errors.empty? && super
-    end
-
     def generate_result!
-      user = User.find_by_uuid(id)
+      user = User.find_by_uuid(user_id)
       raise ApiError::NotFound.new(I18n.t("user.errors.not_found")) unless user
       pic = parse_image_data
-      user.profile.pic = pic
-      user.profile.save!
-      self.success_result = user
+      product_picture = ProductPicture.new(user: user, position: position)
+      product_picture.pic = pic
+      product_picture.save!
+      self.success_result = product_picture
     rescue => e
       Rails.logger.error e.message
       raise ApiError::InternalServer.new("Failed to persist image.")
@@ -81,7 +79,7 @@ module Users
       uploaded_file
     end
 
-    def type_is_users
+    def type_is_valid
       unless type == RESOURCE_TYPE
         raise ApiError::FailedValidation.new(I18n.t("errors.invalid_type", type: type, resource_type: RESOURCE_TYPE))
       end
