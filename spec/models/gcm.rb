@@ -10,13 +10,14 @@ RSpec.describe GCM do
 
     it "Faraday configure headers" do
       VCR.use_cassette('GCM/GCM_configure_authotization') do
-        gcm = GCM.new
-        result = gcm.send
+        gcm = GCM.new({to: 'test', data: 'test'})
+        result = gcm.notificate
         expect(result.env.request_headers).to include({'Authorization': "key=#{GCM.server_key}"})
       end
     end
 
   end
+
 
   describe "Using the api" do
     it "Send without needed data" do
