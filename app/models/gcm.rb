@@ -8,7 +8,7 @@ class GCM
   attr_accessor :to, :data
 
   # Validations
-  validates :to, :data, presence: true
+  validates :to, :data, presence: true, strict: ApiError::FailedValidation
 
   # Configurations Accessors
   config_accessor :server_key, instance_reader: true, instance_writer: false
@@ -28,11 +28,7 @@ class GCM
   end
 
   def notificate
-    if valid?
-      @conn.post '/gcm/send', @params
-    else
-      false
-    end
+    @conn.post '/gcm/send', @params if valid?
   end
 end
 
