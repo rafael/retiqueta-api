@@ -25,6 +25,10 @@ en:
       not_found: "User not found"
       invalid_password: "Invalid password"
       invalid_username: "Invalid username"
+  product:
+    errors:
+      invalid_category: "The category provided is invalid. Provided %{category}, required %{valid_categories}"
+      pictures_are_empty: "Pictures are empty. You need to provide at least one"
   errors:
     # The default format to use in full error messages.
     format: "%{attribute} %{message}"
