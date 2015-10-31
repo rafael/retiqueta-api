@@ -346,53 +346,52 @@ Upload profile picture for users.
     + Body
 
             {
-                 "data": [{
+                 "data": {
                     "id": "ax234-02d3-4780-bb15-180854169967",
                     "type": "products",
                     "attributes": {
-                      "description": "Camisa manga larga #zara color negro #casual.",
-                      "currency": "USD",
-                      "original_price": 40.20,
-                      "price": 20.0,
-                      "status": "published"
+                         "category": "shoes",
+                         "title": "My awesome shoes",
+                         "description": "Estos zapatos tienen mucha historia conmigo",
+                         "original_price": 60,
+                         "price": 40,
+                         "pictures": [1,2]
                     }
-                    ]
                 }
             }
 
 + Request (application/json)
 
             {
-                 "data": [{
+                 "data": {
                     "id": "ax234-02d3-4780-bb15-180854169967",
                     "type": "products",
                     "attributes": {
-                      "description": "Camisa manga larga #zara color negro #casual.",
-                      "currency": "USD",
-                      "original_price": 40.20,
-                      "price": 20.0,
-                      "status": "published"
+                         "category": "shoes",
+                         "title": "My awesome shoes",
+                         "description": "Estos zapatos tienen mucha historia conmigo",
+                         "original_price": 60,
+                         "price": 40,
+                         "pictures": [1,2]
                     }
-                    ]
                 }
             }
-
 + Response 201 (application/json)
 
     + Body
 
             {
-                 "data": [{
+                 "data": {
                     "id": "ax234-02d3-4780-bb15-180854169967",
                     "type": "products",
-                    "attributes": {
-                      "description": "Camisa manga larga #zara color negro #casual.",
-                      "currency": "USD",
-                      "original_price": 40.20,
-                      "price": 20.0,
-                      "status": "published"
+                     "attributes": {
+                         "category": "shoes",
+                         "title": "My awesome shoes",
+                         "description": "Estos zapatos tienen mucha historia conmigo",
+                         "original_price": 60,
+                         "price": 40,
+                         "status": "published"
                     }
-                    ]
                 }
             }
 
@@ -404,7 +403,7 @@ Upload profile picture for users.
     + Body
 
             {
-                 "data": [{
+                 "data": {
                     "id": "ax234-02d3-4780-bb15-180854169967",
                     "type": "products",
                     "attributes": {
@@ -414,7 +413,7 @@ Upload profile picture for users.
                       "price": 20.0,
                       "status": "published"
                     }
-                    ]
+                
                 }
             }
 
@@ -437,17 +436,17 @@ Upload profile picture for users.
     + Body
 
             {
-                 "data": [{
+                 "data": {
                     "id": "ax234-02d3-4780-bb15-180854169967",
                     "type": "products",
                     "attributes": {
-                      "description": "Camisa manga larga #zara color negro #casual.",
-                      "currency": "USD",
-                      "original_price": 40.20,
-                      "price": 20.0,
-                      "status": "published"
+                         "category": "shoes",
+                         "title": "My awesome shoes",
+                         "description": "Estos zapatos tienen mucha historia conmigo",
+                         "original_price": 60,
+                         "price": 40
                     }
-                    ]
+                    
                 }
             }
 
