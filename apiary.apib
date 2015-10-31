@@ -328,6 +328,74 @@ Upload profile picture for users.
                 }
             }
 
+## Product Pictures [/v1/product_pictures]
+
+### Create Product Picture [POST]
+
+This endpoint allows clients to upload pictures that can be later on attached to products. The product doesn't have to exist at this point. 
+Clients just need to save the ID and attach it to a product on creation.
++ Payload
+    + Headers
+
+            Accept: application/json
+
+    + Attributes
+        + position (String) - The index position of this image within the product
+        + pic (Object) - Picture to upload
+        
+    + Body
+
+            {
+                 "data": {
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "product_pictures",
+                    "attributes": {
+                        "position": 0,
+                        "pic": {
+                            "content_type": "image/jpeg",
+                            "filename": "watchmen.jpg",
+                            "content": "Base64 encoded file"
+                        }
+                    }
+                }
+            }
+
++ Request (application/json)
+
+            {
+                 "data": {
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "product_pictures",
+                    "attributes": {
+                        "position": 0,
+                        "pic": {
+                            "content_type": "image/jpeg",
+                            "filename": "watchmen.jpg",
+                            "content": "Base64 encoded file"
+                        }
+                    }
+                }
+            }
+            
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                 "data": {
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "product_pictures",
+                    "attributes": {
+                        "position": 0,
+                        "pic": {
+                            "content_type": "image/jpeg",
+                            "filename": "watchmen.jpg",
+                            "content": "Base64 encoded file"
+                        }
+                    }
+                }
+            }
+            
 ## Products [/v1/products]
 
 ### Create product [POST]
@@ -346,53 +414,52 @@ Upload profile picture for users.
     + Body
 
             {
-                 "data": [{
+                 "data": {
                     "id": "ax234-02d3-4780-bb15-180854169967",
                     "type": "products",
                     "attributes": {
-                      "description": "Camisa manga larga #zara color negro #casual.",
-                      "currency": "USD",
-                      "original_price": 40.20,
-                      "price": 20.0,
-                      "status": "published"
+                         "category": "shoes",
+                         "title": "My awesome shoes",
+                         "description": "Estos zapatos tienen mucha historia conmigo",
+                         "original_price": 60,
+                         "price": 40,
+                         "pictures": [1,2]
                     }
-                    ]
                 }
             }
 
 + Request (application/json)
 
             {
-                 "data": [{
+                 "data": {
                     "id": "ax234-02d3-4780-bb15-180854169967",
                     "type": "products",
                     "attributes": {
-                      "description": "Camisa manga larga #zara color negro #casual.",
-                      "currency": "USD",
-                      "original_price": 40.20,
-                      "price": 20.0,
-                      "status": "published"
+                         "category": "shoes",
+                         "title": "My awesome shoes",
+                         "description": "Estos zapatos tienen mucha historia conmigo",
+                         "original_price": 60,
+                         "price": 40,
+                         "pictures": [1,2]
                     }
-                    ]
                 }
             }
-
 + Response 201 (application/json)
 
     + Body
 
             {
-                 "data": [{
+                 "data": {
                     "id": "ax234-02d3-4780-bb15-180854169967",
                     "type": "products",
-                    "attributes": {
-                      "description": "Camisa manga larga #zara color negro #casual.",
-                      "currency": "USD",
-                      "original_price": 40.20,
-                      "price": 20.0,
-                      "status": "published"
+                     "attributes": {
+                         "category": "shoes",
+                         "title": "My awesome shoes",
+                         "description": "Estos zapatos tienen mucha historia conmigo",
+                         "original_price": 60,
+                         "price": 40,
+                         "status": "published"
                     }
-                    ]
                 }
             }
 
@@ -404,7 +471,7 @@ Upload profile picture for users.
     + Body
 
             {
-                 "data": [{
+                 "data": {
                     "id": "ax234-02d3-4780-bb15-180854169967",
                     "type": "products",
                     "attributes": {
@@ -414,7 +481,7 @@ Upload profile picture for users.
                       "price": 20.0,
                       "status": "published"
                     }
-                    ]
+                
                 }
             }
 
@@ -437,17 +504,17 @@ Upload profile picture for users.
     + Body
 
             {
-                 "data": [{
+                 "data": {
                     "id": "ax234-02d3-4780-bb15-180854169967",
                     "type": "products",
                     "attributes": {
-                      "description": "Camisa manga larga #zara color negro #casual.",
-                      "currency": "USD",
-                      "original_price": 40.20,
-                      "price": 20.0,
-                      "status": "published"
+                         "category": "shoes",
+                         "title": "My awesome shoes",
+                         "description": "Estos zapatos tienen mucha historia conmigo",
+                         "original_price": 60,
+                         "price": 40
                     }
-                    ]
+                    
                 }
             }
 
