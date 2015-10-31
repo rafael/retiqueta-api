@@ -328,6 +328,74 @@ Upload profile picture for users.
                 }
             }
 
+## Product Pictures [/v1/product_pictures]
+
+### Create Product Picture [POST]
+
+This endpoint allows clients to upload pictures that can be later on attached to products. The product doesn't have to exist at this point. 
+Clients just need to save the ID and attach it to a product on creation.
++ Payload
+    + Headers
+
+            Accept: application/json
+
+    + Attributes
+        + position (String) - The index position of this image within the product
+        + pic (Object) - Picture to upload
+        
+    + Body
+
+            {
+                 "data": {
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "product_pictures",
+                    "attributes": {
+                        "position": 0,
+                        "pic": {
+                            "content_type": "image/jpeg",
+                            "filename": "watchmen.jpg",
+                            "content": "Base64 encoded file"
+                        }
+                    }
+                }
+            }
+
++ Request (application/json)
+
+            {
+                 "data": {
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "product_pictures",
+                    "attributes": {
+                        "position": 0,
+                        "pic": {
+                            "content_type": "image/jpeg",
+                            "filename": "watchmen.jpg",
+                            "content": "Base64 encoded file"
+                        }
+                    }
+                }
+            }
+            
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                 "data": {
+                    "id": "ax234-02d3-4780-bb15-180854169967",
+                    "type": "product_pictures",
+                    "attributes": {
+                        "position": 0,
+                        "pic": {
+                            "content_type": "image/jpeg",
+                            "filename": "watchmen.jpg",
+                            "content": "Base64 encoded file"
+                        }
+                    }
+                }
+            }
+            
 ## Products [/v1/products]
 
 ### Create product [POST]
