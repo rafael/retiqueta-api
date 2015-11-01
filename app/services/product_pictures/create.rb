@@ -48,14 +48,16 @@ module ProductPictures
     def generate_result!
       user = User.find_by_uuid(user_id)
       raise ApiError::NotFound.new(I18n.t("user.errors.not_found")) unless user
-      pic = parse_image_data
-      product_picture = ProductPicture.new(user: user, position: position)
-      product_picture.pic = pic
-      product_picture.save!
+      begin
+        pic = parse_image_data
+        product_picture = ProductPicture.new(user: user, position: position)
+        product_picture.pic = pic
+        product_picture.save!
+      rescue => e
+        Rails.logger.error e.message
+        raise ApiError::InternalServer.new("Failed to persist image.")
+      end
       self.success_result = product_picture
-    rescue => e
-      Rails.logger.error e.message
-      raise ApiError::InternalServer.new("Failed to persist image.")
     ensure
       if @tempfile
         @tempfile.close
