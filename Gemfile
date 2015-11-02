@@ -11,7 +11,8 @@ gem 'paperclip', '4.3.1'
 gem 'fog', '1.35.0'
 gem 'sidekiq', '3.5.1'
 gem 'delayed_paperclip', '2.9.1'
-gem 'unicorn'
+gem 'unicorn', '4.9.0'
+gem 'elasticsearch-model', '0.1.8'
 
 group :development, :test do
   gem 'pry-byebug'

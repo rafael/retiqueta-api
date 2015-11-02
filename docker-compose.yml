@@ -8,6 +8,7 @@ api:
     - db
     - kong
     - redis
+    - elasticsearch
   environment:
     S3_BUCKET_NAME: "retiqueta-dev-images"
     AWS_ACCESS_KEY_ID: "AKIAJPD6UFMMPDH2LNZA"
@@ -17,13 +18,14 @@ api:
     REDIS_SERVICE_PORT: "6379"
 worker:
   build: .
-  command: bundle exec sidekiq -q paperclip
+  command: bundle exec sidekiq -C config/sidekiq.yml
   volumes:
     - .:/app
   links:
+    - elasticsearch
     - db
-    - kong
     - redis
+    - kong
   environment:
     S3_BUCKET_NAME: "retiqueta-dev-images"
     AWS_ACCESS_KEY_ID: "AKIAJPD6UFMMPDH2LNZA"
@@ -53,3 +55,8 @@ cassandra:
   image: mashape/cassandra
   ports:
     - "9042:9042"
+elasticsearch:
+  image: library/elasticsearch:1.7.1
+  ports:
+    - "9200:9200"
+    - "9300:9300"
