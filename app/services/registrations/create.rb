@@ -23,6 +23,7 @@ module Registrations
     def self.call(params = {})
       service = self.new(params)
       service.generate_result!
+      UserMailer.signup_email(service.success_result).deliver_later
       service
     end
 
