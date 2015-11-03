@@ -1,23 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe Registrations::Create, type: :model do
-  describe ".save" do
-    let(:params) { {
-                     data: {
-                       type: "users",
-                       attributes: {
-                         password: "123456",
-                         email: "rafaelchacon@gmail.com",
-                         username: "rafael"
-                       }
-                     }
-                   }
-    }
+  describe ".call" do
+    let(:params) do
+      {
+        data: {
+          type: "users",
+          attributes: {
+            password: "123456",
+            email: "rafaelchacon@gmail.com",
+            username: "rafael"
+          }
+        }
+      }
+    end
 
-    it "saves an user when all the required fields are provided" do
-      service_result = Registrations::Create.call(params)
-      expect(service_result).to be_valid
-      expect(service_result.success_result).to eq(User.last)
+    context "when all the required fields are provided" do
+      let(:service_result) { Registrations::Create.call(params) }
+
+      it "saves the user" do
+        expect(service_result).to be_valid
+      end
+
+      it "updates service result to be newly created user" do
+        expect(service_result.success_result).to eq(User.last)
+      end
     end
 
     it "delegates errors from user object" do
