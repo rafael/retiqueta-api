@@ -6,20 +6,23 @@ module PushNotifications
 
     def self.call(params)
       service = self.new(params)
-      service.message.valid?
       service.notificate
     end
 
-    def initialize(to, data, extras = {}, broadcast = false)
-      @params = CreateFormater.new.format(to, broadcast)
+    # To: most be a integer with the device token or and array with multiple devices tokens
+    # data: is a hash with gcm data field
+    # extras: could be any aditional configuration than is soported on GCM
+    # broadcast: if the menssage has multiple destinations (true/false)
+    def initialize(to, data, extras = {})
+      @params = {to: to}
         .merge({ data: data })
         .merge(extras)
-
       @message = GCM.new(@params)
+      @message.valid?
     end
 
     def notificate
-      parser = ResultParser.new(@message.notificate)
+      @message.notificate
     end
   end
 
@@ -31,23 +34,17 @@ module PushNotifications
     end
 
     def parse
-      case @result.status
-      when 401
-        true
-      else
-        true
-      end
+      # Todo define what we want to do with the GCM response, this will define what parse do
+      # and what happend after parse that response.
+
+      #case @result.status
+      # when 401
+      #   true
+      # else
+      #   true
+      # end
     end
 
-  end
-
-  class CreateFormater
-    def format(to, broadcast)
-      result = {
-        to: (broadcast) ? to.first : to
-      }
-      (broadcast) ? result.merge({registration_ids: to[1..-1]}) : result
-    end
   end
 
 end

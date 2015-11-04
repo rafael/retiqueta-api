@@ -2,10 +2,16 @@ require 'rails_helper'
 
 RSpec.describe GCM do
   describe "Configuration" do
+
     it "Configure server_key" do
-      GCM.config.server_key = 'test'
+      GCM.config.server_key = 'AIzaSyAtoaJOKbAFTV47hTgzxCRd8vLmqhvgTEk'
       instance = GCM.new
-      expect(instance.server_key).to eq('test')
+      expect(instance.server_key).to eq('AIzaSyAtoaJOKbAFTV47hTgzxCRd8vLmqhvgTEk')
+    end
+
+    it "Thow error when is not valid" do
+      expect { GCM.new({ to: 'test'}).valid? }.to raise_error(ApiError::FailedValidation)
+      expect { GCM.new({ data: 'test' }).valid? }.to raise_error(ApiError::FailedValidation)
     end
 
     it "Faraday configure headers" do
@@ -15,13 +21,12 @@ RSpec.describe GCM do
         expect(result.env.request_headers).to include({'Authorization': "key=#{GCM.server_key}"})
       end
     end
-
   end
 
 
   describe "Using the api" do
-    it "Send without needed data" do
-      GCM.new
+    it "Todo" do
+
     end
   end
 end
