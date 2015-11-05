@@ -3,7 +3,7 @@ class Product < ActiveRecord::Base
   ## associations ##
   ##################
   belongs_to :user, primary_key: :uuid
-  has_many :product_pictures
+  has_many :product_pictures, primary_key: :uuid
 
   ###############
   ## Callbacks ##
@@ -24,9 +24,45 @@ class Product < ActiveRecord::Base
   ## Elastic Search Settings ##
   #############################
 
-  index_name    "products-#{Rails.env}"
+  index_name "products-#{Rails.env}"
 
-  settings index: { number_of_shards: 5 } do
+  def self.clean_elastic_search_index
+    self.__elasticsearch__.client.indices.delete(index: self.index_name)
+  end
+
+  def self.elastic_search_settings
+    {
+      index: {
+        number_of_shards: 5,
+        number_of_replicas: 0,
+        analysis: {
+          filter: {
+            spanish_stop: {
+              type: "stop",
+              stopwords:"_spanish_"
+            },
+            spanish_stemmer: {
+              type: "stemmer",
+              language:   "light_spanish"
+            }
+          },
+          analyzer: {
+            spanish: {
+              tokenizer:  "standard",
+              filter: [
+                "lowercase",
+                "spanish_stop",
+                "spanish_stemmer",
+                "asciifolding"
+              ]
+            }
+          }
+        }
+      }
+    }
+  end
+
+  settings(elastic_search_settings) do
     mappings dynamic: 'false' do
       indexes :title, analyzer: 'spanish'
       indexes :description, analyzer: 'spanish'
@@ -58,7 +94,7 @@ class Product < ActiveRecord::Base
   end
 
   def as_indexed_json(options={})
-    self.as_json(options.merge root: false)
+    self.as_json(options.merge(include: :product_pictures, root: false))
   end
 
   private

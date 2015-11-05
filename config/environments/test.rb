@@ -11,6 +11,7 @@ Rails.application.configure do
   config.x.kong.internal_url = "https://kong:8443"
   config.x.kong.users_ouath_token_path = "/users/oauth2/token"
   config.x.elastictsearch.host = "elasticsearch"
+  config.x.elastictsearch.log = false
 
   config.paperclip_defaults = {
     storage: :fog,

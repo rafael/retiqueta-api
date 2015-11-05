@@ -77,6 +77,7 @@ GEM
     connection_pool (2.2.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
+    database_cleaner (1.5.1)
     delayed_paperclip (2.9.1)
       paperclip (>= 3.3)
     diff-lcs (1.2.5)
@@ -99,6 +100,8 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
+    fakeredis (0.5.0)
+      redis (~> 3.0)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.10)
@@ -351,9 +354,11 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (= 0.10.0.rc3)
   authlogic (= 3.4.6)
+  database_cleaner
   delayed_paperclip (= 2.9.1)
   elasticsearch-model (= 0.1.8)
   factory_girl_rails (= 4.5.0)
+  fakeredis
   faraday (= 0.9.2)
   fog (= 1.35.0)
   mysql2 (= 0.3.18)

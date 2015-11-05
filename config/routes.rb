@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'ops/status' => 'ops#status'
 
   namespace :v1 do
+    get 'products/search' => 'products#search'
     resources :registrations, only: :create
     resources :products,  only: :create
     resources :product_pictures, only: :create
