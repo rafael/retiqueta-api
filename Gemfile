@@ -25,4 +25,5 @@ group :test do
   gem 'vcr', '2.9.3'
   gem 'webmock', '1.22.1'
   gem 'database_cleaner'
+  gem "fakeredis", :require => "fakeredis/rspec"
 end
