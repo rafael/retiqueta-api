@@ -5,13 +5,11 @@ namespace :kong do
 
     wait_for_kong
 
-    puts config.inspect
-
-    # delete all apis
-    list_apis.each { |api| delete_api(api["name"]) }
-
-    # create apis
-    config["apis"].each { |api_config| create_api(api_config) }
+    # recreate apis
+    config["apis"].each do |api_config|
+      delete_api(api_config["name"])
+      create_api(api_config)
+    end
 
     # setup plugins
     config["plugins"].each { |plugin_config| add_plugin(plugin_config) }
@@ -61,11 +59,6 @@ namespace :kong do
     log "deleting API: #{name}"
     response = kong_admin.delete("/apis/#{name}")
     log "API does not exist" if response.status == 404
-  end
-
-  def list_apis
-    response = kong_admin.get("/apis")
-    JSON.parse(response.body)["data"]
   end
 
   def find_or_create_consumer(consumer_config)
