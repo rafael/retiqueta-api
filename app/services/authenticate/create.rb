@@ -62,7 +62,7 @@ module Authenticate
 
     def user_exists
       unless user
-        self.errors.add(:base, I18n.t("user.invalid_username"))
+         raise ApiError::NotFound.new(I18n.t("user.errors.invalid_username"))
       end
     end
 

@@ -4,7 +4,7 @@ RSpec.describe "Users", type: :request do
 
   let(:user) { create(:user, password: '123456') }
 
-  let(:update_params) {
+  let(:update_params) do
     {
       data: {
         type: "users",
@@ -17,7 +17,7 @@ RSpec.describe "Users", type: :request do
         }
       }
     }
-  }
+  end
 
   it "fetches an user by uuid" do
     get "/v1/users/#{user.uuid}", nil, { 'X-Authenticated-Userid' => user.uuid }
@@ -27,8 +27,16 @@ RSpec.describe "Users", type: :request do
     expect(json["data"]["id"]).to eq(user.uuid)
     expect(json["data"]["type"]).to eq("users")
     user_response_attributes = json["data"]["attributes"]
+    expect(user_response_attributes.keys.to_set).to eq(["email",
+                                                        "username",
+                                                        "first_name",
+                                                        "last_name",
+                                                        "profile_pic",
+                                                        "website",
+                                                        "country"].to_set)
     expect(user_response_attributes["email"]).to eq(user.email)
     expect(user_response_attributes["username"]).to eq(user.username)
+    expect(user_response_attributes["first_name"]).to eq(user.first_name)
   end
 
   it "updates user website, first_name, last_name, bio, country" do
