@@ -1,5 +1,6 @@
 api:
   build: .
+  command: "config/container/start-server-dev.sh -bash"
   volumes:
     - .:/app
   ports:
