@@ -62,7 +62,7 @@ module Authenticate
 
     def user_exists
       unless user
-        self.errors.add(:base, i18n.t("user.invalid_username"))
+        self.errors.add(:base, I18n.t("user.invalid_username"))
       end
     end
 
