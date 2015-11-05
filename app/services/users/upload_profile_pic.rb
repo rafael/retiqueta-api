@@ -51,13 +51,15 @@ module Users
     def generate_result!
       user = User.find_by_uuid(id)
       raise ApiError::NotFound.new(I18n.t("user.errors.not_found")) unless user
-      pic = parse_image_data
-      user.profile.pic = pic
-      user.profile.save!
-      self.success_result = user
-    rescue => e
-      Rails.logger.error e.message
-      raise ApiError::InternalServer.new("Failed to persist image.")
+      begin
+        pic = parse_image_data
+        user.profile.pic = pic
+        user.profile.save!
+        self.success_result = user
+      rescue => e
+        Rails.logger.error e.message
+        raise ApiError::InternalServer.new("Failed to persist image.")
+      end
     ensure
       if @tempfile
         @tempfile.close

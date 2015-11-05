@@ -1,12 +1,16 @@
 class ProductPictureSerializer < ActiveModel::Serializer
 
-  attributes :id, :position, :url, :user_id, :product_id
+  attributes :id, :position, :url, :small_url, :large_url, :product_id
+
+  def large_url
+    object.pic.url(:large)
+  end
+
+  def small_url
+    object.pic(:small)
+  end
 
   def url
-    case options[:image_size]
-    when "small" then object.pic.url(:small)
-    when "large" then object.pic.url(:large)
-    else object.pic.url
-    end
+    object.pic.url
   end
 end

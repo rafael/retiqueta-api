@@ -57,6 +57,7 @@ module Products
       @original_price = attributes[:original_price]
       @price = attributes[:price]
       @pictures = attributes[:pictures]
+      attributes[:status] = "published"
       valid?
     end
 
