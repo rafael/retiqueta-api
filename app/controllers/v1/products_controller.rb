@@ -2,7 +2,7 @@ class V1::ProductsController < ApplicationController
 
   def search
     outcome = ::Products::Search.call(params)
-    render json: outcome.success_result, each_serializer: ProductSerializer, status: 200
+    render json: outcome.success_result, each_serializer: ProductSerializer, include: filtered_include, status: 200
   end
 
   def create
@@ -11,6 +11,10 @@ class V1::ProductsController < ApplicationController
   end
 
   private
+
+  def filtered_include
+    (params[:include] || "").split(",").find_all { |include| include == "product_pictures" }
+  end
 
   def create_product_params
     params.require(:data).permit(:type,

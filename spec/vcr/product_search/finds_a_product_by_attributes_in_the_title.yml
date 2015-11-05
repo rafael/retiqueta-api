@@ -1,0 +1,31 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://elasticsearch:9200/products-test/product/_search
+    body:
+      encoding: UTF-8
+      string: '{"query":{"filtered":{"query":{"multi_match":{"query":"Vendo","fields":["title^3","category","description","status"]}},"filter":{"term":{"status":"published"}}}}}'
+    headers:
+      User-Agent:
+      - Faraday v0.9.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Content-Length:
+      - '898'
+    body:
+      encoding: UTF-8
+      string: '{"took":2,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1,"max_score":0.17654747,"hits":[{"_index":"products-test","_type":"product","_id":"1","_score":0.17654747,"_source":{"id":1,"uuid":"fa052722-7bb1-4efe-99e2-ba29d62a2177","title":"Vendo
+        #nike","description":"como nuevos","category":"zapatos","user_id":"6b1e410e-5fb8-4931-aa4d-e188ae0695d7","price":40.0,"original_price":80.0,"featured":null,"currency":null,"status":"published","location":null,"lat_lon":null,"created_at":"2015-11-05T05:34:48.059Z","updated_at":"2015-11-05T05:34:48.059Z","product_pictures":[{"id":1,"user_id":"843607ba-0e4d-468e-87e7-6f943136ee4f","product_id":"fa052722-7bb1-4efe-99e2-ba29d62a2177","position":0,"created_at":"2015-11-05T05:34:48.255Z","updated_at":"2015-11-05T05:34:48.255Z","pic_file_name":null,"pic_content_type":null,"pic_file_size":null,"pic_updated_at":null}]}}]}}'
+    http_version: 
+  recorded_at: Thu, 05 Nov 2015 05:34:49 GMT
+recorded_with: VCR 2.9.3

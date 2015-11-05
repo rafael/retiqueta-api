@@ -76,6 +76,8 @@ Rails.application.configure do
   # OAuth2 plugin enabled.
   config.x.kong.users_ouath_token_path = "/v1/users/oauth2/token"
 
+  config.x.elastictsearch.log = true
+
   config.paperclip_defaults = {
     storage: :fog,
     fog_credentials:  {

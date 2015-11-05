@@ -24,4 +24,5 @@ group :test do
   gem 'factory_girl_rails', '4.5.0'
   gem 'vcr', '2.9.3'
   gem 'webmock', '1.22.1'
+  gem 'database_cleaner'
 end

@@ -55,4 +55,22 @@ RSpec.describe "Products", type: :request do
     expect(response.status).to eq(200)
     expect(json['data'].first['id']).to eq(product.uuid)
   end
+
+  it "searches a product and ignores include when invalid" do
+    product = create(:product, title: "zapato super #nike")
+    expect(Product).to receive(:search).and_return([product])
+    get "/v1/products/search", q: "nike", include: 'product_picturexs'
+    expect(response.status).to eq(200)
+    expect(json['data'].first['id']).to eq(product.uuid)
+    expect(json['included']).to be_nil
+  end
+
+  it "searches a product and includes pictures when requested" do
+    product = create(:product, title: "zapato super #nike")
+    expect(Product).to receive(:search).and_return([product])
+    get "/v1/products/search", q: "nike", include: 'product_pictures'
+    expect(response.status).to eq(200)
+    expect(json['data'].first['id']).to eq(product.uuid)
+    expect(json['included'].count).to eq(1)
+  end
 end

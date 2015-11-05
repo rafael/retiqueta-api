@@ -24,6 +24,7 @@ module Products
 
     def generate_result!
       products_search_result = Product.search(query: query)
+      #products = Product.all
       products = products_search_result.map do |result|
         # Let's fake an AR product.
         Product.new(uuid: result.uuid,
