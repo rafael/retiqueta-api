@@ -63,4 +63,23 @@ RSpec.describe "Users", type: :request do
     expect(response.status).to eq(failed_error.status)
     expect(json).to have_error_json_as(failed_error)
   end
+
+  context "relationships" do
+    it "returns user products" do
+      create(:product, title: "zapato super #nike", user: user)
+      create(:product, title: "camisa zara", user: user)
+      get "/v1/users/#{user.uuid}/relationships/products", nil, { 'X-Authenticated-Userid' => "any" }
+      expect(response.status).to eq(200)
+      expect(json['data'].count).to eq(2)
+    end
+
+    it "includes pictures when requested" do
+      create(:product, title: "zapato super #nike", user: user)
+      create(:product, title: "camisa zara", user: user)
+      get "/v1/users/#{user.uuid}/relationships/products", { include: 'product_pictures' }, { 'X-Authenticated-Userid' => "any" }
+      expect(response.status).to eq(200)
+      expect(json['data'].count).to eq(2)
+      expect(json['included'].count).to eq(2)
+    end
+  end
 end
