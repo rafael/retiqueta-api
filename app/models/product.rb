@@ -1,7 +1,9 @@
 class Product < ActiveRecord::Base
+
   ##################
   ## associations ##
   ##################
+
   belongs_to :user, primary_key: :uuid
   has_many :product_pictures, primary_key: :uuid
 
@@ -70,8 +72,6 @@ class Product < ActiveRecord::Base
       indexes :status, type: "string", index: "not_analyzed"
     end
   end
-
-  CATEGORIES = ["shoes", "garment"]
 
   def self.search(options = {})
     self.__elasticsearch__.search(

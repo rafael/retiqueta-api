@@ -24,7 +24,6 @@ module Products
               presence: true, strict: ApiError::FailedValidation
 
     validate :type_is_products
-    validate :valid_category
     validate :valid_pictures
     validate :valid_user
 
@@ -88,12 +87,6 @@ module Products
 
     def product_pictures
       @product_pictures ||= ProductPicture.where(id: pictures)
-    end
-
-    def valid_category
-      unless Product::CATEGORIES.include?(category)
-        raise ApiError::FailedValidation.new(I18n.t("product.errors.invalid_category", category: type, valid_categories: Product::CATEGORIES))
-      end
     end
 
     def valid_pictures
