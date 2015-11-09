@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe Product, type: :model do
   include ActiveJob::TestHelper
 
-    describe "#save" do
+  describe "#save" do
     it "enqueues product to be indexed by elastic search" do
       product = build(:product)
       expect do

@@ -5,6 +5,11 @@ class V1::ProductsController < ApplicationController
     render json: outcome.success_result, each_serializer: ProductSerializer, include: filtered_include, status: 200
   end
 
+  def index
+    outcome = ::Products::Index.call(params)
+    render json: outcome.success_result, each_serializer: ProductSerializer, include: filtered_include, status: 200
+  end
+
   def create
     outcome = ::Products::Create.call(user_id:  user_id, data: create_product_params)
     render json: outcome.success_result, serializer: ProductSerializer, status: 201

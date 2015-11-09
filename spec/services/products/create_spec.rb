@@ -4,6 +4,7 @@ RSpec.describe Products::Create, type: :model do
   describe ".call" do
     let(:user) { create(:user) }
     let(:picture) { create(:product_picture, user: user) }
+    let(:picture_2) { create(:product_picture, user: user) }
     let(:params) {
       {
         user_id: user.uuid,
@@ -27,6 +28,16 @@ RSpec.describe Products::Create, type: :model do
       product = service_result.success_result
       expect(product.status).to eq("published")
       expect(product.product_pictures).to eq([picture])
+    end
+
+    it "picture position gets set in the order they were provided" do
+      new_params = params
+      new_params[:data][:attributes][:pictures] = [picture_2.id, picture.id]
+      service_result = Products::Create.call(params)
+      expect(service_result.success_result).to eq(Product.last)
+      product = service_result.success_result
+      expect(product.status).to eq("published")
+      expect(product.product_pictures.order('position asc')).to eq([picture_2, picture])
     end
 
     it "requires a valid user id" do

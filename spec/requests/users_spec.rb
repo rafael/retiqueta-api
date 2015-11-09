@@ -33,7 +33,8 @@ RSpec.describe "Users", type: :request do
                                                         "last_name",
                                                         "profile_pic",
                                                         "website",
-                                                        "country"].to_set)
+                                                        "country",
+                                                        "bio"].to_set)
     expect(user_response_attributes["email"]).to eq(user.email)
     expect(user_response_attributes["username"]).to eq(user.username)
     expect(user_response_attributes["first_name"]).to eq(user.first_name)
@@ -62,5 +63,33 @@ RSpec.describe "Users", type: :request do
     failed_error = ApiError::NotFound.new(I18n.t("user.errors.not_found"))
     expect(response.status).to eq(failed_error.status)
     expect(json).to have_error_json_as(failed_error)
+  end
+
+  context "relationships" do
+    it "returns user products" do
+      create(:product, title: "zapato super #nike", user: user)
+      create(:product, title: "camisa zara", user: user)
+      get "/v1/users/#{user.uuid}/relationships/products", nil, { 'X-Authenticated-Userid' => "any" }
+      expect(response.status).to eq(200)
+      expect(json['data'].count).to eq(2)
+    end
+
+    it "user products can be paginated" do
+      create(:product, title: "zapato super #nike", user: user)
+      create(:product, title: "camisa zara", user: user)
+      get "/v1/users/#{user.uuid}/relationships/products", { page: { size: 1, number: 1 } }, { 'X-Authenticated-Userid' => "any" }
+      expect(response.status).to eq(200)
+      expect(json['data'].count).to eq(1)
+      expect(json['links']).to_not be_empty
+    end
+
+    it "includes pictures when requested" do
+      create(:product, title: "zapato super #nike", user: user)
+      create(:product, title: "camisa zara", user: user)
+      get "/v1/users/#{user.uuid}/relationships/products", { include: 'product_pictures' }, { 'X-Authenticated-Userid' => "any" }
+      expect(response.status).to eq(200)
+      expect(json['data'].count).to eq(2)
+      expect(json['included'].count).to eq(2)
+    end
   end
 end
