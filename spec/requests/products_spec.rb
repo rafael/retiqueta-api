@@ -70,7 +70,7 @@ RSpec.describe "Products", type: :request do
   context "search" do
     it "searches a product" do
       product = create(:product, title: "zapato super #nike")
-      expect(Product).to receive(:search).and_return([product])
+      expect(Product).to receive(:search).and_return(Kaminari.paginate_array([product]))
       get "/v1/products/search", q: "nike"
       expect(response.status).to eq(200)
       expect(json['data'].first['id']).to eq(product.uuid)
@@ -78,7 +78,7 @@ RSpec.describe "Products", type: :request do
 
     it "searches a product and ignores include when invalid" do
       product = create(:product, title: "zapato super #nike")
-      expect(Product).to receive(:search).and_return([product])
+      expect(Product).to receive(:search).and_return(Kaminari.paginate_array([product]))
       get "/v1/products/search", q: "nike", include: 'product_picturexs'
       expect(response.status).to eq(200)
       expect(json['data'].first['id']).to eq(product.uuid)
@@ -87,7 +87,7 @@ RSpec.describe "Products", type: :request do
 
     it "searches a product and includes pictures when requested" do
       product = create(:product, title: "zapato super #nike")
-      expect(Product).to receive(:search).and_return([product])
+      expect(Product).to receive(:search).and_return(Kaminari.paginate_array([product]))
       get "/v1/products/search", q: "nike", include: 'product_pictures'
       expect(response.status).to eq(200)
       expect(json['data'].first['id']).to eq(product.uuid)
