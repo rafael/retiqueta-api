@@ -33,7 +33,8 @@ RSpec.describe "Users", type: :request do
                                                         "last_name",
                                                         "profile_pic",
                                                         "website",
-                                                        "country"].to_set)
+                                                        "country",
+                                                        "bio"].to_set)
     expect(user_response_attributes["email"]).to eq(user.email)
     expect(user_response_attributes["username"]).to eq(user.username)
     expect(user_response_attributes["first_name"]).to eq(user.first_name)

@@ -6,7 +6,8 @@ class UserSerializer < ActiveModel::Serializer
              :first_name,
              :last_name,
              :website,
-             :country
+             :country,
+             :bio
 
   attribute :uuid, key: :id
 

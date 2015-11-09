@@ -5,7 +5,7 @@ class Product < ActiveRecord::Base
   ##################
 
   belongs_to :user, primary_key: :uuid
-  has_many :product_pictures, primary_key: :uuid
+  has_many :product_pictures, -> { order(position: :asc) }, primary_key: :uuid
 
   ###############
   ## Callbacks ##
