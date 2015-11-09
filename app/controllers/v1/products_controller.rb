@@ -2,7 +2,12 @@ class V1::ProductsController < ApplicationController
 
   def search
     outcome = ::Products::Search.call(params)
-    render json: outcome.success_result, each_serializer: ProductSerializer, include: filtered_include, status: 200
+    Rails.logger.info request.headers.env['HTTP_X_FORWARDED_HOST']
+    Rails.logger.info request.headers.env.keys
+    render json: outcome.success_result,
+           each_serializer: ProductSerializer,
+           include: filtered_include,
+           status: 200
   end
 
   def index
