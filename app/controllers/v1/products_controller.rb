@@ -2,8 +2,6 @@ class V1::ProductsController < ApplicationController
 
   def search
     outcome = ::Products::Search.call(params)
-    Rails.logger.info request.headers.env['HTTP_X_FORWARDED_HOST']
-    Rails.logger.info request.headers.env.keys
     render json: outcome.success_result,
            each_serializer: ProductSerializer,
            include: filtered_include,
