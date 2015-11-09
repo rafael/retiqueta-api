@@ -74,6 +74,15 @@ RSpec.describe "Users", type: :request do
       expect(json['data'].count).to eq(2)
     end
 
+    it "user products can be paginated" do
+      create(:product, title: "zapato super #nike", user: user)
+      create(:product, title: "camisa zara", user: user)
+      get "/v1/users/#{user.uuid}/relationships/products", { page: { size: 1, number: 1 } }, { 'X-Authenticated-Userid' => "any" }
+      expect(response.status).to eq(200)
+      expect(json['data'].count).to eq(1)
+      expect(json['links']).to_not be_empty
+    end
+
     it "includes pictures when requested" do
       create(:product, title: "zapato super #nike", user: user)
       create(:product, title: "camisa zara", user: user)

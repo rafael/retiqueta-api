@@ -15,14 +15,17 @@ module Users
     ## Instance Methods ##
     ######################
 
-    attr_accessor :id, :success_result
+    attr_accessor :id, :success_result, :per_page, :page
 
     def initialize(params = {})
-      @id = params.fetch(:id)
+      @id = params.fetch(:user_id)
+      page = params.fetch(:page) { {} }
+      @per_page = page[:size] || 25
+      @page = page[:number] || 1
     end
 
     def generate_result!
-      products = Product.where(user_id: id)
+      products = Product.where(user_id: id).page(page).per(per_page)
       self.success_result = products
     end
   end

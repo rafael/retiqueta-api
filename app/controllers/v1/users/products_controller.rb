@@ -1,7 +1,7 @@
 class V1::Users::ProductsController < ApplicationController
 
   def index
-    outcome = ::Users::ReadProducts.call(id:  params[:user_id])
+    outcome = ::Users::ReadProducts.call(params)
     render json: outcome.success_result, each_serializer: ProductSerializer, include: filtered_include, status: 200
   end
 

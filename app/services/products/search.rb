@@ -15,24 +15,17 @@ module Products
     ## Instance Methods ##
     ######################
 
-    attr_accessor :success_result, :query
+    attr_accessor :success_result, :query, :per_page, :page
 
     def initialize(params = {})
-      Rails.logger.fatal params
       @query = params[:q]
+      page = params.fetch(:page) { {} }
+      @per_page = page[:size] || 25
+      @page = page[:number] || 1
     end
 
     def generate_result!
-      products_search_result = Product.search(query: query)
-      #products = Product.all
-      products = products_search_result.map do |result|
-        # Let's fake an AR product.
-        Product.new(uuid: result.uuid,
-                    title: result.title,
-                    category: result.category,
-                    description: result.description,
-                    status: result.status)
-      end
+      products = Product.search(query: query, per_page: per_page, page: page).to_a
       self.success_result = products
     end
   end

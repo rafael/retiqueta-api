@@ -1,5 +1,5 @@
 module Products
-  class Read
+  class Index
 
     ###################
     ## Class Methods ##
@@ -15,13 +15,16 @@ module Products
     ## Instance Methods ##
     ######################
 
-    attr_accessor :success_result
+    attr_accessor :success_result, :per_page, :page
 
     def initialize(params = {})
+      page = params.fetch(:page) { {} }
+      @per_page = page[:size] || 25
+      @page = page[:number] || 1
     end
 
     def generate_result!
-      products = Product.where(featured: true)
+      products = Product.where(featured: true).page(page).per(per_page)
       self.success_result = products
     end
   end

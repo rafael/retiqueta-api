@@ -90,7 +90,7 @@ class Product < ActiveRecord::Base
           }
         }
       }
-    )
+    ).page(options.fetch(:page, 1)).per(options.fetch(:per_page, 25))
   end
 
   def as_indexed_json(options={})

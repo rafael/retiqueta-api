@@ -6,7 +6,7 @@ class V1::ProductsController < ApplicationController
   end
 
   def index
-    outcome = ::Products::Read.call
+    outcome = ::Products::Index.call(params)
     render json: outcome.success_result, each_serializer: ProductSerializer, include: filtered_include, status: 200
   end
 
