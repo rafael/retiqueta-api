@@ -2,7 +2,10 @@ class V1::ProductsController < ApplicationController
 
   def search
     outcome = ::Products::Search.call(params)
-    render json: outcome.success_result, each_serializer: ProductSerializer, include: filtered_include, status: 200
+    render json: outcome.success_result,
+           each_serializer: ProductSerializer,
+           include: filtered_include,
+           status: 200
   end
 
   def index

@@ -61,7 +61,7 @@ module Products
     end
 
     def generate_result!
-      product = Product.new(attributes.except(:pictures))
+      product = Product.new(attributes.except(:pictures).merge(user_id: user_id))
       product.product_pictures = product_pictures
       if product.valid?
         ActiveRecord::Base.transaction do
