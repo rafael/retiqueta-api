@@ -1,5 +1,5 @@
 module Products
-  class Search
+  class Index
 
     ###################
     ## Class Methods ##
@@ -15,17 +15,16 @@ module Products
     ## Instance Methods ##
     ######################
 
-    attr_accessor :success_result, :query, :per_page, :page
+    attr_accessor :success_result, :per_page, :page
 
     def initialize(params = {})
-      @query = params[:q]
       page = params.fetch(:page) { {} }
       @per_page = page[:size] || 25
       @page = page[:number] || 1
     end
 
     def generate_result!
-      products = Product.search(query: query, per_page: per_page, page: page).to_a
+      products = Product.where(featured: true).page(page).per(per_page)
       self.success_result = products
     end
   end

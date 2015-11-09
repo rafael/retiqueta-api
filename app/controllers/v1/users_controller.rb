@@ -19,8 +19,6 @@ class V1::UsersController < ApplicationController
 
   private
 
-
-
   def user_params
     params.require(:data).permit(:type,
                                  attributes: [:first_name,

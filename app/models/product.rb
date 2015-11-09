@@ -1,9 +1,11 @@
 class Product < ActiveRecord::Base
+
   ##################
   ## associations ##
   ##################
+
   belongs_to :user, primary_key: :uuid
-  has_many :product_pictures, primary_key: :uuid
+  has_many :product_pictures, -> { order(position: :asc) }, primary_key: :uuid
 
   ###############
   ## Callbacks ##
@@ -71,8 +73,6 @@ class Product < ActiveRecord::Base
     end
   end
 
-  CATEGORIES = ["shoes", "garment"]
-
   def self.search(options = {})
     self.__elasticsearch__.search(
       {
@@ -90,7 +90,7 @@ class Product < ActiveRecord::Base
           }
         }
       }
-    )
+    ).page(options.fetch(:page, 1)).per(options.fetch(:per_page, 25))
   end
 
   def as_indexed_json(options={})

@@ -12,7 +12,7 @@ module ProductPictures
     #################
 
     validate :type_is_valid
-    validates :data, :attributes, :pic, :content, :content_type, :filename, :position, presence: true, strict: ApiError::FailedValidation
+    validates :data, :attributes, :pic, :content, :content_type, :filename, presence: true, strict: ApiError::FailedValidation
 
     ###################
     ## Class Methods ##
@@ -36,7 +36,6 @@ module ProductPictures
       @user_id = params.fetch(:user_id)
       @data = params[:data]
       @attributes = data[:attributes] if data
-      @position = attributes[:position] if attributes
       @pic = attributes[:pic] if attributes
       @content = pic[:content] if pic
       @filename = pic[:filename] if pic
@@ -50,7 +49,7 @@ module ProductPictures
       raise ApiError::NotFound.new(I18n.t("user.errors.not_found")) unless user
       begin
         pic = parse_image_data
-        product_picture = ProductPicture.new(user: user, position: position)
+        product_picture = ProductPicture.new(user: user)
         product_picture.pic = pic
         product_picture.save!
       rescue => e

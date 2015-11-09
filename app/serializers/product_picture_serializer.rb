@@ -1,6 +1,6 @@
 class ProductPictureSerializer < ActiveModel::Serializer
 
-  attributes :id, :position, :url, :small_url, :large_url, :product_id
+  attributes :id, :url, :small_url, :large_url, :product_id
 
   def large_url
     object.pic.url(:large)
