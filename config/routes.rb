@@ -4,9 +4,8 @@ Rails.application.routes.draw do
   namespace :v1 do
     get 'products/search' => 'products#search'
     resources :registrations, only: :create
-    resources :products,  only: :create
-    resources :product_pictures, only: :create do
-    end
+    resources :products,  only: [:create, :index]
+    resources :product_pictures, only: :create
 
     resources :users, only: [:show, :update] do
       resources :products, only: [:index], path: 'relationships/products', module: 'users'

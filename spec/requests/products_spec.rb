@@ -48,6 +48,15 @@ RSpec.describe "Products", type: :request do
     expect(response.status).to eq(201)
   end
 
+  it "product index only returns featured products" do
+    product = create(:product, title: "zapato super #nike", featured: true)
+    create(:product, title: "zapato super #nike")
+    get "/v1/products"
+    expect(response.status).to eq(200)
+    expect(json['data'].count).to eq(1)
+    expect(json['data'].first['id']).to eq(product.uuid)
+  end
+
   it "searches a product" do
     product = create(:product, title: "zapato super #nike")
     expect(Product).to receive(:search).and_return([product])
