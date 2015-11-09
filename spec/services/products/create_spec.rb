@@ -27,6 +27,7 @@ RSpec.describe Products::Create, type: :model do
       expect(service_result.success_result).to eq(Product.last)
       product = service_result.success_result
       expect(product.status).to eq("published")
+      expect(product.user).to eq(user)
       expect(product.product_pictures).to eq([picture])
     end
 
