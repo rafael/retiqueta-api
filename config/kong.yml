@@ -10,27 +10,27 @@ apis:
     name: products-resource
     request_path: /v1/products
     strip_request_path: true
-    upstream_url: http://<%= ENV["API_IP_PORT"] %>/v1/products
+    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/products
   -
     name: users-resource
     request_path: /v1/users
     strip_request_path: true
-    upstream_url: http://<%= ENV["API_IP_PORT"] %>/v1/users
+    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/users
   -
     name: authenticate-resource
     request_path: /v1/authenticate
     strip_request_path: true
-    upstream_url: http://<%= ENV["API_IP_PORT"] %>/v1/authenticate
+    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/authenticate
   -
     name: product-pictures-resource
     request_path: /v1/product_pictures
     strip_request_path: true
-    upstream_url: http://<%= ENV["API_IP_PORT"] %>/v1/product_pictures
+    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/product_pictures
   -
     name: registrations-resource
     request_path: /v1/registrations
     strip_request_path: true
-    upstream_url: http://<%= ENV["API_IP_PORT"] %>/v1/registrations
+    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/registrations
 
 plugins:
   -

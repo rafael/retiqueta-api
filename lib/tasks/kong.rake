@@ -1,7 +1,7 @@
 namespace :kong do
   desc "Setup kong for development"
   task setup: :environment do
-    next if ENV["API_IP_PORT"].blank?
+    next if ENV["DOCKER_HOST_IP"].blank?
 
     wait_for_kong
 

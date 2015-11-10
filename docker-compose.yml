@@ -17,7 +17,7 @@ api:
     MYSQL_ROOT_PASSWORD: 123456
     REDIS_SERVICE_HOST: "redis"
     REDIS_SERVICE_PORT: "6379"
-    API_IP_PORT:
+    DOCKER_HOST_IP:
 worker:
   build: .
   command: bundle exec sidekiq -C config/sidekiq.yml
