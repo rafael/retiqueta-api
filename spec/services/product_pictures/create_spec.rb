@@ -10,7 +10,6 @@ RSpec.describe ProductPictures::Create, type: :model do
         data: {
           type: "product_pictures",
           attributes: {
-            position: 0,
             pic: {
               content_type: "image/jpeg",
               filename: "watchmen.jpg",
@@ -25,7 +24,6 @@ RSpec.describe ProductPictures::Create, type: :model do
       VCR.use_cassette('product/uploading_pic', match_requests_on: [:host, :method]) do
         expect do
           service_result = described_class.call(valid_product_picture)
-          expect(service_result.success_result.position).to eq(0)
           expect(service_result.success_result.user_id).to eq(user.uuid)
         end.to change { ProductPicture.count}.by(1)
       end

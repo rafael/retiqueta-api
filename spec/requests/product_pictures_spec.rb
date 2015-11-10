@@ -9,7 +9,6 @@ RSpec.describe "ProductPicture", type: :request do
       data: {
         type: "product_pictures",
         attributes: {
-          position: 0,
           pic: {
             content_type: "image/jpeg",
             filename: "watchmen.jpg",

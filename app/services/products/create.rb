@@ -24,7 +24,6 @@ module Products
               presence: true, strict: ApiError::FailedValidation
 
     validate :type_is_products
-    validate :valid_category
     validate :valid_pictures
     validate :valid_user
 
@@ -62,9 +61,16 @@ module Products
     end
 
     def generate_result!
-      product = Product.new(attributes.except(:pictures))
+      product = Product.new(attributes.except(:pictures).merge(user_id: user_id))
       product.product_pictures = product_pictures
-      if product.valid? && product.save
+      if product.valid?
+        ActiveRecord::Base.transaction do
+          product_pictures.each do |product_picture|
+            product_picture.position = product_picture_positions[product_picture.id]
+            product_picture.save!
+          end
+          product.save!
+        end
         self.success_result = product
       else
         product.errors.each do |k, v|
@@ -90,14 +96,12 @@ module Products
       @product_pictures ||= ProductPicture.where(id: pictures)
     end
 
-    def valid_category
-      unless Product::CATEGORIES.include?(category)
-        raise ApiError::FailedValidation.new(I18n.t("product.errors.invalid_category", category: type, valid_categories: Product::CATEGORIES))
-      end
+    def product_picture_positions
+      @product_picture_positions ||= pictures.each_with_index.inject({}) { |acc, (id, index)| acc[id] = index; acc }
     end
 
     def valid_pictures
-      if pictures.empty?
+      if product_pictures.empty? || product_pictures.size != pictures.size
         raise ApiError::FailedValidation.new(I18n.t("product.errors.pictures_are_empty"))
       end
     end
