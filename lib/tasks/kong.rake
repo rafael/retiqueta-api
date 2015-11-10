@@ -12,7 +12,16 @@ namespace :kong do
     end
 
     # setup plugins
-    config["plugins"].each { |plugin_config| add_plugin(plugin_config) }
+    config["plugins"].each do |plugin_config|
+      add_plugin(plugin_config, all_api_names(config)) do |response|
+        # fetch any provision key for ouath2
+        case plugin_config["name"]
+        when "oauth2"
+          provision_key = JSON.parse(response.body)["config"]["provision_key"]
+          variables["KONG_CLIENT_PROVISION_KEY"] = provision_key
+        end
+      end
+    end
 
     # retrieve consumer
     consumer = find_or_create_consumer(config["consumer"])
@@ -30,6 +39,10 @@ namespace :kong do
 
 
   # Helpers
+
+  def all_api_names(config)
+    @all_api_names ||= config["apis"].map { |api_config| api_config["name"] }
+  end
 
   def wait_for_kong
     kong_admin.head("/")
@@ -91,10 +104,11 @@ namespace :kong do
     app
   end
 
-  def add_plugin(plugin_config)
+  def add_plugin(plugin_config, all_api_names, &block)
     apis =
       case plugin_config["apis"]
       when "all"
+        all_api_names
         config["apis"].map { |api| api["name"] }
       else
         plugin_config["apis"] || []
@@ -107,12 +121,7 @@ namespace :kong do
     apis.each do |api_name|
       log "adding plugin: #{pc["name"]} to API: #{api_name}"
       response = kong_admin.post("/apis/#{api_name}/plugins", URI.encode_www_form(pc))
-
-      # fetch any provision key for ouath2
-      if pc["name"] == "oauth2"
-        provision_key = JSON.parse(response.body)["config"]["provision_key"]
-        variables["KONG_CLIENT_PROVISION_KEY"] = provision_key
-      end
+      yield(response) if block_given?
     end
   end
 
