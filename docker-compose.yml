@@ -48,8 +48,8 @@ db:
 kong:
   image: rafael/kong:0.5.1
   ports:
-    - "8000:8000"
-    - "8443:8443"
+    - "80:8000"
+    - "443:8443"
     - "8001:8001"
   links:
     - cassandra

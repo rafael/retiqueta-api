@@ -34,6 +34,13 @@ apis:
 
 plugins:
   -
+    name: request-transformer
+    config.add.headers: "x_forwarded_host:<%= Rails.configuration.x.kong.external_host %>,x_forwarded_port:<%= Rails.configuration.x.kong.external_port %>"
+    apis: all
+  -
+    name: cors
+    apis: all
+  -
     name: oauth2
     config.scopes: app
     config.mandatory_scope: true
