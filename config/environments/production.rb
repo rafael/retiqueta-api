@@ -20,8 +20,11 @@ Rails.application.configure do
 
   config.active_record.dump_schema_after_migration = false
 
-  config.x.kong.internal_url = "https://#{ENV['KONG_PORT_443_TCP_ADDR']}"
 
+  config.x.kong.external_host = 'api.retiqueta.com'
+  config.x.kong.external_port = 443
+
+  config.x.kong.internal_url = "https://#{ENV['KONG_PORT_443_TCP_ADDR']}"
   config.x.kong.users_ouath_token_path = "/v1/users/oauth2/token"
   config.x.elastictsearch.host = "elasticsearch"
   config.x.elastictsearch.log = true
