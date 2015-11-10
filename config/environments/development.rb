@@ -33,7 +33,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   config.x.kong.internal_url = "https://kong:8443"
-  config.x.kong.users_ouath_token_path = "/users/oauth2/token"
+  config.x.kong.users_ouath_token_path = "/v1/users/oauth2/token"
   config.x.elastictsearch.host = "elasticsearch"
   config.x.elastictsearch.log = true
 

@@ -13,10 +13,8 @@ namespace :kong do
 
     # setup plugins
     config["plugins"].each do |plugin_config|
-      add_plugin(plugin_config, all_api_names(config)) do |response|
-        # fetch any provision key for ouath2
-        case plugin_config["name"]
-        when "oauth2"
+      add_plugin(plugin_config, all_api_names(config)) do |response, api_name|
+        if plugin_config["name"] == "oauth2" && api_name == "users-resource"
           provision_key = JSON.parse(response.body)["config"]["provision_key"]
           variables["KONG_CLIENT_PROVISION_KEY"] = provision_key
         end
@@ -65,7 +63,7 @@ namespace :kong do
 
   def create_api(api_config)
     log "creating API: #{api_config["name"]}"
-    response = kong_admin.post("/apis", URI.encode_www_form(api_config))
+    kong_admin.post("/apis", URI.encode_www_form(api_config))
   end
 
   def delete_api(name)
@@ -121,7 +119,7 @@ namespace :kong do
     apis.each do |api_name|
       log "adding plugin: #{pc["name"]} to API: #{api_name}"
       response = kong_admin.post("/apis/#{api_name}/plugins", URI.encode_www_form(pc))
-      yield(response) if block_given?
+      yield(response, api_name) if block_given?
     end
   end
 
