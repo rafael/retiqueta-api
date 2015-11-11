@@ -340,17 +340,14 @@ Clients just need to save the ID and attach it to a product on creation.
             Accept: application/json
 
     + Attributes
-        + position (String) - The index position of this image within the product
         + pic (Object) - Picture to upload
         
     + Body
 
             {
                  "data": {
-                    "id": "ax234-02d3-4780-bb15-180854169967",
                     "type": "product_pictures",
                     "attributes": {
-                        "position": 0,
                         "pic": {
                             "content_type": "image/jpeg",
                             "filename": "watchmen.jpg",
@@ -367,7 +364,6 @@ Clients just need to save the ID and attach it to a product on creation.
                     "id": "ax234-02d3-4780-bb15-180854169967",
                     "type": "product_pictures",
                     "attributes": {
-                        "position": 0,
                         "pic": {
                             "content_type": "image/jpeg",
                             "filename": "watchmen.jpg",
@@ -406,16 +402,16 @@ Clients just need to save the ID and attach it to a product on creation.
             Accept: application/json
 
     + Attributes
+        + title (String) - 
+        + category (String) - 
         + description (String) - 
-        + currency (String) -
         + original_price (Double) -
         + price (Double)  -
-        + status (String) - 
+        + pictirues (Array) - Array with picture ids. At least one is required.
     + Body
 
             {
                  "data": {
-                    "id": "ax234-02d3-4780-bb15-180854169967",
                     "type": "products",
                     "attributes": {
                          "category": "shoes",
@@ -496,11 +492,12 @@ Clients just need to save the ID and attach it to a product on creation.
             Accept: application/json
 
     + Attributes
+        + title (String) - 
+        + category (String) - 
         + description (String) - 
-        + currency (String) -
         + original_price (Double) -
         + price (Double)  -
-        + status (String) - 
+        + pictirues (Array) - Array with picture ids. At least one is required.
     + Body
 
             {

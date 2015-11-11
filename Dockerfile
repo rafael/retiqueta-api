@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
 # directory used in any further RUN, COPY, and ENTRYPOINT
 # commands.
 RUN mkdir -p /app
+RUN mkdir -p /app/tmp/pids
 WORKDIR /app
 
 # Copy the Gemfile as well as the Gemfile.lock and install

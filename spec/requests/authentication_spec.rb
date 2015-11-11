@@ -45,6 +45,13 @@ RSpec.describe "User authentication", type: :request do
     expect(json).to have_error_json_as(unauthorized_error)
   end
 
+  it "gives error when the user doesn't exist" do
+    post "/v1/authenticate", login: 'invalid', password: '1234567', client_id: 'ret-mobile-ios'
+    error = ApiError::NotFound.new(I18n.t("user.errors.invalid_username"))
+    expect(response.status).to eq(error.status)
+    expect(json).to have_error_json_as(error)
+  end
+
   it "refreshes a token", :vcr do
     post "/v1/authenticate", login: user.email, password: '123456', client_id: 'ret-mobile-ios'
     expect(response.status).to eq(200)

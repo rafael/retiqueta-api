@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   end
 
   def initialize_profile
-    build_profile
+    # only build profile if it hasn't been set.
+    profile || build_profile
   end
 end
