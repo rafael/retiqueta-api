@@ -17,6 +17,8 @@ api:
     MYSQL_ROOT_PASSWORD: 123456
     REDIS_SERVICE_HOST: "redis"
     REDIS_SERVICE_PORT: "6379"
+    SMTP_USER_NAME: dextrin.diorman@gmail.com
+    SMTP_PASSWORD: u7uu24nmtB47K9YigTyThg
     DOCKER_HOST_IP:
 worker:
   build: .
@@ -35,6 +37,8 @@ worker:
     MYSQL_ROOT_PASSWORD: 123456
     REDIS_SERVICE_HOST: "redis"
     REDIS_SERVICE_PORT: "6379"
+    SMTP_USER_NAME: dextrin.diorman@gmail.com
+    SMTP_PASSWORD: u7uu24nmtB47K9YigTyThg
 redis:
  image: library/redis:2.6.17
  ports:

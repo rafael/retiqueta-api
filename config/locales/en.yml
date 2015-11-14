@@ -65,3 +65,6 @@ en:
       odd: "must be odd"
       even: "must be even"
       unauthorized: "You don't have access to see the requested resource"
+  user_mailer:
+    signup_email:
+      subject: "Welcome to Retiqueta"

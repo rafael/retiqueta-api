@@ -5,3 +5,4 @@ production:
 :queues:
   - paperclip
   - indexer
+  - mailers

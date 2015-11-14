@@ -46,6 +46,7 @@ module Registrations
       user = User.new(attributes.except(:password))
       user.password = password
       if user.valid? && user.save
+        UserMailer.signup_email(user).deliver_later
         self.success_result = user
       else
         user.errors.each do |k, v|
