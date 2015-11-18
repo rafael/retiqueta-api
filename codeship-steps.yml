@@ -1,0 +1,3 @@
+- name: test_step
+  service: api
+  command: bundle exec rake db:create; bundle exec rake db:migrate
