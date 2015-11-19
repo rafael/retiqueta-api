@@ -19,7 +19,7 @@ api:
     REDIS_SERVICE_PORT: "6379"
     SMTP_USER_NAME: dextrin.diorman@gmail.com
     SMTP_PASSWORD: u7uu24nmtB47K9YigTyThg
-    DOCKER_HOST_IP:
+    DOCKER_HOST_IP: 192.168.99.100
 worker:
   build: .
   command: bundle exec sidekiq -C config/sidekiq.yml
