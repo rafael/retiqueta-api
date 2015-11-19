@@ -18,6 +18,11 @@ class V1::ProductsController < ApplicationController
     render json: outcome.success_result, serializer: ProductSerializer, status: 201
   end
 
+  def destroy
+    ::Products::Destroy.call(user_id:  user_id, id: params[:id])
+    render json: {}, status: 204
+  end
+
   private
 
   def filtered_include
