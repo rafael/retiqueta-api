@@ -68,3 +68,7 @@ en:
   user_mailer:
     signup_email:
       subject: "Welcome to Retiqueta"
+  product:
+    errors:
+      not_found: "Product not found"
+      invalid_type: "Only published products can be deleted"
