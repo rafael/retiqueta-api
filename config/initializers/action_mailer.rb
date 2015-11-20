@@ -3,7 +3,7 @@ ActionMailer::Base.smtp_settings = {
   password: Rails.application.secrets.smtp_password,
   domain: "www.retiqueta.com",
   address: "smtp.mandrillapp.com",
-  port: 587,
+  port: 2525,
   authentication: :login,
   enable_starttls_auto: true
 }
