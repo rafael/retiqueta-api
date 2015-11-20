@@ -68,7 +68,7 @@ RSpec.describe "Products", type: :request do
     expect(json['links']).to_not be_empty
   end
 
-  it "a product can be deleted", :focus do
+  it "a product can be deleted" do
     delete "/v1/products/#{product.uuid}", {}, { 'X-Authenticated-Userid' => user.uuid }
     expect(response.status).to eq(204)
   end

@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   ##################
 
   has_one :profile, autosave: true
+  has_many :products, primary_key: :uuid
 
   delegate :pic, :first_name, :last_name, :bio, :website, :country, to: :profile
 
