@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe "Products", type: :request do
 
   let(:user) { create(:user, password: '123456') }
+  let(:product) { create(:product, user: user) }
 
   let(:valid_product_picture) do
     {
@@ -65,6 +66,11 @@ RSpec.describe "Products", type: :request do
     expect(response.status).to eq(200)
     expect(json['data'].count).to eq(1)
     expect(json['links']).to_not be_empty
+  end
+
+  it "a product can be deleted" do
+    delete "/v1/products/#{product.uuid}", {}, { 'X-Authenticated-Userid' => user.uuid }
+    expect(response.status).to eq(204)
   end
 
   context "search" do

@@ -1,0 +1,51 @@
+consumer:
+  username: retiqueta
+
+outh2_application:
+  name: dev-app
+  redirect_uri: http://redirect.uri
+
+apis:
+  -
+    name: products-resource
+    request_path: /v1/products
+    strip_request_path: true
+    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/products
+  -
+    name: users-resource
+    request_path: /v1/users
+    strip_request_path: true
+    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/users
+  -
+    name: authenticate-resource
+    request_path: /v1/authenticate
+    strip_request_path: true
+    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/authenticate
+  -
+    name: product-pictures-resource
+    request_path: /v1/product_pictures
+    strip_request_path: true
+    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/product_pictures
+  -
+    name: registrations-resource
+    request_path: /v1/registrations
+    strip_request_path: true
+    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/registrations
+
+plugins:
+  -
+    name: request-transformer
+    config.add.headers: "x_forwarded_host:<%= Rails.configuration.x.kong.external_host %>,x_forwarded_port:<%= Rails.configuration.x.kong.external_port %>"
+    apis: all
+  -
+    name: cors
+    apis: all
+  -
+    name: oauth2
+    config.scopes: app
+    config.mandatory_scope: true
+    config.enable_password_grant: true
+    apis:
+      - products-resource
+      - users-resource
+      - product-pictures-resource

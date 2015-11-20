@@ -1,5 +1,6 @@
 api:
   build: .
+  command: "config/container/start-server-dev.sh -bash"
   volumes:
     - .:/app
   ports:
@@ -16,6 +17,9 @@ api:
     MYSQL_ROOT_PASSWORD: 123456
     REDIS_SERVICE_HOST: "redis"
     REDIS_SERVICE_PORT: "6379"
+    SMTP_USER_NAME: dextrin.diorman@gmail.com
+    SMTP_PASSWORD: u7uu24nmtB47K9YigTyThg
+    DOCKER_HOST_IP:
 worker:
   build: .
   command: bundle exec sidekiq -C config/sidekiq.yml
@@ -33,6 +37,8 @@ worker:
     MYSQL_ROOT_PASSWORD: 123456
     REDIS_SERVICE_HOST: "redis"
     REDIS_SERVICE_PORT: "6379"
+    SMTP_USER_NAME: dextrin.diorman@gmail.com
+    SMTP_PASSWORD: u7uu24nmtB47K9YigTyThg
 redis:
  image: library/redis:2.6.17
  ports:
@@ -46,8 +52,8 @@ db:
 kong:
   image: rafael/kong:0.5.1
   ports:
-    - "8000:8000"
-    - "8443:8443"
+    - "80:8000"
+    - "443:8443"
     - "8001:8001"
   links:
     - cassandra
