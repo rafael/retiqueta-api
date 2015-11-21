@@ -87,6 +87,13 @@ RSpec.describe "Users", type: :request do
       expect(user.following.count).to eq(0)
       expect(response.status).to eq(204)
     end
+
+    it "returns proper metadata when visiting followed user profile" do
+      post "/v1/users/#{followed.uuid}/follow", nil, { 'X-Authenticated-Userid' => user.uuid }
+      get "/v1/users/#{followed.uuid}", nil, { 'X-Authenticated-Userid' => user.uuid }
+      expect(response.status).to eq(200)
+      expect(json["meta"]["followed_by_current_user"]).to eq(true)
+    end
   end
 
   context "relationships" do

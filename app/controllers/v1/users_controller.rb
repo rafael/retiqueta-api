@@ -3,8 +3,19 @@ class V1::UsersController < ApplicationController
   before_action :authorize_user!, only: [:update, :upload_profile_pic]
 
   def show
-    outcome = ::Users::Read.call(id:  params[:id])
-    render json: outcome.success_result, serializer: user_serializer, status: 200, image_size: request.headers['image-size']
+    outcome = ::Users::Read.call(id:  params[:id], current_user_id: user_id)
+    if should_use_private_serializer?
+      render json: outcome.success_result,
+             serializer: UserSerializer,
+             status: 200,
+             image_size: request.headers['image-size']
+    else
+      render json: outcome.success_result,
+             serializer: PublicUserSerializer,
+             meta: outcome.metadata,
+             status: 200,
+             image_size: request.headers['image-size']
+    end
   end
 
   def update
@@ -29,12 +40,8 @@ class V1::UsersController < ApplicationController
 
   private
 
-  def user_serializer
-    if params[:id] == user_id
-      UserSerializer
-    else
-      PublicUserSerializer
-    end
+  def should_use_private_serializer?
+    params[:id] == user_id
   end
 
   def user_params
