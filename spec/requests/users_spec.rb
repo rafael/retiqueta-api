@@ -50,12 +50,18 @@ RSpec.describe "Users", type: :request do
     expect(user.country).to eq('venezuela')
   end
 
-  it "doesn't allow user to see other users profile" do
+  it "uses a different serializer when another user is seeing the profile" do
     user_2 = create(:user, password: '123456')
     get "/v1/users/#{user_2.uuid}", nil, { 'X-Authenticated-Userid' => user.uuid }
-    failed_error = ApiError::Unauthorized.new(I18n.t("errors.messages.unauthorized"))
-    expect(response.status).to eq(failed_error.status)
-    expect(json).to have_error_json_as(failed_error)
+    expect(response.status).to eq(200)
+    user_response_attributes = json["data"]["attributes"]
+    expect(user_response_attributes.keys.to_set).to eq(["username",
+                                                        "first_name",
+                                                        "last_name",
+                                                        "profile_pic",
+                                                        "website",
+                                                        "country",
+                                                        "bio"].to_set)
   end
 
   it "responds with valid json on errors" do
@@ -63,6 +69,24 @@ RSpec.describe "Users", type: :request do
     failed_error = ApiError::NotFound.new(I18n.t("user.errors.not_found"))
     expect(response.status).to eq(failed_error.status)
     expect(json).to have_error_json_as(failed_error)
+  end
+
+  context "social networking" do
+
+    let(:followed) { create(:user, password: '123456') }
+
+    it "can follow an user" do
+      post "/v1/users/#{followed.uuid}/follow", nil, { 'X-Authenticated-Userid' => user.uuid }
+      expect(response.status).to eq(204)
+      expect(user.following.count).to eq(1)
+    end
+
+    it "can unfollow an user" do
+      post "/v1/users/#{followed.uuid}/follow", nil, { 'X-Authenticated-Userid' => user.uuid }
+      post "/v1/users/#{followed.uuid}/unfollow", nil, { 'X-Authenticated-Userid' => user.uuid }
+      expect(user.following.count).to eq(0)
+      expect(response.status).to eq(204)
+    end
   end
 
   context "relationships" do

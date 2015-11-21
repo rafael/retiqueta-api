@@ -25,6 +25,8 @@ en:
       not_found: "User not found"
       invalid_password: "Invalid password"
       invalid_username: "Invalid username"
+      following_itself_not_allowed: "You can't follow yourself"
+      already_following: "You can't follow an user twice"
   product:
     errors:
       invalid_category: "The category provided is invalid. Provided %{category}, required %{valid_categories}"
