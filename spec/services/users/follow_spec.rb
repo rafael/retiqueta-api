@@ -8,7 +8,7 @@ RSpec.describe Users::Follow, type: :model do
 
     it "raises an error when trying to follow itself" do
       expect do
-        described_class..call(follower_id: follower.uuid, followed_id: follower.uuid)
+        described_class.call(follower_id: follower.uuid, followed_id: follower.uuid)
       end.to raise_error(ApiError::FailedValidation, "You can't follow yourself")
     end
 
