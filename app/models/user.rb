@@ -36,12 +36,12 @@ class User < ActiveRecord::Base
 
   has_many :followers,
            through: :passive_relationships,
-           source: :followed,
+           source: :follower,
            primary_key: :uuid
 
   has_many :following,
            through: :active_relationships,
-           source: :follower,
+           source: :followed,
            primary_key: :uuid
 
   delegate :pic, :first_name, :last_name, :bio, :website, :country, to: :profile
