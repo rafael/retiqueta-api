@@ -1,7 +1,6 @@
-class UserSerializer < ActiveModel::Serializer
+class PublicUserSerializer < ActiveModel::Serializer
   attributes :id,
              :username,
-             :email,
              :profile_pic,
              :first_name,
              :last_name,
