@@ -34,7 +34,9 @@ RSpec.describe "Users", type: :request do
                                                         "profile_pic",
                                                         "website",
                                                         "country",
-                                                        "bio"].to_set)
+                                                        "bio",
+                                                        "following_count",
+                                                        "followers_count"].to_set)
     expect(user_response_attributes["email"]).to eq(user.email)
     expect(user_response_attributes["username"]).to eq(user.username)
     expect(user_response_attributes["first_name"]).to eq(user.first_name)
@@ -61,7 +63,9 @@ RSpec.describe "Users", type: :request do
                                                         "profile_pic",
                                                         "website",
                                                         "country",
-                                                        "bio"].to_set)
+                                                        "bio",
+                                                        "following_count",
+                                                        "followers_count"].to_set)
   end
 
   it "responds with valid json on errors" do

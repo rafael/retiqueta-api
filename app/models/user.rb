@@ -50,6 +50,14 @@ class User < ActiveRecord::Base
     active_relationships.where(followed_id: user.uuid).count > 0
   end
 
+  def followers_count
+    passive_relationships.count
+  end
+
+  def following_count
+    active_relationships.count
+  end
+
   private
 
   def generate_uuid

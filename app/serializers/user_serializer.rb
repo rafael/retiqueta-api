@@ -7,7 +7,9 @@ class UserSerializer < ActiveModel::Serializer
              :last_name,
              :website,
              :country,
-             :bio
+             :bio,
+             :following_count,
+             :followers_count
 
   attribute :uuid, key: :id
 
