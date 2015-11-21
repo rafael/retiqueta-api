@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
     resources :users, only: [:show, :update] do
       resources :products, only: [:index], path: 'relationships/products', module: 'users'
+      post 'follow' => 'users#follow'
+      post 'unfollow' => 'users#unfollow'
       put 'upload-profile-pic' => 'users#upload_profile_pic'
     end
 
