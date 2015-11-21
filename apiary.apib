@@ -242,7 +242,7 @@ object containing the required attributes for an user.
                     "last_name": "chacon",
                     "website": "http://www.rafael-chacon.com",
                     "bio": "New bio",
-                    "country": "venezeula" 
+                    "country": "venezeula"
                     }
                 }
             }
@@ -257,18 +257,45 @@ object containing the required attributes for an user.
                     "last_name": "chacon",
                     "website": "http://www.rafael-chacon.com",
                     "bio": "New bio",
-                    "country": "venezeula" 
+                    "country": "venezeula"
                     }
                 }
             }
 
 + Response 204 (application/json)
-            
+
+
+## User following [/v1/users/{user_id}/follow]
+
+### Follow [POST]
+
+The user that is currently authenticated follows the provided user.
+
++ Payload
+    + Headers
+            Accept: application/json
+            Accept: X-Authenticated-Userid
+
++ Response 204 (application/json)
+
+## User unfollowing [/v1/users/{user_id}/unfollow]
+
+### Follow [POST]
+
+The user that is currently authenticated unfollows the provided user.
+
++ Payload
+    + Headers
+            Accept: application/json
+            Accept: X-Authenticated-Userid
+
++ Response 204 (application/json)
+
 ## Upload profile picture [/v1/users/{user_id}/upload-profile-pic]
 
 ### Sets a new profile picture for the user [PUT]
 
-Upload profile picture for users. 
+Upload profile picture for users.
 
 + Payload
     + Headers
@@ -332,7 +359,7 @@ Upload profile picture for users.
 
 ### Create Product Picture [POST]
 
-This endpoint allows clients to upload pictures that can be later on attached to products. The product doesn't have to exist at this point. 
+This endpoint allows clients to upload pictures that can be later on attached to products. The product doesn't have to exist at this point.
 Clients just need to save the ID and attach it to a product on creation.
 + Payload
     + Headers
@@ -341,7 +368,7 @@ Clients just need to save the ID and attach it to a product on creation.
 
     + Attributes
         + pic (Object) - Picture to upload
-        
+
     + Body
 
             {
@@ -372,7 +399,7 @@ Clients just need to save the ID and attach it to a product on creation.
                     }
                 }
             }
-            
+
 + Response 201 (application/json)
 
     + Body
@@ -391,7 +418,7 @@ Clients just need to save the ID and attach it to a product on creation.
                     }
                 }
             }
-            
+
 ## Products [/v1/products]
 
 ### Create product [POST]
@@ -402,9 +429,9 @@ Clients just need to save the ID and attach it to a product on creation.
             Accept: application/json
 
     + Attributes
-        + title (String) - 
-        + category (String) - 
-        + description (String) - 
+        + title (String) -
+        + category (String) -
+        + description (String) -
         + original_price (Double) -
         + price (Double)  -
         + pictirues (Array) - Array with picture ids. At least one is required.
@@ -460,7 +487,7 @@ Clients just need to save the ID and attach it to a product on creation.
             }
 
 ## Product [/v1/products/{id}]
-         
+
 ### Get product [GET]
 
 + Response 200 (application/json)
@@ -477,7 +504,7 @@ Clients just need to save the ID and attach it to a product on creation.
                       "price": 20.0,
                       "status": "published"
                     }
-                
+
                 }
             }
 
@@ -492,9 +519,9 @@ Clients just need to save the ID and attach it to a product on creation.
             Accept: application/json
 
     + Attributes
-        + title (String) - 
-        + category (String) - 
-        + description (String) - 
+        + title (String) -
+        + category (String) -
+        + description (String) -
         + original_price (Double) -
         + price (Double)  -
         + pictirues (Array) - Array with picture ids. At least one is required.
@@ -511,7 +538,7 @@ Clients just need to save the ID and attach it to a product on creation.
                          "original_price": 60,
                          "price": 40
                     }
-                    
+
                 }
             }
 
@@ -538,7 +565,7 @@ Clients just need to save the ID and attach it to a product on creation.
 
 + Response 204 (application/json)
 
-            
+
 ## Featured Products [/v1/products/featured]
 
 ### Get all featured products products [GET]
