@@ -647,5 +647,70 @@ Clients just need to save the ID and attach it to a product on creation.
                     ]
                 }
             }
+            
+## User [/v1/users/{user_id}/relationships/following]
+
+
+### Get User Following [GET]
+
+Returns the users that the user is following.
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                 "data": [
+                    "id": "f52c3d57-02d3-4780-bb15-180854169967",
+                    "type": "users",
+                    "attributes": {
+                      "username": "rafael"
+                    },
+                    "meta": {
+                      "followed_by_current_user": true
+                    }
+                ]
+             
+            }
+
+## User [/v1/users/{user_id}/relationships/followers]          
+### Get User Followers [GET]
+
+Returns the followers of the user.
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                 "data": [
+                    "id": "f52c3d57-02d3-4780-bb15-180854169967",
+                    "type": "users",
+                    "attributes": {
+                      "username": "rafael"
+                    },
+                    "meta": {
+                      "followed_by_current_user": true
+                    }
+                ]
+             
+            }
+
 
 
