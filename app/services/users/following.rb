@@ -27,11 +27,12 @@ module Users
     ## Instance Methods ##
     ######################
 
-    attr_accessor :id, :current_user, :success_result, :per_page, :page
+    attr_accessor :id, :current_user, :request_context, :success_result, :per_page, :page
 
     def initialize(params = {})
       @id = params.fetch(:user_id)
       @current_user = params[:current_user]
+      @request_context = params[:request_context]
       page = params.fetch(:page) { {} }
       @per_page = page[:size] || 25
       @page = page[:number] || 1
@@ -42,7 +43,8 @@ module Users
       followers_serializable_hash =
         ActiveModel::SerializableResource.new(followers,
                                               adapter: :json_api,
-                                              each_serializer: FollowerSerializer).serializable_hash
+                                              context: request_context,
+                                              each_serializer: FollowerSerializer).serializable_hash(context: request_context)
       followers_with_meta = followers_serializable_hash.inject({}) do |acc, (key, value)|
         if key == :data
           acc[key] = value.map do |follower|
