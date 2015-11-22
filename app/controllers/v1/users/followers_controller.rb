@@ -13,7 +13,7 @@ class V1::Users::FollowersController < ApplicationController
   private
 
   def request_context
-    @request_context ||= OpenStruct.new(original_url: env['REQUEST_URI'],
+    @request_context ||= OpenStruct.new(original_url: request.url,
                                         query_parameters: env['rack.request.query_hash'])
 
   end
