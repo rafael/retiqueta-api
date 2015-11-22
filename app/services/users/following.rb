@@ -27,10 +27,11 @@ module Users
     ## Instance Methods ##
     ######################
 
-    attr_accessor :id, :success_result, :per_page, :page
+    attr_accessor :id, :current_user, :success_result, :per_page, :page
 
     def initialize(params = {})
       @id = params.fetch(:user_id)
+      @current_user = params[:current_user]
       page = params.fetch(:page) { {} }
       @per_page = page[:size] || 25
       @page = page[:number] || 1
@@ -38,7 +39,23 @@ module Users
 
     def generate_result!
       followers = user.following.page(page).per(per_page)
-      self.success_result = followers
+      followers_serializable_hash =
+        ActiveModel::SerializableResource.new(followers,
+                                              adapter: :json_api,
+                                              each_serializer: FollowerSerializer).serializable_hash
+      followers_with_meta = followers_serializable_hash.inject({}) do |acc, (key, value)|
+        if key == :data
+          acc[key] = value.map do |follower|
+            follower.merge(meta: {
+                             followed_by_current_user: current_user && current_user.following?(User.find_by_uuid(follower[:id]))
+                           })
+          end
+        else
+          acc[key] = value
+        end
+        acc
+      end
+      self.success_result = followers_with_meta
     end
 
     private

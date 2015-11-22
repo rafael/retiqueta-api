@@ -17,4 +17,8 @@ class ApplicationController < ActionController::API
   def user_id
     @user_id ||= request.headers['X-Authenticated-Userid']
   end
+
+  def current_user
+    @user ||= User.find_by_uuid(user_id)
+  end
 end

@@ -131,6 +131,7 @@ RSpec.describe "Users", type: :request do
       expect(response.status).to eq(200)
       expect(json['data'].count).to eq(1)
       expect(json['data'].first['id']).to eq(user.uuid)
+      expect(json['data'].first['meta']).to eq({ 'followed_by_current_user' => false })
       expect(json['data'].first['attributes'].keys.to_set).to eq(['username'].to_set)
     end
 
@@ -140,6 +141,7 @@ RSpec.describe "Users", type: :request do
       expect(response.status).to eq(200)
       expect(json['data'].count).to eq(1)
       expect(json['data'].first['id']).to eq(followed.uuid)
+      expect(json['data'].first['meta']).to eq({ 'followed_by_current_user' => true })
       expect(json['data'].first['attributes'].keys.to_set).to eq(['username'].to_set)
     end
   end

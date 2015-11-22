@@ -27,18 +27,37 @@ module Users
     ## Instance Methods ##
     ######################
 
-    attr_accessor :id, :success_result, :per_page, :page
+    attr_accessor :id, :current_user, :success_result, :per_page, :page
 
     def initialize(params = {})
       @id = params.fetch(:user_id)
+      @current_user = params[:current_user]
       page = params.fetch(:page) { {} }
       @per_page = page[:size] || 25
       @page = page[:number] || 1
     end
 
     def generate_result!
+      # This a horrible hack, but ActiveModelSerializers doesn't have a proper way to add a meta key on a per resource basis.
+      # For now I'm going to to do this and hope that in the future this will get fix.
       followers = user.followers.page(page).per(per_page)
-      self.success_result = followers
+      followers_serializable_hash =
+        ActiveModel::SerializableResource.new(followers,
+                                              adapter: :json_api,
+                                              each_serializer: FollowerSerializer).serializable_hash
+      followers_with_meta = followers_serializable_hash.inject({}) do |acc, (key, value)|
+        if key == :data
+          acc[key] = value.map do |follower|
+            follower.merge(meta: {
+                             followed_by_current_user: current_user && current_user.following?(User.find_by_uuid(follower[:id]))
+                           })
+          end
+        else
+          acc[key] = value
+        end
+        acc
+      end
+      self.success_result = followers_with_meta
     end
 
     private
