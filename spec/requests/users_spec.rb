@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Users", type: :request do
 
   let(:user) { create(:user, password: '123456') }
-
+  let(:followed) { create(:user, password: '123456') }
   let(:update_params) do
     {
       data: {
@@ -77,8 +77,6 @@ RSpec.describe "Users", type: :request do
 
   context "social networking" do
 
-    let(:followed) { create(:user, password: '123456') }
-
     it "can follow an user" do
       post "/v1/users/#{followed.uuid}/follow", nil, { 'X-Authenticated-Userid' => user.uuid }
       expect(response.status).to eq(204)
@@ -125,6 +123,24 @@ RSpec.describe "Users", type: :request do
       expect(response.status).to eq(200)
       expect(json['data'].count).to eq(2)
       expect(json['included'].count).to eq(2)
+    end
+
+    it "returns user followers" do
+      post "/v1/users/#{followed.uuid}/follow", nil, { 'X-Authenticated-Userid' => user.uuid }
+      get "/v1/users/#{followed.uuid}/relationships/followers", {}, { 'X-Authenticated-Userid' => user.uuid }
+      expect(response.status).to eq(200)
+      expect(json['data'].count).to eq(1)
+      expect(json['data'].first['id']).to eq(user.uuid)
+      expect(json['data'].first['attributes'].keys.to_set).to eq(['username'].to_set)
+    end
+
+    it "returns user following" do
+      post "/v1/users/#{followed.uuid}/follow", nil, { 'X-Authenticated-Userid' => user.uuid }
+      get "/v1/users/#{user.uuid}/relationships/following", {}, { 'X-Authenticated-Userid' => user.uuid }
+      expect(response.status).to eq(200)
+      expect(json['data'].count).to eq(1)
+      expect(json['data'].first['id']).to eq(followed.uuid)
+      expect(json['data'].first['attributes'].keys.to_set).to eq(['username'].to_set)
     end
   end
 end
