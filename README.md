@@ -29,4 +29,4 @@ or
 $ docker exec retiquetaapi_api_1 bundle exec rspec
 ```
 
-test deploy
+test 3
