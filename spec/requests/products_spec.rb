@@ -99,5 +99,14 @@ RSpec.describe "Products", type: :request do
       expect(json['data'].first['id']).to eq(product.uuid)
       expect(json['included'].count).to eq(1)
     end
+
+    it "searches a product and includes user when requested" do
+      product = create(:product, title: "zapato super #nike")
+      expect(Product).to receive(:search).and_return(Kaminari.paginate_array([product]))
+      get "/v1/products/search", q: "nike", include: 'user'
+      expect(response.status).to eq(200)
+      expect(json['data'].first['id']).to eq(product.uuid)
+      expect(json['included'].count).to eq(1)
+    end
   end
 end
