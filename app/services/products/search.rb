@@ -28,11 +28,13 @@ module Products
       products_search_result = Product.search(query: query, per_page: per_page, page: page)
       products = products_search_result.map do |result|
         # Let's fake an AR product.
-        Product.new(uuid: result.uuid,
-                    title: result.title,
-                    category: result.category,
-                    description: result.description,
-                    status: result.status)
+        p = Product.new(uuid: result.uuid,
+                        title: result.title,
+                        category: result.category,
+                        description: result.description,
+                        status: result.status)
+        p.user_id = result.user_id
+        p
       end
       products = Kaminari.
                  paginate_array(products, total_count: products_search_result.total_count).

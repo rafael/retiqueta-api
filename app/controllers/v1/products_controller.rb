@@ -26,7 +26,7 @@ class V1::ProductsController < ApplicationController
   private
 
   def filtered_include
-    (params[:include] || "").split(",").find_all { |include| include == "product_pictures" }
+    (params[:include] || "").split(",").find_all { |filter| ['product_pictures', 'user'].include?(filter)  }
   end
 
   def create_product_params

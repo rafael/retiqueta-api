@@ -4,4 +4,5 @@ class ProductSerializer < ActiveModel::Serializer
   attribute :uuid, key: :id
 
   has_many :product_pictures
+  belongs_to :user
 end
