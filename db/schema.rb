@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151121163818) do
+ActiveRecord::Schema.define(version: 20151129203118) do
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "conversation_id", limit: 4
+    t.string   "uuid",            limit: 255
+    t.string   "user_id",         limit: 255
+    t.string   "string",          limit: 255
+    t.text     "data",            limit: 65535
+    t.string   "user_picture",    limit: 255
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "comments", ["conversation_id"], name: "index_comments_on_conversation_id", using: :btree
+
+  create_table "conversations", force: :cascade do |t|
+    t.integer  "commentable_id",   limit: 4
+    t.string   "commentable_type", limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "conversations", ["commentable_id", "commentable_type"], name: "index_conversations_on_commentable_id_and_commentable_type", unique: true, using: :btree
 
   create_table "product_pictures", force: :cascade do |t|
     t.string   "user_id",          limit: 255

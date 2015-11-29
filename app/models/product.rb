@@ -6,12 +6,15 @@ class Product < ActiveRecord::Base
 
   belongs_to :user, primary_key: :uuid
   has_many :product_pictures, -> { order(position: :asc) }, primary_key: :uuid
+  has_one :conversation, as: :commentable
+  delegate :comments, to: :conversation
 
   ###############
   ## Callbacks ##
   ###############
 
   before_create :generate_uuid
+  before_create :generate_converstation
 
   after_commit  on: [:create, :update] { ProductsIndexer.perform_later(self, 'index') }
   after_destroy on: [:destroy] { ProductsIndexer.perform_later(self, 'delete') }
@@ -101,5 +104,9 @@ class Product < ActiveRecord::Base
 
   def generate_uuid
     self.uuid = SecureRandom.uuid
+  end
+
+  def generate_converstaion
+    converstaion || build_conversation
   end
 end
