@@ -109,4 +109,27 @@ RSpec.describe "Products", type: :request do
       expect(json['included'].count).to eq(1)
     end
   end
+
+  context "comments" do
+    let(:params) {
+      {
+        user_id: user.uuid,
+        product_id: product.uuid,
+        data: {
+          type: 'text_comments',
+          attributes: {
+            text: 'Hey I like your shoes @rafael'
+          }
+        }
+      }
+    }
+
+    it "adds a comment to a product" do
+      post "/v1/products/#{product.uuid}/relationships/comments" , params, { 'X-Authenticated-Userid' => user.uuid }
+      expect(response.status).to eq(201)
+      expect(json['data']['type']).to eq('text_comments')
+      expect(json['data']['id']).to eq(Comment.last.uuid)
+      expect(json['data']['attributes']['text']).to eq('Hey I like your shoes @rafael')
+    end
+  end
 end
