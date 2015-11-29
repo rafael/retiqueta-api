@@ -12,6 +12,12 @@ RSpec.describe Product, type: :model do
         product.run_callbacks(:commit)
       end.to change(enqueued_jobs, :size).by(1)
     end
+
+    it "creates a conversation" do
+      product = build(:product)
+      product.save
+      expect(product.conversation).to_not be_nil
+    end
   end
 
 

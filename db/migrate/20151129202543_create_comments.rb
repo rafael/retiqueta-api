@@ -2,11 +2,10 @@ class CreateComments < ActiveRecord::Migration
   def change
     create_table :comments do |t|
       t.integer :conversation_id
-      t.string :uuid
-      t.string :user_id
-      t.string :string
-      t.text :data
-      t.string :user_picture
+      t.string :uuid, null: false
+      t.string :user_id, null: false
+      t.text :data, null: false
+      t.string :user_pic
 
       t.timestamps null: false
     end

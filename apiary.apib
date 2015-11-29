@@ -171,7 +171,9 @@ object containing the required attributes for an user.
                     "attributes": {
                       "username": "rafael",
                       "email": "jose@gmail.com",
-                      "profile_pic" null
+                      "profile_pic" null,
+                      "followers_count": 0,
+                      "following_count": 0
                     }
                 }
             }
@@ -182,8 +184,8 @@ object containing the required attributes for an user.
 
 ### Get User [GET]
 
-This is the endpoint used to retrieve user information. 
-When requesting an user different that the one provided 
+This is the endpoint used to retrieve user information.
+When requesting an user different that the one provided
 by the authorization token, a meta tag will be included in the
 response where extra information can be found. Right now it contains a flag
 to indicate wheter or not the current user is following the requested user.
@@ -282,7 +284,7 @@ The user that is currently authenticated follows the provided user.
 
 + Payload
     + Headers
-    
+
             Accept: application/json
             Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
             Content-Type: application/json
@@ -297,7 +299,7 @@ The user that is currently authenticated unfollows the provided user.
 
 + Payload
     + Headers
-    
+
             Accept: application/json
             Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
             Content-Type: application/json
@@ -360,10 +362,12 @@ Upload profile picture for users.
                     "id": "f52c3d57-02d3-4780-bb15-180854169967",
                     "type": "users",
                     "attributes": {
-                    "first_name": "rafael",
-                    "username": "rafael",
-                    "email": "jose@gmail.com",
-                    "profile_pic": "http://s3.amazonaws.com/retiqueta-dev-images/73ede61af99add88d8c32e61a43ab920fdeab818.jpg?1444979019"
+                      "first_name": "rafael",
+                      "username": "rafael",
+                      "email": "jose@gmail.com",
+                      "profile_pic": "http://s3.amazonaws.com/retiqueta-dev-images/73ede61af99add88d8c32e61a43ab920fdeab818.jpg?1444979019",
+                      "followers_count": 0,
+                      "following_count": 0
                     }
                 }
             }
@@ -647,7 +651,7 @@ Clients just need to save the ID and attach it to a product on creation.
                     ]
                 }
             }
-            
+
 ## User Following [/v1/users/{user_id}/relationships/following]
 
 
@@ -678,10 +682,11 @@ Returns the users that the user is following.
                       "followed_by_current_user": true
                     }
                 ]
-             
+
             }
 
-## User Followers [/v1/users/{user_id}/relationships/followers]          
+## User Followers [/v1/users/{user_id}/relationships/followers]
+
 ### Get User Followers [GET]
 
 Returns the followers of the user.
@@ -709,8 +714,76 @@ Returns the followers of the user.
                       "followed_by_current_user": true
                     }
                 ]
-             
+            }
+
+## Product coments [/v1/products/{product_id}/relationships/comments]
+
+### Create comment [POST]
+
+Adds a comment to the product
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+    + Attributes
+        + text (string) - Context of the comment
+    + Body
+
+            {
+                "data": {
+                  "type": "text_comments",
+                  "attributes": {
+                    "text": "Que blusa tan bonita @rafael"
+                  }
+                }
+            }
+
++ Response 201 (application/json)
+
+    + Body
+
+            {
+                 "data": {
+                    "id": "f52c3d57-02d3-4780-bb15-180854169967",
+                    "type": "text_comments",
+                    "attributes": {
+                      "user_id": "3e3ef58c-a98a-4476-95c7-442f33a98c2d",
+                      "user_picture": "http://s3.amazonaws.com/retiqueta-dev-images/73ede61af99add88d8c32e61a43ab920fdeab818.jpg?1444979019",
+                      "text": "Que blusa tan bonita @rafael"
+                    }
+                }
             }
 
 
+### Get product comments [POST]
+
+Fetch comments for the product. This endpoint is paginated.
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                 "data": [
+                    "id": "f52c3d57-02d3-4780-bb15-180854169967",
+                    "type": "text_comments",
+                    "attributes": {
+                      "user_id": "3e3ef58c-a98a-4476-95c7-442f33a98c2d",
+                      "user_picture": "http://s3.amazonaws.com/retiqueta-dev-images/73ede61af99add88d8c32e61a43ab920fdeab818.jpg?1444979019",
+                      "text": "Que blusa tan bonita @rafael"
+                    }
+                ]
+            }
 

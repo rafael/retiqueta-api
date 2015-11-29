@@ -15,11 +15,10 @@ ActiveRecord::Schema.define(version: 20151129203118) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "conversation_id", limit: 4
-    t.string   "uuid",            limit: 255
-    t.string   "user_id",         limit: 255
-    t.string   "string",          limit: 255
-    t.text     "data",            limit: 65535
-    t.string   "user_picture",    limit: 255
+    t.string   "uuid",            limit: 255,   null: false
+    t.string   "user_id",         limit: 255,   null: false
+    t.text     "data",            limit: 65535, null: false
+    t.string   "user_pic",        limit: 255
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end
