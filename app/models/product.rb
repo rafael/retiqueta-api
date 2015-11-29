@@ -106,7 +106,7 @@ class Product < ActiveRecord::Base
     self.uuid = SecureRandom.uuid
   end
 
-  def generate_converstaion
-    converstaion || build_conversation
+  def generate_converstation
+    conversation || build_conversation
   end
 end
