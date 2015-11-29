@@ -13,7 +13,9 @@ class V1::Products::CommentsController < ApplicationController
   end
 
   def destroy
-    ::Products::CommentDestroy.call(user_id:  user_id, id: params[:id])
+    ::Products::DestroyComment.call(user_id:  user_id,
+                                    product_id: params[:product_id],
+                                    id: params[:id])
     render json: {}, status: 204
   end
 

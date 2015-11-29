@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :v1 do
     get 'products/search' => 'products#search'
     resources :registrations, only: :create
-    resources :products,  only: [:create, :index, :destroy] do
+    resources :products,  only: [:create, :index, :destroy, :show] do
       resources :comments, only: [:create, :index, :destroy], path: 'relationships/comments', module: 'products'
     end
     resources :product_pictures, only: :create

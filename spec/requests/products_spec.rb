@@ -131,5 +131,27 @@ RSpec.describe "Products", type: :request do
       expect(json['data']['id']).to eq(Comment.last.uuid)
       expect(json['data']['attributes']['text']).to eq('Hey I like your shoes @rafael')
     end
+
+    it "fetches commments for a product" do
+      post "/v1/products/#{product.uuid}/relationships/comments" , params, { 'X-Authenticated-Userid' => user.uuid }
+      get "/v1/products/#{product.uuid}/relationships/comments" , params, { 'X-Authenticated-Userid' => user.uuid }
+      expect(response.status).to eq(200)
+      expect(json['data'].count).to eq(1)
+    end
+
+    it "deletes commments for a product" do
+      post "/v1/products/#{product.uuid}/relationships/comments" , params, { 'X-Authenticated-Userid' => user.uuid }
+      comment_id = json["data"]["id"]
+      delete "/v1/products/#{product.uuid}/relationships/comments/#{comment_id}" , params, { 'X-Authenticated-Userid' => user.uuid }
+      expect(response.status).to eq(204)
+    end
+
+    it "products can include comments" do
+      post "/v1/products/#{product.uuid}/relationships/comments" , params, { 'X-Authenticated-Userid' => user.uuid }
+      post "/v1/products/#{product.uuid}/relationships/comments" , params, { 'X-Authenticated-Userid' => user.uuid }
+      get "/v1/products/#{product.uuid}" , { include: 'comments' }, { 'X-Authenticated-Userid' => user.uuid }
+      expect(response.status).to eq(200)
+      expect(json['included'].size).to eq(2)
+    end
   end
 end

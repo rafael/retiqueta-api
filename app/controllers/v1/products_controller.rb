@@ -13,6 +13,11 @@ class V1::ProductsController < ApplicationController
     render json: outcome.success_result, each_serializer: ProductSerializer, include: filtered_include, status: 200
   end
 
+  def show
+    outcome = ::Products::Read.call(user_id: user_id, id: params[:id])
+    render json: outcome.success_result, each_serializer: ProductSerializer, include: filtered_include, status: 200
+  end
+
   def create
     outcome = ::Products::Create.call(user_id:  user_id, data: create_product_params)
     render json: outcome.success_result, serializer: ProductSerializer, status: 201
@@ -26,7 +31,7 @@ class V1::ProductsController < ApplicationController
   private
 
   def filtered_include
-    (params[:include] || "").split(",").find_all { |filter| ['product_pictures', 'user'].include?(filter)  }
+    (params[:include] || "").split(",").find_all { |filter| ['product_pictures', 'user', 'comments'].include?(filter)  }
   end
 
   def create_product_params
