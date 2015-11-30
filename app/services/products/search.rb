@@ -33,6 +33,7 @@ module Products
                         category: result.category,
                         description: result.description,
                         status: result.status)
+        p.id = result.id
         p.user_id = result.user_id
         p
       end

@@ -4,7 +4,7 @@ gem 'rails', '4.2.4'
 gem 'rails-api', '0.4.0'
 gem 'spring', :group => :development
 gem 'mysql2', '0.3.18'
-gem 'active_model_serializers', '0.10.0.rc3'
+gem 'active_model_serializers', git: 'https://github.com/rafael/active_model_serializers.git', branch: 'resource-level-meta'
 gem 'authlogic', '3.4.6'
 gem 'faraday', '0.9.2'
 gem 'paperclip', '4.3.1'

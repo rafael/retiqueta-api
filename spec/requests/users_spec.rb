@@ -135,6 +135,16 @@ RSpec.describe "Users", type: :request do
       expect(json['data'].first['attributes'].keys.to_set).to eq(['username'].to_set)
     end
 
+    it "returns user followers in a paginated way" do
+      follower_2 = create(:user, password: '123456')
+      post "/v1/users/#{followed.uuid}/follow", nil, { 'X-Authenticated-Userid' => user.uuid }
+      post "/v1/users/#{followed.uuid}/follow", nil, { 'X-Authenticated-Userid' => follower_2.uuid }
+      get "/v1/users/#{followed.uuid}/relationships/followers", { page: { size: 1, number: 1 } }, { 'X-Authenticated-Userid' => user.uuid }
+      expect(response.status).to eq(200)
+      expect(json['data'].count).to eq(1)
+      expect(json['links'].keys).to eq(["self", "next", "last"])
+    end
+
     it "returns user following" do
       post "/v1/users/#{followed.uuid}/follow", nil, { 'X-Authenticated-Userid' => user.uuid }
       get "/v1/users/#{user.uuid}/relationships/following", {}, { 'X-Authenticated-Userid' => user.uuid }
@@ -143,6 +153,16 @@ RSpec.describe "Users", type: :request do
       expect(json['data'].first['id']).to eq(followed.uuid)
       expect(json['data'].first['meta']).to eq({ 'followed_by_current_user' => true })
       expect(json['data'].first['attributes'].keys.to_set).to eq(['username'].to_set)
+    end
+
+    it "returns user following with pagination" do
+      followed_2 = create(:user, password: '123456')
+      post "/v1/users/#{followed.uuid}/follow", nil, { 'X-Authenticated-Userid' => user.uuid }
+      post "/v1/users/#{followed_2.uuid}/follow", nil, { 'X-Authenticated-Userid' => user.uuid }
+      get "/v1/users/#{user.uuid}/relationships/following", { page: { size: 1, number: 1 } }, { 'X-Authenticated-Userid' => user.uuid }
+      expect(response.status).to eq(200)
+      expect(json['data'].count).to eq(1)
+      expect(json['links'].keys).to eq(["self", "next", "last"])
     end
   end
 end
