@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/rafael/active_model_serializers.git
+  revision: e4ea512167a5174fb924b65e3f5d929dc81c6fe6
+  branch: resource-level-meta
+  specs:
+    active_model_serializers (0.10.0.rc3)
+      actionpack (>= 4.0)
+      activemodel (>= 4.0)
+      railties (>= 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -21,10 +31,6 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active_model_serializers (0.10.0.rc3)
-      actionpack (>= 4.0)
-      activemodel (>= 4.0)
-      railties (>= 4.0)
     activejob (4.2.4)
       activesupport (= 4.2.4)
       globalid (>= 0.3.0)
@@ -353,7 +359,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers (= 0.10.0.rc3)
+  active_model_serializers!
   authlogic (= 3.4.6)
   database_cleaner
   delayed_paperclip (= 2.9.1)

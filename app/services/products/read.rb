@@ -1,5 +1,5 @@
-module Users
-  class Following
+module Products
+  class Read
 
     #################
     ## Extensions  ##
@@ -11,7 +11,12 @@ module Users
     ## Validations ##
     #################
 
+    validates :user_id,
+              :product_id,
+              presence: true, strict: ApiError::FailedValidation
+
     validate :valid_user
+    validate :valid_product
 
     ###################
     ## Class Methods ##
@@ -27,28 +32,35 @@ module Users
     ## Instance Methods ##
     ######################
 
-    attr_accessor :id, :current_user, :success_result, :per_page, :page
+    attr_accessor :success_result, :type, :user_id, :product_id
 
     def initialize(params = {})
-      @id = params.fetch(:user_id)
-      @current_user = params[:current_user]
-      page = params.fetch(:page) { {} }
-      @per_page = page[:size] || 25
-      @page = page[:number] || 1
+      @product_id = params[:id]
+      @user_id = params[:user_id]
+      valid?
     end
 
     def generate_result!
-      following = user.following.page(page).per(per_page)
-      self.success_result = following
+      self.success_result = product
     end
 
     private
 
     def user
-      @user ||= User.find_by_uuid(id)
+      @user ||= User.find_by_uuid(user_id)
     end
 
-    def valid_followed
+    def product
+      @product ||= Product.find_by_uuid(product_id)
+    end
+
+    def valid_product
+      unless product
+        raise ApiError::NotFound.new(I18n.t("product.errors.not_found"))
+      end
+    end
+
+    def valid_user
       unless user
         raise ApiError::NotFound.new(I18n.t("user.errors.not_found"))
       end
