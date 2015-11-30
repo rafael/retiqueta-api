@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'ops/status' => 'ops#status'
+  post 'e22e9a38-cd10-4132-b2d3-a845b0aa0539' => 'ops#ionic_webhook'
 
   namespace :v1 do
     get 'products/search' => 'products#search'
