@@ -1,4 +1,4 @@
-class PushNotification < ActiveRecord::Base
+class PushToken < ActiveRecord::Base
 
   ##################
   ## associations ##
