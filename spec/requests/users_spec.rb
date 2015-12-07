@@ -164,5 +164,23 @@ RSpec.describe "Users", type: :request do
       expect(json['data'].count).to eq(1)
       expect(json['links'].keys).to eq(["self", "next", "last"])
     end
+
+    it "creates a push token" do
+      params =
+        {
+          data: {
+            type: "push_notifications",
+            attributes: {
+              environment: 'development',
+              token: 'super-token',
+              device_id: 'device-id',
+              platform: 'ios',
+            }
+          }
+        }
+
+      post "/v1/users/#{user.uuid}/relationships/push_tokens", params, { 'X-Authenticated-Userid' => user.uuid }
+      expect(response.status).to eq(204)
+    end
   end
 end

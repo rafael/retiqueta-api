@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130003418) do
+ActiveRecord::Schema.define(version: 20151206194736) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "conversation_id", limit: 4
@@ -90,6 +90,20 @@ ActiveRecord::Schema.define(version: 20151130003418) do
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
+
+  create_table "push_tokens", force: :cascade do |t|
+    t.string   "user_id",     limit: 160, null: false
+    t.string   "uuid",        limit: 160, null: false
+    t.string   "platform",    limit: 30,  null: false
+    t.string   "token",       limit: 160, null: false
+    t.string   "device_id",   limit: 160
+    t.string   "environment", limit: 30,  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "push_tokens", ["user_id", "platform"], name: "index_push_tokens_on_user_id_and_platform", using: :btree
+  add_index "push_tokens", ["user_id"], name: "index_push_tokens_on_user_id", using: :btree
 
   create_table "relationships", force: :cascade do |t|
     t.string   "follower_id", limit: 255, null: false

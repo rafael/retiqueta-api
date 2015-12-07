@@ -1,5 +1,3 @@
-require 'ostruct'
-
 class V1::Users::FollowersController < ApplicationController
   def index
     outcome = ::Users::Followers.call(params)
