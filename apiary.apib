@@ -759,7 +759,7 @@ Adds a comment to the product
             }
 
 
-### Get product comments [POST]
+### Get product comments [GET]
 
 Fetch comments for the product. This endpoint is paginated.
 
@@ -787,3 +787,37 @@ Fetch comments for the product. This endpoint is paginated.
                 ]
             }
 
+
+## User push tokens [/v1/users/{user_id}/relationships/push_tokens]
+
+### Create push device token [POST]
+
+Adds a device push token to an user
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+    + Attributes
+        + environment (string) - Environment of the push token cert (only for ios - it should be development or production).
+        + token (string) - Push token
+        + device_id (string) - The unique identifier of the device (only if available)
+        + platform (string) - iOS or  Android
+    + Body
+
+        {
+          "data": {
+            "type": "push_notifications",
+            "attributes": {
+              "environment": "development",
+              "token": "super-token",
+              "device_id": "device-id",
+              "platform": "ios",
+            }
+          }
+        }
+
++ Response 204 (application/json)
