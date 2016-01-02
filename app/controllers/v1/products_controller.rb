@@ -28,6 +28,16 @@ class V1::ProductsController < ApplicationController
     render json: {}, status: 204
   end
 
+  def like
+    ::Products::Like.call(user_id: user_id, product_id: params[:product_id])
+    render json: {}, status: 204
+  end
+
+  def unlike
+    ::Products::Unlike.call(user_id: user_id, product_id: params[:product_id])
+    render json: {}, status: 204
+  end
+
   private
 
   def filtered_include
