@@ -759,7 +759,7 @@ Adds a comment to the product
             }
 
 
-### Get product comments [POST]
+### Get product comments [GET]
 
 Fetch comments for the product. This endpoint is paginated.
 
@@ -787,3 +787,65 @@ Fetch comments for the product. This endpoint is paginated.
                 ]
             }
 
+
+
+## Like a product [/v1/products/{product_id}/like]
+
+### Create like [POST]
+
+Adds a like to the product
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+    
+
++ Response 204 (application/json)
+
+## Product unlike [/v1/products/{product_id}/unlike]
+
+### Dislike a product [POST]
+
+Remove a like from a product.
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+    
+
++ Response 204 (application/json)
+
+## Product likes [/v1/products/{product_id}/relationships/likes]
+
+### Get User likes [GET]
+
+Returns the likes of the product.
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                 "data": [
+                    "id": "f52c3d57-02d3-4780-bb15-180854169967",
+                    "type": "users",
+                    "attributes": {
+                      "username": "rafael"
+                ]
+            }
