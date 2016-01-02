@@ -154,4 +154,33 @@ RSpec.describe "Products", type: :request do
       expect(json['included'].size).to eq(2)
     end
   end
+
+  context "likes" do
+    let(:params) {
+      {
+        user_id: user.uuid,
+        product_id: product.uuid,
+      }
+    }
+
+    it "adds a like to a product" do
+      post "/v1/products/#{product.uuid}/like" , nil, { 'X-Authenticated-Userid' => user.uuid }
+      expect(response.status).to eq(204)
+      expect(product.get_likes.count).to eq(1)
+    end
+
+    it "removes a like" do
+      post "/v1/products/#{product.uuid}/like" , nil, { 'X-Authenticated-Userid' => user.uuid }
+      post "/v1/products/#{product.uuid}/unlike" , nil, { 'X-Authenticated-Userid' => user.uuid }
+      expect(response.status).to eq(204)
+      expect(product.get_likes.count).to eq(0)
+    end
+
+    it "fetches likes" do
+      post "/v1/products/#{product.uuid}/like" , nil, { 'X-Authenticated-Userid' => user.uuid }
+      get "/v1/products/#{product.uuid}/relationships/likes" , params, { 'X-Authenticated-Userid' => user.uuid }
+      likes = json["data"]
+      expect(likes.count).to eq(1)
+    end
+  end
 end

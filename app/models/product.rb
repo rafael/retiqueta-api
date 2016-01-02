@@ -24,6 +24,7 @@ class Product < ActiveRecord::Base
   ################
 
   include Elasticsearch::Model
+  acts_as_votable
 
   #############################
   ## Elastic Search Settings ##
