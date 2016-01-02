@@ -14,6 +14,7 @@ gem 'delayed_paperclip', '2.9.1'
 gem 'unicorn', '4.9.0'
 gem 'kaminari', '0.16.3'
 gem 'elasticsearch-model', '0.1.8'
+gem 'acts_as_votable', '~> 0.10.0'
 
 group :development, :test do
   gem 'pry-byebug'

@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     resources :registrations, only: :create
     resources :products,  only: [:create, :index, :destroy, :show] do
       resources :comments, only: [:create, :index, :destroy], path: 'relationships/comments', module: 'products'
+      resources :likes, only: [:index], path: 'relationships/likes', module: 'products'
+      post 'like' => 'products#like'
+      post 'unlike' => 'products#unlike'
     end
     resources :product_pictures, only: :create
 
