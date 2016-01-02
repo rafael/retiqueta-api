@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206194736) do
+ActiveRecord::Schema.define(version: 20160102205541) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "conversation_id", limit: 4
@@ -56,22 +56,36 @@ ActiveRecord::Schema.define(version: 20151206194736) do
   add_index "product_pictures", ["user_id"], name: "index_product_pictures_on_user_id", using: :btree
 
   create_table "products", force: :cascade do |t|
-    t.string   "uuid",           limit: 255
-    t.string   "title",          limit: 255
-    t.text     "description",    limit: 65535
-    t.string   "category",       limit: 255
-    t.string   "user_id",        limit: 255,                 null: false
-    t.float    "price",          limit: 24
-    t.float    "original_price", limit: 24
+    t.string   "uuid",                    limit: 255
+    t.string   "title",                   limit: 255
+    t.text     "description",             limit: 65535
+    t.string   "category",                limit: 255
+    t.string   "user_id",                 limit: 255,                               null: false
+    t.float    "price",                   limit: 24
+    t.float    "original_price",          limit: 24
     t.boolean  "featured"
-    t.string   "currency",       limit: 255
-    t.string   "status",         limit: 255
-    t.string   "location",       limit: 255
-    t.string   "lat_lon",        limit: 255
-    t.datetime "created_at",                   precision: 3, null: false
-    t.datetime "updated_at",                   precision: 3, null: false
+    t.string   "currency",                limit: 255
+    t.string   "status",                  limit: 255
+    t.string   "location",                limit: 255
+    t.string   "lat_lon",                 limit: 255
+    t.datetime "created_at",                            precision: 3,               null: false
+    t.datetime "updated_at",                            precision: 3,               null: false
+    t.integer  "cached_votes_total",      limit: 4,                   default: 0
+    t.integer  "cached_votes_score",      limit: 4,                   default: 0
+    t.integer  "cached_votes_up",         limit: 4,                   default: 0
+    t.integer  "cached_votes_down",       limit: 4,                   default: 0
+    t.integer  "cached_weighted_score",   limit: 4,                   default: 0
+    t.integer  "cached_weighted_total",   limit: 4,                   default: 0
+    t.float    "cached_weighted_average", limit: 24,                  default: 0.0
   end
 
+  add_index "products", ["cached_votes_down"], name: "index_products_on_cached_votes_down", using: :btree
+  add_index "products", ["cached_votes_score"], name: "index_products_on_cached_votes_score", using: :btree
+  add_index "products", ["cached_votes_total"], name: "index_products_on_cached_votes_total", using: :btree
+  add_index "products", ["cached_votes_up"], name: "index_products_on_cached_votes_up", using: :btree
+  add_index "products", ["cached_weighted_average"], name: "index_products_on_cached_weighted_average", using: :btree
+  add_index "products", ["cached_weighted_score"], name: "index_products_on_cached_weighted_score", using: :btree
+  add_index "products", ["cached_weighted_total"], name: "index_products_on_cached_weighted_total", using: :btree
   add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
@@ -138,6 +152,21 @@ ActiveRecord::Schema.define(version: 20151206194736) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
   add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "votable_id",   limit: 4
+    t.string   "votable_type", limit: 255
+    t.integer  "voter_id",     limit: 4
+    t.string   "voter_type",   limit: 255
+    t.boolean  "vote_flag"
+    t.string   "vote_scope",   limit: 255
+    t.integer  "vote_weight",  limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
   add_foreign_key "profiles", "users"
 end
