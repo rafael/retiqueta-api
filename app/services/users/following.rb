@@ -48,7 +48,7 @@ module Users
       @user ||= User.find_by_uuid(id)
     end
 
-    def valid_followed
+    def valid_user
       unless user
         raise ApiError::NotFound.new(I18n.t("user.errors.not_found"))
       end
