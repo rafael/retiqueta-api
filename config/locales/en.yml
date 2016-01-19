@@ -21,6 +21,7 @@ en:
     # The values :model, :attribute and :value are always available for interpolation
     # The value :count is available when applicable. Can be used for pluralization.
     invalid_type: "Type is invalid. Provided %{type}, required %{resource_type}"
+    invalid_password_reset_token: "Password reset token is not valid" 
     messages:
       model_invalid: "Validation failed: %{errors}"
       inclusion: "is not included in the list"
