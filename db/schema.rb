@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160102205541) do
+ActiveRecord::Schema.define(version: 20160115035103) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "conversation_id", limit: 4
@@ -131,25 +131,28 @@ ActiveRecord::Schema.define(version: 20160102205541) do
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",           limit: 255,                           null: false
-    t.string   "uuid",               limit: 255,                           null: false
-    t.string   "email",              limit: 255,                           null: false
-    t.string   "crypted_password",   limit: 255
-    t.string   "password_salt",      limit: 255
-    t.string   "persistence_token",  limit: 255
-    t.string   "perishable_token",   limit: 255
-    t.integer  "login_count",        limit: 4,                 default: 0, null: false
-    t.integer  "failed_login_count", limit: 4,                 default: 0, null: false
+    t.string   "username",               limit: 255,                           null: false
+    t.string   "uuid",                   limit: 255,                           null: false
+    t.string   "email",                  limit: 255,                           null: false
+    t.string   "crypted_password",       limit: 255
+    t.string   "password_salt",          limit: 255
+    t.string   "persistence_token",      limit: 255
+    t.string   "perishable_token",       limit: 255
+    t.integer  "login_count",            limit: 4,                 default: 0, null: false
+    t.integer  "failed_login_count",     limit: 4,                 default: 0, null: false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
-    t.string   "current_login_ip",   limit: 255
-    t.string   "last_login_ip",      limit: 255
-    t.datetime "created_at",                     precision: 3,             null: false
-    t.datetime "updated_at",                     precision: 3,             null: false
+    t.string   "current_login_ip",       limit: 255
+    t.string   "last_login_ip",          limit: 255
+    t.datetime "created_at",                         precision: 3,             null: false
+    t.datetime "updated_at",                         precision: 3,             null: false
+    t.string   "password_reset_token",   limit: 160
+    t.datetime "password_reset_sent_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["password_reset_token"], name: "index_users_on_password_reset_token", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
   add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
 
