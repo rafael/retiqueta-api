@@ -54,3 +54,5 @@ en:
   user_mailer:
     signup_email:
       subject: "Welcome to Retiqueta"
+    password_reset_email:
+      subject: "Retiqueta password reset"
