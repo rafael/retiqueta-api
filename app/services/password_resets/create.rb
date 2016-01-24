@@ -1,3 +1,5 @@
+require "token_generator"
+
 module PasswordResets
   class Create
     include ActiveModel::Validations
@@ -32,7 +34,7 @@ module PasswordResets
     end
 
     def generate_token
-      SecureRandom.urlsafe_base64(RANDOM_NUMBER_LENGTH)
+      TokenGenerator.new(User, :password_reset_token).generate
     end
 
     def current_utc_datetime
@@ -40,10 +42,11 @@ module PasswordResets
     end
 
     def generate_result!
-      user.password_reset_token = generate_token
+      raw_token, enc_token = generate_token
+      user.password_reset_token = enc_token
       user.password_reset_sent_at = current_utc_datetime
       user.save
-      UserMailer.password_reset_email(user).deliver_later
+      UserMailer.password_reset_email(user, raw_token).deliver_later
     end
 
     private

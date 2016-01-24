@@ -1,3 +1,5 @@
+require "token_generator"
+
 module PasswordResets
   class Update
     include ActiveModel::Validations
@@ -23,7 +25,11 @@ module PasswordResets
       @type = data[:type]
       @token = attributes[:token]
       @password = attributes[:password]
-      @user = User.find_by(password_reset_token: token) unless token.blank?
+
+      unless token.blank?
+        @user = User.find_by(password_reset_token: token_digest(token))
+      end
+
       validate
     end
 
@@ -37,6 +43,10 @@ module PasswordResets
         user.errors.each { |k, v| self.errors.add(k, v) }
         raise ApiError::FailedValidation.new(errors.full_messages.join(', '))
       end
+    end
+
+    def token_digest(token)
+      TokenGenerator.new(User, :password_reset_token).digest(token)
     end
 
     private

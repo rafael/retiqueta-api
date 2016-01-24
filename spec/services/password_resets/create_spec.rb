@@ -3,10 +3,11 @@ require 'rails_helper'
 RSpec.describe PasswordResets::Create, type: :model do
   include ActiveJob::TestHelper
 
-  let(:user) { create(:user, email: email) }
+  let!(:user) { create(:user, email: email) }
   let(:email) { "john.smith@gmail.com" }
   let(:subject) { PasswordResets::Create.new(params) }
-  let(:password_token) { "abc" }
+  let(:password_token_raw) { "raw_token" }
+  let(:password_token_enc) { "enc_token" }
   let(:time_now) { Time.parse("2016-01-01") }
 
   let(:params) do
@@ -14,7 +15,7 @@ RSpec.describe PasswordResets::Create, type: :model do
       data: {
         type: "users",
         attributes: {
-          email: user.email
+          email: email
         }
       }
     }
@@ -22,14 +23,16 @@ RSpec.describe PasswordResets::Create, type: :model do
 
   describe "#generate_result!" do
     before do
-      allow(subject).to receive(:generate_token).and_return(password_token)
       allow(subject).to receive(:current_utc_datetime).and_return(time_now)
+      allow(subject)
+        .to receive(:generate_token)
+        .and_return([password_token_raw, password_token_enc])
     end
 
-    it "updates user with password token" do
+    it "updates user with encoded password token" do
       subject.generate_result!
       user.reload
-      expect(user.password_reset_token).to eq(password_token)
+      expect(user.password_reset_token).to eq(password_token_enc)
     end
 
     it "updates user with time when password reset was requested" do
@@ -47,7 +50,7 @@ RSpec.describe PasswordResets::Create, type: :model do
 
       expect(UserMailer)
         .to have_received(:password_reset_email)
-        .with(user)
+        .with(user, password_token_raw)
     end
   end
 
@@ -89,13 +92,15 @@ RSpec.describe PasswordResets::Create, type: :model do
   end
 
   describe "#generate_token" do
-    it "generates a token with random number of 36 bytes long" do
-      allow(SecureRandom)
-        .to receive(:urlsafe_base64)
-        .with(36)
-        .and_return("abc")
+    before do
+      allow(TokenGenerator)
+        .to receive(:new)
+        .with(User, :password_reset_token)
+        .and_return(double("token_generator", generate: [password_token_raw, password_token_enc]))
+    end
 
-      expect(subject.generate_token).to eq("abc")
+    it "forwards TokenGenerator response" do
+      expect(subject.generate_token).to eq([password_token_raw, password_token_enc])
     end
   end
 

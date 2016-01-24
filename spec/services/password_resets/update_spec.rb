@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe PasswordResets::Update, type: :model do
-  let(:user) { create(:user, password_reset_token: token, password_reset_sent_at: token_sent_at) }
+  let!(:user) { create(:user, password_reset_token: token_enc, password_reset_sent_at: token_sent_at) }
   let(:email) { "john.smith@gmail.com" }
   let(:subject) { PasswordResets::Update.new(params) }
-  let(:token) { "abc" }
+  let(:token_raw) { "token_raw" }
+  let(:token_enc) { "token_enc" }
   let(:token_sent_at) { DateTime.now.utc }
   let(:password) { "password" }
 
@@ -13,7 +14,7 @@ RSpec.describe PasswordResets::Update, type: :model do
       data: {
         type: "users",
         attributes: {
-          token: user.password_reset_token,
+          token: token_raw,
           password: password
         }
       }
@@ -21,6 +22,13 @@ RSpec.describe PasswordResets::Update, type: :model do
   end
 
   describe "#generate_result!" do
+    before do
+      allow_any_instance_of(described_class)
+        .to receive(:token_digest)
+        .with(token_raw)
+        .and_return(token_enc)
+    end
+
     it "updates user password" do
       subject.generate_result!
       user.reload
@@ -103,5 +111,8 @@ RSpec.describe PasswordResets::Update, type: :model do
         }.to raise_error(ApiError::FailedValidation, error_message)
       end
     end
+  end
+
+  describe "#token_digest" do
   end
 end
