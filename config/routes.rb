@@ -26,5 +26,9 @@ Rails.application.routes.draw do
     resource :authenticate, only: :create do
       post 'token' => 'authenticates#refreh_token'
     end
+
+    resources :password_resets, only: [:create] do
+      patch 'update', :on => :collection
+    end
   end
 end
