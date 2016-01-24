@@ -41,8 +41,8 @@ RSpec.describe UserMailer do
     end
 
     it "includes password reset link in body" do
-      url = /https\:\/\/retiqueta.com\/password_resets\?token\=abc/
-      expect(mail.body.raw_source).to match(url)
+      url = Rails.configuration.x.reset_password_url.gsub("{{token}}", token)
+      expect(mail.body.raw_source).to match(Regexp.escape(url))
     end
   end
 end

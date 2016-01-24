@@ -15,7 +15,7 @@ class UserMailer < ApplicationMailer
 
   helper do
     def password_reset_url(token)
-      "https://retiqueta.com/password_resets?token=#{token}"
+      Rails.configuration.x.reset_password_url.gsub("{{token}}", token)
     end
   end
 end
