@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe PasswordResets::Create, type: :model do
+RSpec.describe PasswordActions::SendReset, type: :model do
   include ActiveJob::TestHelper
 
   let!(:user) { create(:user, email: email) }
   let(:email) { "john.smith@gmail.com" }
-  let(:subject) { PasswordResets::Create.new(params) }
+  let(:subject) { described_class.new(params) }
   let(:password_token_raw) { "raw_token" }
   let(:password_token_enc) { "enc_token" }
   let(:time_now) { Time.parse("2016-01-01") }

@@ -1,7 +1,7 @@
 require "token_generator"
 
-module PasswordResets
-  class Create
+module PasswordActions
+  class SendReset
     include ActiveModel::Validations
 
     RESOURCE_TYPE = "users"

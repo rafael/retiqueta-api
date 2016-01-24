@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe PasswordResets::Update, type: :model do
+RSpec.describe PasswordActions::Reset, type: :model do
   let!(:user) { create(:user, password_reset_token: token_enc, password_reset_sent_at: token_sent_at) }
   let(:email) { "john.smith@gmail.com" }
-  let(:subject) { PasswordResets::Update.new(params) }
+  let(:subject) { described_class.new(params) }
   let(:token_raw) { "token_raw" }
   let(:token_enc) { "token_enc" }
   let(:token_sent_at) { DateTime.now.utc }
