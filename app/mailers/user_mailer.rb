@@ -4,8 +4,9 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email)
   end
 
-  def password_reset_email(user)
+  def password_reset_email(user, token)
     @user = user
+    @token = token
     mail(to: @user.email)
   end
 
@@ -13,8 +14,8 @@ class UserMailer < ApplicationMailer
   private
 
   helper do
-    def password_reset_url(user)
-      "https://retiqueta.com/password_resets?token=#{user.password_reset_token}"
+    def password_reset_url(token)
+      "https://retiqueta.com/password_resets?token=#{token}"
     end
   end
 end

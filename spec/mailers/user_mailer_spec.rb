@@ -26,7 +26,7 @@ RSpec.describe UserMailer do
   describe ".send_password_reset_email" do
     let(:token) { "abc" }
     let(:user) { build(:user, password_reset_token: token) }
-    let(:mail) { UserMailer.password_reset_email(user) }
+    let(:mail) { UserMailer.password_reset_email(user, token) }
 
     it "sets subject with i18n convention" do
       expect(mail.subject).to eq(I18n.t("user_mailer.password_reset_email.subject"))
