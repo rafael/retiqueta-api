@@ -147,12 +147,12 @@ ActiveRecord::Schema.define(version: 20160115035103) do
     t.string   "last_login_ip",          limit: 255
     t.datetime "created_at",                         precision: 3,             null: false
     t.datetime "updated_at",                         precision: 3,             null: false
-    t.string   "password_reset_token",   limit: 160
+    t.string   "password_reset_token",   limit: 128
     t.datetime "password_reset_sent_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["password_reset_token"], name: "index_users_on_password_reset_token", using: :btree
+  add_index "users", ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
   add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
 
