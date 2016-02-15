@@ -1,6 +1,5 @@
 module Authenticate
   class Create
-
     #################
     ## Extensions  ##
     #################
@@ -11,7 +10,9 @@ module Authenticate
     ## Validations ##
     #################
 
-    validates :login, :password, :client_id, presence: true, strict: ApiError::FailedValidation
+    validates :login,
+              :password,
+              :client_id, presence: true, strict: ApiError::FailedValidation
     validate :user_exists
     validate :valid_password
 
@@ -20,7 +21,7 @@ module Authenticate
     ###################
 
     def self.call(params = {})
-      service = self.new(params)
+      service = new(params)
       service.valid?
       service.generate_result!
       service
@@ -39,9 +40,11 @@ module Authenticate
     end
 
     def generate_result!
-      response = kong_client.post Rails.configuration.x.kong.users_ouath_token_path, URI.encode_www_form(kong_request_body)
+      response = kong_client.post(Rails.configuration.x.kong.users_ouath_token_path,
+                                  URI.encode_www_form(kong_request_body))
       if response.success?
-        self.success_result = JSON.parse(response.body).merge(user_id: user.uuid)
+        self.success_result =
+          JSON.parse(response.body).merge(user_id: user.uuid)
         self.status = response.status
       else
         # We treat this as a success because we are returning whatever comes back from Kong
@@ -54,28 +57,26 @@ module Authenticate
 
     def user
       @user ||= begin
-                  user =  User.find_by_email(login)
+                  user = User.find_by_email(login)
                   user ||= User.find_by_username(login)
                   user
                 end
     end
 
     def user_exists
-      unless user
-         raise ApiError::NotFound.new(I18n.t("user.errors.invalid_username"))
-      end
+      return unless user
+      fail(ApiError::NotFound, I18n.t('user.errors.invalid_username'))
     end
 
     def valid_password
-      unless user.valid_password?(password)
-        raise ApiError::Unauthorized.new(I18n.t("user.errors.invalid_password"))
-      end
+      return unless user.valid_password?(password)
+      fail(ApiError::Unauthorized, I18n.t('user.errors.invalid_password'))
     end
 
     def kong_request_body
       {
         client_secret: Rails.application.secrets.kong_client_secret,
-        client_id: Rails.application.secrets.kong_client_id ,
+        client_id: Rails.application.secrets.kong_client_id,
         scope: 'app',
         provision_key: Rails.application.secrets.kong_client_provision_key,
         grant_type: 'password',
@@ -86,7 +87,7 @@ module Authenticate
     def kong_client
       headers = {
         'Content-Type' => 'application/x-www-form-urlencoded',
-        'Accept' => 'application/json',
+        'Accept' => 'application/json'
       }
       conn_options = {
         url: Rails.configuration.x.kong.internal_url,
