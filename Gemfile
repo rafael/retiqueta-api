@@ -15,6 +15,7 @@ gem 'unicorn', '4.9.0'
 gem 'kaminari', '0.16.3'
 gem 'elasticsearch-model', '0.1.8'
 gem 'acts_as_votable', '~> 0.10.0'
+gem 'mercadopago-sdk ', '~> 0.3.4'
 
 group :development, :test do
   gem 'pry-byebug'
