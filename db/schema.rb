@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160102205541) do
+ActiveRecord::Schema.define(version: 20160215010959) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "conversation_id", limit: 4
@@ -38,6 +38,20 @@ ActiveRecord::Schema.define(version: 20160102205541) do
     t.text     "payload",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string   "uuid",                   limit: 255, null: false
+    t.string   "payment_method_id",      limit: 255, null: false
+    t.string   "shipping_address",       limit: 255, null: false
+    t.string   "payment_transaction_id", limit: 255, null: false
+    t.string   "total_price",            limit: 255, null: false
+    t.string   "float",                  limit: 255, null: false
+    t.string   "user_id",                limit: 255, null: false
+    t.string   "financial_status",       limit: 255, null: false
+    t.string   "currency",               limit: 255, null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "product_pictures", force: :cascade do |t|
