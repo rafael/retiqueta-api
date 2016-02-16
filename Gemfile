@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.4'
 gem 'rails-api', '0.4.0'
-gem 'spring', :group => :development
+gem 'spring', group: :development
 gem 'mysql2', '0.3.18'
 gem 'active_model_serializers', git: 'https://github.com/rafael/active_model_serializers.git', branch: 'resource-level-meta'
 gem 'authlogic', '3.4.6'
@@ -15,7 +15,7 @@ gem 'unicorn', '4.9.0'
 gem 'kaminari', '0.16.3'
 gem 'elasticsearch-model', '0.1.8'
 gem 'acts_as_votable', '~> 0.10.0'
-gem 'mercadopago-sdk ', '~> 0.3.4'
+gem 'mercadopago-sdk', '~> 0.3.4'
 
 group :development, :test do
   gem 'pry-byebug'
@@ -28,5 +28,5 @@ group :test do
   gem 'vcr', '2.9.3'
   gem 'webmock', '1.22.1'
   gem 'database_cleaner'
-  gem "fakeredis", :require => "fakeredis/rspec"
+  gem 'fakeredis', require: 'fakeredis/rspec'
 end

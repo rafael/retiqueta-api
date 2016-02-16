@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160215010959) do
+ActiveRecord::Schema.define(version: 20160228004441) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "conversation_id", limit: 4
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 20160215010959) do
 
   add_index "conversations", ["commentable_id", "commentable_type"], name: "index_conversations_on_commentable_id_and_commentable_type", unique: true, using: :btree
 
+  create_table "fulfillments", force: :cascade do |t|
+    t.string   "uuid",       limit: 255, null: false
+    t.string   "order_id",   limit: 255, null: false
+    t.string   "state",      limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "fulfillments", ["order_id"], name: "index_fulfillments_on_order_id", using: :btree
+
   create_table "ionic_webhook_callbacks", force: :cascade do |t|
     t.text     "payload",    limit: 65535
     t.datetime "created_at",               null: false
@@ -42,7 +52,6 @@ ActiveRecord::Schema.define(version: 20160215010959) do
 
   create_table "orders", force: :cascade do |t|
     t.string   "uuid",                   limit: 255, null: false
-    t.string   "payment_method_id",      limit: 255, null: false
     t.string   "shipping_address",       limit: 255, null: false
     t.string   "payment_transaction_id", limit: 255, null: false
     t.string   "total_price",            limit: 255, null: false
@@ -52,6 +61,14 @@ ActiveRecord::Schema.define(version: 20160215010959) do
     t.string   "currency",               limit: 255, null: false
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+  end
+
+  create_table "payment_audit_trails", force: :cascade do |t|
+    t.string   "uuid",       limit: 255,   null: false
+    t.string   "action",     limit: 255,   null: false
+    t.text     "metadata",   limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "product_pictures", force: :cascade do |t|
@@ -143,6 +160,19 @@ ActiveRecord::Schema.define(version: 20160215010959) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id", using: :btree
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
+
+  create_table "sales", force: :cascade do |t|
+    t.string   "uuid",       limit: 255, null: false
+    t.string   "user_id",    limit: 255, null: false
+    t.string   "order_id",   limit: 255, null: false
+    t.float    "amount",     limit: 24,  null: false
+    t.float    "store_fee",  limit: 24,  null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "sales", ["user_id", "uuid"], name: "index_sales_on_user_id_and_uuid", using: :btree
+  add_index "sales", ["user_id"], name: "index_sales_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username",           limit: 255,                           null: false

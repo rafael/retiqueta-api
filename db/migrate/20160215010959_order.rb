@@ -10,5 +10,7 @@ class Order < ActiveRecord::Migration
       t.string :currency, null: false
       t.timestamps null: false
     end
+    add_index :orders, [:user_id, :uuid]
+    add_index :orders, :user_id
   end
 end
