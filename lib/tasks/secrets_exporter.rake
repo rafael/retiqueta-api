@@ -1,14 +1,18 @@
 namespace :secrets do
   desc "Export contents from secret paths to environment variables"
   task export: :environment do
-    next if secret_paths.empty?
-    secret_paths.each { |path| export_secret_files(path) }
+    secret_paths.each do |path|
+      export_secret_files(path) if File.directory?(path)
+    end
   end
 
   # Helpers
 
   def secret_paths
-    @secret_paths ||= ENV["SECRET_PATHS"].split(",")
+    @secret_paths ||= begin
+      paths = ENV["SECRET_PATHS"].split(",")
+      paths.empty? ? "/etc/secrets" : paths
+    end
   end
 
   def export_secret_files(path)
