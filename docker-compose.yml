@@ -19,6 +19,7 @@ api:
     REDIS_SERVICE_PORT: "6379"
     SMTP_USER_NAME: dextrin.diorman@gmail.com
     SMTP_PASSWORD: u7uu24nmtB47K9YigTyThg
+    SECRET_PATHS: "/etc/secrets"
     DOCKER_HOST_IP:
 worker:
   build: .
@@ -39,6 +40,7 @@ worker:
     REDIS_SERVICE_PORT: "6379"
     SMTP_USER_NAME: dextrin.diorman@gmail.com
     SMTP_PASSWORD: u7uu24nmtB47K9YigTyThg
+    SECRET_PATHS: "/etc/secrets"
 redis:
  image: library/redis:2.6.17
  ports:
