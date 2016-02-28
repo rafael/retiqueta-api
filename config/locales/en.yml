@@ -1,4 +1,7 @@
 en:
+  orders:
+    errors:
+      something_went_wrong: 'Sorry, something went wrong while processing your order'
   user:
     errors:
       not_found: "User not found"
