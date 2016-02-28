@@ -4,7 +4,7 @@ class Order < ActiveRecord::Migration
       t.string :uuid, null: false
       t.string :shipping_address, null: false
       t.string :payment_transaction_id, null: false
-      t.string :total_price, :float, null: false
+      t.float :total_amount, null: false
       t.string :user_id, null: false
       t.string :financial_status, null: false
       t.string :currency, null: false

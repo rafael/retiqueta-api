@@ -2,6 +2,9 @@ require 'ar_uuid_generator'
 
 class Product < ActiveRecord::Base
 
+  PUBLISHED_STATUS = 'published'
+  SOLD_STATUS = 'sold'
+
   ##################
   ## associations ##
   ##################

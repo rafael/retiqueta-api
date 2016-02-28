@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160228004441) do
+ActiveRecord::Schema.define(version: 20160228022555) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "conversation_id", limit: 4
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20160228004441) do
   create_table "fulfillments", force: :cascade do |t|
     t.string   "uuid",       limit: 255, null: false
     t.string   "order_id",   limit: 255, null: false
-    t.string   "state",      limit: 255, null: false
+    t.string   "status",     limit: 255, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
@@ -50,18 +50,29 @@ ActiveRecord::Schema.define(version: 20160228004441) do
     t.datetime "updated_at",               null: false
   end
 
+  create_table "line_items", force: :cascade do |t|
+    t.string   "uuid",         limit: 255, null: false
+    t.string   "order_id",     limit: 255, null: false
+    t.string   "product_type", limit: 255, null: false
+    t.string   "product_id",   limit: 255, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.string   "uuid",                   limit: 255, null: false
     t.string   "shipping_address",       limit: 255, null: false
     t.string   "payment_transaction_id", limit: 255, null: false
-    t.string   "total_price",            limit: 255, null: false
-    t.string   "float",                  limit: 255, null: false
+    t.float    "total_amount",           limit: 24,  null: false
     t.string   "user_id",                limit: 255, null: false
     t.string   "financial_status",       limit: 255, null: false
     t.string   "currency",               limit: 255, null: false
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end
+
+  add_index "orders", ["user_id", "uuid"], name: "index_orders_on_user_id_and_uuid", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "payment_audit_trails", force: :cascade do |t|
     t.string   "uuid",       limit: 255,   null: false
@@ -73,6 +84,15 @@ ActiveRecord::Schema.define(version: 20160228004441) do
   end
 
   add_index "payment_audit_trails", ["user_id"], name: "index_payment_audit_trails_on_user_id", using: :btree
+
+  create_table "payment_transactions", force: :cascade do |t|
+    t.string   "uuid",       limit: 255,   null: false
+    t.string   "user_id",    limit: 255,   null: false
+    t.string   "status",     limit: 255
+    t.text     "metadata",   limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "product_pictures", force: :cascade do |t|
     t.string   "user_id",          limit: 255

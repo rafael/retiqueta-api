@@ -3,7 +3,7 @@ class CreateFulfillments < ActiveRecord::Migration
     create_table :fulfillments do |t|
       t.string :uuid, null: false
       t.string :order_id, null: false
-      t.string :state, null: false
+      t.string :status, null: false
       t.timestamps null: false
     end
 
