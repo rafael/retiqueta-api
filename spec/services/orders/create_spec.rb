@@ -6,12 +6,21 @@ RSpec.describe Orders::Create, type: :model, focus: true do
   let(:seller) { create(:user) }
   let(:product_1) { create(:product, user: seller, price: 10) }
   let(:product_2) { create(:product, user: seller, price: 20) }
+  let(:invalid_product) { create(:product, user: seller, price: 20, status: 'sold') }
 
   let(:valid_line_item_1) do
     {
       product_type: 'product',
       product_id: product_1.uuid,
       price: product_1.price
+    }
+  end
+
+  let(:invalid_product_status_line_item) do
+    {
+      product_type: 'product2',
+      product_id: invalid_product.uuid,
+      price: invalid_product.price
     }
   end
 
@@ -80,7 +89,17 @@ RSpec.describe Orders::Create, type: :model, focus: true do
                        "Line items are empty")
   end
 
-  it 'creates an order', :truncate do
+  it "fails product has a state different than 'published'" do
+    expect do
+      invalid_params = params
+      invalid_params[:data][:attributes][:line_items] =
+        [valid_line_item_1, invalid_product_status_line_item]
+      described_class.call(invalid_params)
+    end.to raise_error(ApiError::FailedValidation,
+                       'Trying to buy products that are already sold')
+  end
+
+  it 'creates an order' do
     service_result = described_class.call(params)
     order = service_result.success_result
     expect(service_result).to_not be_nil
