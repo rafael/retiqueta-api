@@ -6,6 +6,6 @@ module ArUuidGenerator
   private
 
   def generate_uuid
-    self.uuid = SecureRandom.uuid
+    self.uuid = SecureRandom.uuid unless self.uuid
   end
 end

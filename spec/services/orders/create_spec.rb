@@ -143,5 +143,7 @@ RSpec.describe Orders::Create, type: :model do
     audit_trails =
       PaymentAuditTrail.where(payment_transaction_id: order.payment_transaction_id)
     expect(audit_trails.count).to eq(2)
+    expect(audit_trails.map(&:action)).to eq(['attempting_to_charge_card',
+                                              'credit_card_succesfully_charged'])
   end
 end
