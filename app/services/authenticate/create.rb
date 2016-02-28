@@ -64,12 +64,12 @@ module Authenticate
     end
 
     def user_exists
-      return unless user
+      return if user
       fail(ApiError::NotFound, I18n.t('user.errors.invalid_username'))
     end
 
     def valid_password
-      return unless user.valid_password?(password)
+      return if user.valid_password?(password)
       fail(ApiError::Unauthorized, I18n.t('user.errors.invalid_password'))
     end
 
