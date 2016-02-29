@@ -153,9 +153,13 @@ module Orders
                    { paylod_to_payment_provider: prepared_payment_data,
                      payment_provide: 'mercado_pago_ve',
                      line_items: line_items }.to_json)
-      payment_response = payment_providers.mp_ve.post('/v1/payments', prepared_payment_data)
+      payment_response = payment_providers.mp_ve.post('/v1/payments',
+                                                      prepared_payment_data)
 
-      if payment_response['status'] != 200
+      # Mercado libre returns 201 for failed payments and then has the error
+      # in the status key in the response :/
+      if payment_response['status'] != '201' ||
+         payment_response['response']['status'] != 'approved'
         create_audit(payment_transaction_id,
                      'fail_to_collect_payment_from_credit_card',
                      payment_provider_response: payment_response)

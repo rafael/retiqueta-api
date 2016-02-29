@@ -10,7 +10,8 @@ RSpec.describe Orders::Create, type: :model do
   let(:dummy_payment_provider) do
     payment_provider = double('PaymentProviders')
     mp_ve = double('mercado_pago_sdk')
-    allow(mp_ve).to receive(:post).and_return('status' => 200, 'data' => {})
+    allow(mp_ve).to receive(:post).and_return('status' => '201',
+                                              'response' => { 'status' => 'approved' })
     allow(payment_provider).to receive(:mp_ve).and_return(mp_ve)
     payment_provider
   end
@@ -145,5 +146,106 @@ RSpec.describe Orders::Create, type: :model do
     expect(audit_trails.count).to eq(2)
     expect(audit_trails.map(&:action)).to eq(['attempting_to_charge_card',
                                               'credit_card_succesfully_charged'])
+  end
+
+  it 'Line items are created' do
+    service_result = described_class.call(params, default_dependencies)
+    expect(service_result).to_not be_nil
+    order = service_result.success_result
+    expect(order.line_items).to_not be_nil
+    expect(order.line_items.count).to eq(2)
+  end
+
+  it 'Order fulfillment gets created' do
+    service_result = described_class.call(params, default_dependencies)
+    expect(service_result).to_not be_nil
+    order = service_result.success_result
+    expect(order.fulfillment).to_not be_nil
+  end
+
+  context 'talking to MercadoPago Ve API', :vcr do
+    it 'rejects order when card token is invalid' do
+      expect do
+        described_class.call(params)
+      end.to raise_error(ApiError::FailedValidation,
+                         "Sorry, we couldn't charge your card")
+    end
+
+    it 'charges card when token is valid' do
+      # Token obtained from test js with APRO name
+      valid_payment_params = params
+      valid_payment_params[:data][:attributes][:payment_data] =
+        { token: 'ce9e407e91bef10776c06de76656288b', payment_method_id: 'visa' }
+      service_result = described_class.call(valid_payment_params)
+      order = service_result.success_result
+      expect(service_result).to_not be_nil
+      expect(order).to eq(Order.last)
+    end
+
+    it 'handles rejected by insufficient amount' do
+      # Token obtained from test js with FUND
+      valid_payment_params = params
+      valid_payment_params[:data][:attributes][:payment_data] =
+        { token: 'add90cf5004850c483a8341727ada0ae', payment_method_id: 'visa' }
+      expect do
+        described_class.call(params)
+      end.to raise_error(ApiError::FailedValidation,
+                         "Sorry, we couldn't charge your card")
+    end
+
+    it 'handles pending payment response' do
+      # Token obtained from test js with CONT
+      valid_payment_params = params
+      valid_payment_params[:data][:attributes][:payment_data] =
+        { token: '38873c6af69d32ba72b74c6ba3d7b628', payment_method_id: 'visa' }
+      expect do
+        described_class.call(params)
+      end.to raise_error(ApiError::FailedValidation,
+                         "Sorry, we couldn't charge your card")
+    end
+
+    it 'handles call for authorize response' do
+      # Token obtained from test js with CALL
+      valid_payment_params = params
+      valid_payment_params[:data][:attributes][:payment_data] =
+        { token: '0bbc64b41cbb461a2d89c06a2138b545', payment_method_id: 'visa' }
+      expect do
+        described_class.call(params)
+      end.to raise_error(ApiError::FailedValidation,
+                         "Sorry, we couldn't charge your card")
+    end
+
+    it 'handles rejected by expiration date' do
+      # Token obtained from test js with EXPI
+      valid_payment_params = params
+      valid_payment_params[:data][:attributes][:payment_data] =
+        { token: '3abd68b74f9c17c8940a36ebfa756c29', payment_method_id: 'visa' }
+      expect do
+        described_class.call(params)
+      end.to raise_error(ApiError::FailedValidation,
+                         "Sorry, we couldn't charge your card")
+    end
+
+    it 'handles rejected by error in the form' do
+      # Token obtained from test js with FORM
+      valid_payment_params = params
+      valid_payment_params[:data][:attributes][:payment_data] =
+        { token: 'b59de2f6e0cf9e13ccbcf23927abb247', payment_method_id: 'visa' }
+      expect do
+        described_class.call(params)
+      end.to raise_error(ApiError::FailedValidation,
+                         "Sorry, we couldn't charge your card")
+    end
+
+    it 'handles rejected by general error' do
+      # Token obtained from test js with OTHE
+      valid_payment_params = params
+      valid_payment_params[:data][:attributes][:payment_data] =
+        { token: '2a7904d8ac66e2170c8f0277ddba9528', payment_method_id: 'visa' }
+      expect do
+        described_class.call(params)
+      end.to raise_error(ApiError::FailedValidation,
+                         "Sorry, we couldn't charge your card")
+    end
   end
 end

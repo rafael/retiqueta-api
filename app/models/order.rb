@@ -12,6 +12,7 @@ class Order < ActiveRecord::Base
   has_one :conversation, as: :commentable
   belongs_to :payment_transaction, primary_key: :uuid
   has_many :line_items, primary_key: :uuid
+  has_one :fulfillment, primary_key: :uuid
   delegate :comments, to: :conversation
 
   ################
