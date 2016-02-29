@@ -26,7 +26,6 @@ RSpec.describe Orders::Create, type: :model do
     {
       product_type: 'product',
       product_id: product_1.uuid,
-      price: product_1.price
     }
   end
 
@@ -34,7 +33,6 @@ RSpec.describe Orders::Create, type: :model do
     {
       product_type: 'product2',
       product_id: invalid_product.uuid,
-      price: invalid_product.price
     }
   end
 
@@ -42,7 +40,6 @@ RSpec.describe Orders::Create, type: :model do
     {
       product_type: 'product2',
       product_id: product_2.uuid,
-      price: product_2.price
     }
   end
 
@@ -50,7 +47,6 @@ RSpec.describe Orders::Create, type: :model do
     {
       product_type: 'product',
       product_id: 'dummy-id',
-      price: product_2.price
     }
   end
 
@@ -58,7 +54,6 @@ RSpec.describe Orders::Create, type: :model do
     {
       product_type: 'product',
       product_id: product_2.uuid,
-      price: product_2.price
     }
   end
 
