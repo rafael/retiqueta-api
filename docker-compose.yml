@@ -22,6 +22,7 @@ api:
     SMTP_PASSWORD: u7uu24nmtB47K9YigTyThg
     ML_VE_PUBLIC_KEY: TEST-f4c0a8de-a40c-46c2-90f9-202e66994dd3
     ML_VE_ACCESS_TOKEN: TEST-7996492241102187-020901-2125bf21d3eda6d5c1150a3ae949e743__LD_LB__-203200861
+    SECRET_PATHS: "/etc/secrets"
     DOCKER_HOST_IP:
 worker:
   build: .
@@ -42,6 +43,7 @@ worker:
     REDIS_SERVICE_PORT: "6379"
     SMTP_USER_NAME: dextrin.diorman@gmail.com
     SMTP_PASSWORD: u7uu24nmtB47K9YigTyThg
+    SECRET_PATHS: "/etc/secrets"
 redis:
  image: library/redis:2.6.17
  ports:

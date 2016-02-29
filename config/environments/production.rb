@@ -28,6 +28,7 @@ Rails.application.configure do
   config.x.kong.users_ouath_token_path = "/v1/users/oauth2/token"
   config.x.elastictsearch.host = "elasticsearch"
   config.x.elastictsearch.log = true
+  config.x.reset_password_url = "https://retiqueta.com/reset_password?token={{token}}"
 
   config.paperclip_defaults = {
     storage: :fog,
