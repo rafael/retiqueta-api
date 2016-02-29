@@ -51,6 +51,7 @@ class V1::ProductsController < ApplicationController
                                               :description,
                                               :original_price,
                                               :price,
+                                              :size,
                                               pictures: []])
   end
 end
