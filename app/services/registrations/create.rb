@@ -45,6 +45,7 @@ module Registrations
     def generate_result!
       user = User.new(attributes.except(:password))
       user.password = password
+      user.build_profile.country = "VE"
       if user.valid? && user.save
         UserMailer.signup_email(user).deliver_later
         self.success_result = user

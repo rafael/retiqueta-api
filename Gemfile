@@ -16,6 +16,7 @@ gem 'kaminari', '0.16.3'
 gem 'elasticsearch-model', '0.1.8'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'mercadopago-sdk', '~> 0.3.4'
+gem 'countries', '1.2.5'
 
 group :development, :test do
   gem 'pry-byebug'
@@ -23,7 +24,6 @@ end
 
 group :test do
   gem 'rspec-rails', '~> 3.0'
-  gem 'pry-byebug'
   gem 'factory_girl_rails', '4.5.0'
   gem 'vcr', '2.9.3'
   gem 'webmock', '1.22.1'
