@@ -159,6 +159,9 @@ RSpec.describe Orders::Create, type: :model do
   end
 
   context 'talking to MercadoPago Ve API', :vcr do
+    # All the tokens in these tests were generated using the
+    # following form:
+    # https://gist.github.com/rafael/300799b37eebfc14e607
     it 'rejects order when card token is invalid' do
       expect do
         described_class.call(params)
