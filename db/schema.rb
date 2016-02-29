@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160228022555) do
+ActiveRecord::Schema.define(version: 20160229045844) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "conversation_id", limit: 4
@@ -132,6 +132,7 @@ ActiveRecord::Schema.define(version: 20160228022555) do
     t.integer  "cached_weighted_score",   limit: 4,                   default: 0
     t.integer  "cached_weighted_total",   limit: 4,                   default: 0
     t.float    "cached_weighted_average", limit: 24,                  default: 0.0
+    t.string   "size",                    limit: 255
   end
 
   add_index "products", ["cached_votes_down"], name: "index_products_on_cached_votes_down", using: :btree

@@ -16,7 +16,8 @@ RSpec.describe Products::Create, type: :model do
             description: "Estos zapatos tienen mucha historia conmigo",
             original_price: 60,
             price: 40,
-            pictures: [picture.id]
+            pictures: [picture.id],
+            size: "8"
           }
         }
       }
@@ -29,6 +30,7 @@ RSpec.describe Products::Create, type: :model do
       expect(product.status).to eq("published")
       expect(product.user).to eq(user)
       expect(product.product_pictures).to eq([picture])
+      expect(product.size).to eq("8")
     end
 
     it "picture position gets set in the order they were provided" do
