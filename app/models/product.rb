@@ -1,4 +1,9 @@
+require 'ar_uuid_generator'
+
 class Product < ActiveRecord::Base
+
+  PUBLISHED_STATUS = 'published'
+  SOLD_STATUS = 'sold'
 
   ##################
   ## associations ##
@@ -13,7 +18,6 @@ class Product < ActiveRecord::Base
   ## Callbacks ##
   ###############
 
-  before_create :generate_uuid
   before_create :generate_converstation
 
   after_commit  on: [:create, :update] { ProductsIndexer.perform_later(self, 'index') }
@@ -24,6 +28,8 @@ class Product < ActiveRecord::Base
   ################
 
   include Elasticsearch::Model
+  include ArUuidGenerator
+
   acts_as_votable
 
   #############################
@@ -97,14 +103,8 @@ class Product < ActiveRecord::Base
     ).page(options.fetch(:page, 1)).per(options.fetch(:per_page, 25))
   end
 
-  def as_indexed_json(options={})
-    self.as_json(options.merge(include: :product_pictures, root: false))
-  end
-
-  private
-
-  def generate_uuid
-    self.uuid = SecureRandom.uuid
+  def as_indexed_json(options = {})
+    as_json(options.merge(include: :product_pictures, root: false))
   end
 
   def generate_converstation

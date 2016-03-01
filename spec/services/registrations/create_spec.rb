@@ -40,6 +40,10 @@ RSpec.describe Registrations::Create, type: :model do
           .to have_received(:signup_email)
           .with(service_result.success_result)
       end
+
+      it "sets Venezuela as default country" do
+        expect(service_result.success_result.country).to eq("VE")
+      end
     end
 
     it "delegates errors from user object" do

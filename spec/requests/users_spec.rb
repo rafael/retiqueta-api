@@ -13,7 +13,7 @@ RSpec.describe "Users", type: :request do
           first_name: 'Juanito',
           last_name: 'Alimana',
           bio: 'My super biografia',
-          country: 'venezuela',
+          country: 'US',
         }
       }
     }
@@ -36,10 +36,20 @@ RSpec.describe "Users", type: :request do
                                                         "country",
                                                         "bio",
                                                         "following_count",
-                                                        "followers_count"].to_set)
+                                                        "followers_count",
+                                                        "currency"].to_set)
     expect(user_response_attributes["email"]).to eq(user.email)
     expect(user_response_attributes["username"]).to eq(user.username)
     expect(user_response_attributes["first_name"]).to eq(user.first_name)
+
+    expect(user_response_attributes["country"]).to eq({
+      "code" => "VE",
+      "name" => "Venezuela"})
+
+    expect(user_response_attributes["currency"]).to eq({
+      "code" => "VEF",
+      "name" => "Bolivares Fuertes",
+      "symbol" => "Bs"})
   end
 
   it "updates user website, first_name, last_name, bio, country" do
@@ -49,7 +59,7 @@ RSpec.describe "Users", type: :request do
     expect(user.first_name).to eq('Juanito')
     expect(user.last_name).to eq('Alimana')
     expect(user.bio).to eq('My super biografia')
-    expect(user.country).to eq('venezuela')
+    expect(user.country).to eq("US")
   end
 
   it "uses a different serializer when another user is seeing the profile" do
@@ -65,7 +75,8 @@ RSpec.describe "Users", type: :request do
                                                         "country",
                                                         "bio",
                                                         "following_count",
-                                                        "followers_count"].to_set)
+                                                        "followers_count",
+                                                        "currency"].to_set)
   end
 
   it "responds with valid json on errors" do

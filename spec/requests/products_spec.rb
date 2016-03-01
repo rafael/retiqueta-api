@@ -32,7 +32,8 @@ RSpec.describe "Products", type: :request do
           description: "Estos zapatos tienen mucha historia conmigo",
           original_price: 60,
           price: 40,
-          pictures: nil
+          pictures: nil,
+          size: "8"
         }
       }
     }
@@ -47,6 +48,12 @@ RSpec.describe "Products", type: :request do
     params[:data][:attributes].merge!(pictures: [picture_id])
     post "/v1/products", params, { 'X-Authenticated-Userid' => user.uuid }
     expect(response.status).to eq(201)
+    product_response_attributes = json["data"]["attributes"]
+    expect(product_response_attributes["category"]).to eq("shoes")
+    expect(product_response_attributes["title"]).to eq("My awesome shoes")
+    expect(product_response_attributes["description"]).to eq("Estos zapatos tienen mucha historia conmigo")
+    expect(product_response_attributes["original_price"]).to eq(60)
+    expect(product_response_attributes["size"]).to eq("8")
   end
 
   it "product index only returns featured products" do

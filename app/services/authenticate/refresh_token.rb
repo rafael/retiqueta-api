@@ -46,10 +46,11 @@ module Authenticate
     def kong_request_body
       {
         client_secret: Rails.application.secrets.kong_client_secret,
-        client_id: Rails.application.secrets.kong_client_id ,
+        client_id: Rails.application.secrets.kong_client_id,
         refresh_token: refresh_token,
         provision_key: Rails.application.secrets.kong_client_provision_key,
         grant_type: 'refresh_token',
+        scope: 'app',
       }
     end
 
