@@ -788,12 +788,11 @@ Fetch comments for the product. This endpoint is paginated.
             }
 
 
+## User push tokens [/v1/users/{user_id}/relationships/push_tokens]
 
-## Like a product [/v1/products/{product_id}/like]
+### Create push device token [POST]
 
-### Create like [POST]
-
-Adds a like to the product
+Adds a device push token to an user
 
 + Payload
 
@@ -802,13 +801,29 @@ Adds a like to the product
             Accept: application/json
             Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
             Content-Type: application/json
-    
+    + Attributes
+        + environment (string) - Environment of the push token cert (only for ios - it should be development or production).
+        + token (string) - Push token
+        + device_id (string) - The unique identifier of the device (only if available)
+        + platform (string) - iOS or  Android
+    + Body
+        {
+          "data": {
+            "type": "push_notifications",
+            "attributes": {
+              "environment": "development",
+              "token": "super-token",
+              "device_id": "device-id",
+              "platform": "ios",
+            }
+          }
+        }
 
 + Response 204 (application/json)
 
 ## Product unlike [/v1/products/{product_id}/unlike]
 
-### Dislike a product [POST]
+### Unlike a product [POST]
 
 Remove a like from a product.
 
