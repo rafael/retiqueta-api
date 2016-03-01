@@ -807,7 +807,6 @@ Adds a device push token to an user
         + device_id (string) - The unique identifier of the device (only if available)
         + platform (string) - iOS or  Android
     + Body
-
         {
           "data": {
             "type": "push_notifications",
@@ -821,3 +820,47 @@ Adds a device push token to an user
         }
 
 + Response 204 (application/json)
+
+## Product unlike [/v1/products/{product_id}/unlike]
+
+### Unlike a product [POST]
+
+Remove a like from a product.
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+    
+
++ Response 204 (application/json)
+
+## Product likes [/v1/products/{product_id}/relationships/likes]
+
+### Get User likes [GET]
+
+Returns the likes of the product.
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                 "data": [
+                    "id": "f52c3d57-02d3-4780-bb15-180854169967",
+                    "type": "users",
+                    "attributes": {
+                      "username": "rafael"
+                ]
+            }

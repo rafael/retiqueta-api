@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160102205541) do
+ActiveRecord::Schema.define(version: 20160229045844) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "conversation_id", limit: 4
@@ -34,10 +34,65 @@ ActiveRecord::Schema.define(version: 20160102205541) do
 
   add_index "conversations", ["commentable_id", "commentable_type"], name: "index_conversations_on_commentable_id_and_commentable_type", unique: true, using: :btree
 
+  create_table "fulfillments", force: :cascade do |t|
+    t.string   "uuid",       limit: 255, null: false
+    t.string   "order_id",   limit: 255, null: false
+    t.string   "status",     limit: 255, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "fulfillments", ["order_id"], name: "index_fulfillments_on_order_id", using: :btree
+
   create_table "ionic_webhook_callbacks", force: :cascade do |t|
     t.text     "payload",    limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.string   "uuid",         limit: 255, null: false
+    t.string   "order_id",     limit: 255, null: false
+    t.string   "product_type", limit: 255, null: false
+    t.string   "product_id",   limit: 255, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string   "uuid",                   limit: 255, null: false
+    t.string   "shipping_address",       limit: 255, null: false
+    t.string   "payment_transaction_id", limit: 255, null: false
+    t.float    "total_amount",           limit: 24,  null: false
+    t.string   "user_id",                limit: 255, null: false
+    t.string   "financial_status",       limit: 255, null: false
+    t.string   "currency",               limit: 255, null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "orders", ["user_id", "uuid"], name: "index_orders_on_user_id_and_uuid", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
+  create_table "payment_audit_trails", force: :cascade do |t|
+    t.string   "uuid",                   limit: 255,   null: false
+    t.string   "user_id",                limit: 255,   null: false
+    t.string   "payment_transaction_id", limit: 255,   null: false
+    t.string   "action",                 limit: 255,   null: false
+    t.text     "metadata",               limit: 65535
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "payment_audit_trails", ["user_id"], name: "index_payment_audit_trails_on_user_id", using: :btree
+
+  create_table "payment_transactions", force: :cascade do |t|
+    t.string   "uuid",       limit: 255,   null: false
+    t.string   "user_id",    limit: 255,   null: false
+    t.string   "status",     limit: 255
+    t.text     "metadata",   limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "product_pictures", force: :cascade do |t|
@@ -77,6 +132,7 @@ ActiveRecord::Schema.define(version: 20160102205541) do
     t.integer  "cached_weighted_score",   limit: 4,                   default: 0
     t.integer  "cached_weighted_total",   limit: 4,                   default: 0
     t.float    "cached_weighted_average", limit: 24,                  default: 0.0
+    t.string   "size",                    limit: 255
   end
 
   add_index "products", ["cached_votes_down"], name: "index_products_on_cached_votes_down", using: :btree
@@ -130,26 +186,42 @@ ActiveRecord::Schema.define(version: 20160102205541) do
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
 
+  create_table "sales", force: :cascade do |t|
+    t.string   "uuid",       limit: 255, null: false
+    t.string   "user_id",    limit: 255, null: false
+    t.string   "order_id",   limit: 255, null: false
+    t.float    "amount",     limit: 24,  null: false
+    t.float    "store_fee",  limit: 24,  null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "sales", ["user_id", "uuid"], name: "index_sales_on_user_id_and_uuid", using: :btree
+  add_index "sales", ["user_id"], name: "index_sales_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
-    t.string   "username",           limit: 255,                           null: false
-    t.string   "uuid",               limit: 255,                           null: false
-    t.string   "email",              limit: 255,                           null: false
-    t.string   "crypted_password",   limit: 255
-    t.string   "password_salt",      limit: 255
-    t.string   "persistence_token",  limit: 255
-    t.string   "perishable_token",   limit: 255
-    t.integer  "login_count",        limit: 4,                 default: 0, null: false
-    t.integer  "failed_login_count", limit: 4,                 default: 0, null: false
+    t.string   "username",               limit: 255,                           null: false
+    t.string   "uuid",                   limit: 255,                           null: false
+    t.string   "email",                  limit: 255,                           null: false
+    t.string   "crypted_password",       limit: 255
+    t.string   "password_salt",          limit: 255
+    t.string   "persistence_token",      limit: 255
+    t.string   "perishable_token",       limit: 255
+    t.integer  "login_count",            limit: 4,                 default: 0, null: false
+    t.integer  "failed_login_count",     limit: 4,                 default: 0, null: false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
-    t.string   "current_login_ip",   limit: 255
-    t.string   "last_login_ip",      limit: 255
-    t.datetime "created_at",                     precision: 3,             null: false
-    t.datetime "updated_at",                     precision: 3,             null: false
+    t.string   "current_login_ip",       limit: 255
+    t.string   "last_login_ip",          limit: 255
+    t.datetime "created_at",                         precision: 3,             null: false
+    t.datetime "updated_at",                         precision: 3,             null: false
+    t.string   "password_reset_token",   limit: 128
+    t.datetime "password_reset_sent_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
   add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
 

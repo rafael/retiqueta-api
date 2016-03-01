@@ -9,7 +9,8 @@ class UserSerializer < ActiveModel::Serializer
              :country,
              :bio,
              :following_count,
-             :followers_count
+             :followers_count,
+             :currency
 
   def id
     object.uuid
@@ -21,5 +22,26 @@ class UserSerializer < ActiveModel::Serializer
     when "large" then object.pic.url(:large)
     else object.pic.url
     end
+  end
+
+  def country
+    code = object.country
+    name =
+      case code
+      when "VE" then "Venezuela"
+      else ""
+      end
+
+    { code: code, name: name }
+  end
+
+  def currency
+    code, name, symbol = nil
+    if object.country
+      c = ISO3166::Country.new(object.country).currency
+      code, name, symbol = c.code, c.name, c.symbol
+    end
+
+    { code: code, name: name, symbol: symbol }
   end
 end
