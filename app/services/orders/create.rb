@@ -225,12 +225,16 @@ module Orders
       valid_types =
         product_types.all? { |product_type| product_type == 'product' }
 
+      products = fetch_products
+
       unless valid_types
         fail(ApiError::FailedValidation, 'Invalid product type in line items')
       end
 
-      if line_items.empty? || fetch_products.size != line_items.size
-        fail(ApiError::FailedValidation, 'Line items are empty')
+      if products.size != line_items.size
+        missing_ids = line_items.map { |l| l[:product_id] } - products.map(&:uuid)
+        fail(ApiError::FailedValidation,
+             "Couldn't find the following line items: #{missing_ids.join(',')}")
       end
     end
 

@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.4'
 gem 'rails-api', '0.4.0'
-gem 'spring', group: :development
 gem 'mysql2', '0.3.18'
 gem 'active_model_serializers', git: 'https://github.com/rafael/active_model_serializers.git', branch: 'resource-level-meta'
 gem 'authlogic', '3.4.6'

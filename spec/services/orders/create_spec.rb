@@ -95,7 +95,7 @@ RSpec.describe Orders::Create, type: :model do
         [valid_line_item_1, invalid_product_line_item]
       described_class.call(invalid_params)
     end.to raise_error(ApiError::FailedValidation,
-                       'Line items are empty')
+                       "Couldn't find the following line items: dummy-id")
   end
 
   it "fails when product has a state different than 'published'" do
