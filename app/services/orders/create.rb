@@ -127,7 +127,10 @@ module Orders
         fail ActiveRecord::Rollback unless valid_product_statuses?(products)
         # Mark all products as sold
         charge = charge_credit_card!(products)
-        products.update_all(status: Product::SOLD_STATUS)
+        products.each do |p|
+          p.status = Product::SOLD_STATUS
+          p.save!
+        end
       end
       [products, charge]
     rescue ActiveRecord::Rollback => e

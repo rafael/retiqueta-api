@@ -7,7 +7,7 @@ class Sale < ActiveRecord::Base
   ##################
 
   belongs_to :user, primary_key: :uuid
-  has_one :order, primary_key: :uuid
+  belongs_to :order, primary_key: :uuid
 
   ################
   ## Extensions ##
