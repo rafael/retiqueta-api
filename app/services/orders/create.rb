@@ -170,11 +170,11 @@ module Orders
       end
       create_audit(payment_transaction_id,
                    'credit_card_succesfully_charged',
-                   payment_provider_response: payment_response)
+                   payment_provider_response: payment_response.to_json)
       PaymentTransaction.create!(uuid: payment_transaction_id,
                                  user_id: user.uuid,
                                  status: PaymentTransaction::PROCESSED_STATE,
-                                 metadata: payment_response)
+                                 metadata: payment_response.to_json)
     end
 
     def create_audit(payment_transaction_id, action, metadata)
