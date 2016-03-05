@@ -27,7 +27,7 @@ RSpec.describe Product, type: :model do
         create(:product, title: "Vendo #nike", description: "como nuevos", category: "zapatos",  status: "published")
         described_class.import(force: true)
       end
-      #sleep 1 # Let elastic search finish the indexing, only run this when saving the cassettes.
+      # sleep 1 # Let elastic search finish the indexing, only run this when saving the cassettes.
     end
 
     after(:all) do
