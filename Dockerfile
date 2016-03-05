@@ -22,6 +22,7 @@ COPY Gemfile Gemfile.lock ./
 RUN gem install bundler && bundle install --jobs 20 --retry 5
 
 ADD config/container/start-server.sh /usr/bin/start-server
+ADD config/container/start-workers.sh /usr/bin/start-workers
 
 # Copy the main application.
 COPY . ./
