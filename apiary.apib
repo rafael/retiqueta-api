@@ -864,3 +864,75 @@ Returns the likes of the product.
                       "username": "rafael"
                 ]
             }
+
+## Password reset requests [/v1/send_password_reset]
+
+### Request a password reset [POST]
+
+Allows users to request changing their passwords by supplying their emails
+
++ Payload
+    + Headers
+    
+            Accept: application/json
+            Content-Type: application/json
+
+    + Attributes
+        + email (string) - The email of the user requesting their password to be reset
+        
+        
+    + Body
+
+            {
+                "data": {
+                    "type": "users",
+                    "attributes": {
+                        "email": "rafaelchacon@gmail.com"
+                    }
+                }
+            }
+
++ Request (application/json)
+
+            {
+                "data": {
+                    "type": "users",
+                    "attributes": {
+                        "email": "rafaelchacon@gmail.com"
+                    }
+                }
+            }
+
+
++ Response 204 (application/json)
+
+## Password resets [/v1/reset_password]
+
+### Update user password [POST]
+
+Allows users to change their passwords
+
++ Payload
+    + Headers
+    
+            Accept: application/json
+            Content-Type: application/json
+
+    + Attributes
+        + password (string) - New password for the user
+        + token (string) - Token generated when requestig password reset
+
+        
+    + Body
+
+            {
+                "data": {
+                    "type": "users",
+                    "attributes": {
+                        "password": "password",
+                        "token": "token"
+                    }
+                }
+            }
+
++ Response 204 (application/json)
