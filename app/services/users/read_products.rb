@@ -25,7 +25,12 @@ module Users
     end
 
     def generate_result!
-      products = Product.where(user_id: id).order(created_at: :desc).page(page).per(per_page)
+      products = Product
+                 .where(user_id: id)
+                 .where(status: Product::PUBLISHED_STATUS)
+                 .order(created_at: :desc)
+                 .page(page)
+                 .per(per_page)
       self.success_result = products
     end
   end
