@@ -23,7 +23,9 @@ Rails.application.routes.draw do
       put 'upload-profile-pic' => 'users#upload_profile_pic'
     end
 
-    resources :orders, only: :create
+    resources :orders, only: [:create, :index, :show]
+
+    resources :sales, only: [:index, :show]
 
     resource :authenticate, only: :create do
       post 'token' => 'authenticates#refreh_token'

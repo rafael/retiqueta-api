@@ -24,7 +24,7 @@ RSpec.describe Orders::Create, type: :model do
 
   let(:valid_line_item_1) do
     {
-      product_type: 'product',
+      product_type: 'Product',
       product_id: product_1.uuid,
     }
   end
@@ -45,14 +45,14 @@ RSpec.describe Orders::Create, type: :model do
 
   let(:invalid_product_line_item) do
     {
-      product_type: 'product',
+      product_type: 'Product',
       product_id: 'dummy-id',
     }
   end
 
   let(:valid_line_item_2) do
     {
-      product_type: 'product',
+      product_type: 'Product',
       product_id: product_2.uuid,
     }
   end

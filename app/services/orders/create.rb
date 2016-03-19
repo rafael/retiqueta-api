@@ -226,7 +226,7 @@ module Orders
 
     def valid_line_items
       valid_types =
-        product_types.all? { |product_type| product_type == 'product' }
+        product_types.all? { |product_type| product_type == 'Product' }
 
       products = fetch_products
 
