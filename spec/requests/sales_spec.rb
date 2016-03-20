@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'set'
 
-RSpec.describe 'Orders Requests', vcr: true, type: :request do
+RSpec.describe 'Sales Requests', vcr: true, type: :request do
   let(:random_user) { create(:user) }
   let(:seller) { create(:user) }
   let(:buyer) { create(:user, password: '123456') }
@@ -30,79 +30,72 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
     }
   end
 
-  it 'creates an order' do
+  it 'show index of sales' do
     post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
+    sale = Sale.last
     expect(response.status).to eq(201)
-  end
-
-  it 'show index of orders' do
-    post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
-    expect(response.status).to eq(201)
-    get '/v1/orders', {}, 'X-Authenticated-Userid' => buyer.uuid
+    get '/v1/sales', {}, 'X-Authenticated-Userid' => seller.uuid
     expect(response.status).to eq(200)
-    expect(json['data'].first['attributes']['shipping_address']).to eq('2930 Lyon Street - Apt 2A, San Francisco, CA, 94123')
-    expect(json['data'].first['attributes']['total_amount']).to eq(product.price)
-    expect(json['data'].first['attributes']['financial_status']).to eq('paid')
+    expect(json['data'].first['attributes']['amount']).to eq(sale.amount)
+    expect(json['data'].first['attributes']['store_fee']).to eq(sale.store_fee)
   end
 
-  it 'show index of orders with included relationships' do
+  it 'show index of sales with included relationships' do
     post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
     expect(response.status).to eq(201)
-    included_sub_resources = ['line_items',
-                              'line_items.product',
-                              'line_items.product.product_pictures',
-                              'user',
-                              'fulfillment']
-    get '/v1/orders',
+    included_sub_resources = [
+      'order',
+      'order.line_items',
+      'order.line_items.product',
+      'order.line_items.product.product_pictures',
+      'order.user',
+      'order.fulfillment'
+    ]
+    get '/v1/sales',
         { include: included_sub_resources.join(',')},
-        'X-Authenticated-Userid' => buyer.uuid
-    expect(response.status).to eq(200)
-    sub_resource_types =
-      json['included'].map { |sub_resource| sub_resource['type'] }
-    expect(sub_resource_types.to_set).to eq(Set.new(['line_items',
-                                                     'products',
-                                                     'product_pictures',
-                                                     'fulfillments',
-                                                     'users']))
-  end
-
-  it 'gets an order with included relationships' do
-    post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
-    expect(response.status).to eq(201)
-    id = json['id']
-    included_sub_resources = ['line_items',
-                              'line_items.product',
-                              'line_items.product.product_pictures',
-                              'user',
-                              'fulfillment']
-    get "/v1/orders/#{id}",
-        { include: included_sub_resources.join(',')},
-        'X-Authenticated-Userid' => buyer.uuid
-    expect(response.status).to eq(200)
-    sub_resource_types =
-      json['included'].map { |sub_resource| sub_resource['type'] }
-    expect(sub_resource_types.to_set).to eq(Set.new(['line_items',
-                                                     'products',
-                                                     'product_pictures',
-                                                     'fulfillments',
-                                                     'users']))
-  end
-
-  it 'seller can get order' do
-    post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
-    expect(response.status).to eq(201)
-    id = json['id']
-    get "/v1/orders/#{id}",
-        {},
         'X-Authenticated-Userid' => seller.uuid
     expect(response.status).to eq(200)
+    sub_resource_types =
+      json['included'].map { |sub_resource| sub_resource['type'] }
+    expect(sub_resource_types.to_set).to eq(Set.new(['orders',
+                                                     'line_items',
+                                                     'products',
+                                                     'product_pictures',
+                                                     'fulfillments',
+                                                     'users']))
   end
 
-  it "can't get an order if it's not a buyer or seller" do
+  it 'gets a sales with included relationships', truncate: true do
     post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
     expect(response.status).to eq(201)
-    id = json['data']['id']
-    get "/v1/orders/#{id}",
+    id = Sale.last.uuid
+    included_sub_resources = [
+      'order',
+      'order.line_items',
+      'order.line_items.product',
+      'order.line_items.product.product_pictures',
+      'order.user',
+      'order.fulfillment'
+    ]
+    get "/v1/sales/#{id}",
+        { include: included_sub_resources.join(',')},
+        'X-Authenticated-Userid' => seller.uuid
+    expect(response.status).to eq(200)
+    sub_resource_types =
+      json['included'].map { |sub_resource| sub_resource['type'] }
+    expect(sub_resource_types.to_set).to eq(Set.new(['orders',
+                                                     'line_items',
+                                                     'products',
+                                                     'product_pictures',
+                                                     'fulfillments',
+                                                     'users']))
+  end
+
+  it "can't get a sale if it's not the seller", truncate: true do
+    post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
+    expect(response.status).to eq(201)
+    id = Sale.last.uuid
+    get "/v1/sales/#{id}",
         {},
         'X-Authenticated-Userid' => random_user.uuid
     expect(response.status).to eq(404)

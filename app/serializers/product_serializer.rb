@@ -22,4 +22,8 @@ class ProductSerializer < ActiveModel::Serializer
   def likes_count
     object.get_likes.count
   end
+
+  meta do
+    { liked_by_current_user: current_user && current_user.liked?(object) }
+  end
 end
