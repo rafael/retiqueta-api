@@ -1,4 +1,4 @@
-module Orders
+module Sales
   class Read
     #################
     ## Extensions  ##
@@ -11,7 +11,7 @@ module Orders
     #################
 
     validate :valid_user
-    validate :valid_order
+    validate :valid_sale
 
     ###################
     ## Class Methods ##
@@ -35,22 +35,22 @@ module Orders
     end
 
     def generate_result!
-      order
+      sale
     end
 
     private
 
-    def order
-      @order ||= Order.find_by_uuid(id)
+    def sale
+      @sale ||= Sale.find_by_uuid(id)
     end
 
     def user
       @user ||= User.find_by_uuid(user_id)
     end
 
-    def valid_order
-      if order.user_id != user.uuid && !order.sellers.map(&:uuid).include?(user.uuid)
-        raise ApiError::NotFound, I18n.t("orders.errors.not_found")
+    def valid_sale
+      if sale.user_id != user.uuid
+        raise ApiError::NotFound, I18n.t("sales.errors.not_found")
       end
     end
 

@@ -4,6 +4,6 @@ class SaleSerializer < ActiveModel::Serializer
   belongs_to :order, serializer: OrderSerializer
 
   def id
-    object.id
+    object.uuid
   end
 end
