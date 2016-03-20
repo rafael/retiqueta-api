@@ -936,3 +936,665 @@ Allows users to change their passwords
             }
 
 + Response 204 (application/json)
+
+## Orders [/v1/orders/{order_id}] 
+
+### Get Order ID  [GET]
+
+Fetch order by id for current user. It accepts included with the following options: 
+
+     line_items
+     line_items.product
+     line_items.product.product_pictures
+     user
+     fulfillment
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+
++ Response 200 (application/json)
+
+    + Body
+            
+            {
+              "data": {
+                "id": "c6f8f52d-afc7-400b-994f-dd1ed281a831",
+                "type": "orders",
+                "attributes": {
+                  "shipping_address": "2930 Lyon Street - Apt 2A, San Francisco, CA, 94123",
+                  "total_amount": 40,
+                  "financial_status": "paid"
+                },
+                "relationships": {
+                  "line_items": {
+                    "data": [
+                      {
+                        "id": "44399ef5-08b8-4ac5-ac90-3891d515e931",
+                        "type": "line_items"
+                      }
+                    ]
+                  },
+                  "fulfillment": {
+                    "data": {
+                      "id": "e6913f8b-5159-4ac0-a05a-6067b5e72e2d",
+                      "type": "fulfillments"
+                    }
+                  },
+                  "user": {
+                    "data": {
+                      "id": "8e4a36dc-ab21-4195-a559-3b250f20f628",
+                      "type": "users"
+                    }
+                  }
+                }
+              },
+              "included": [
+                {
+                  "id": "44399ef5-08b8-4ac5-ac90-3891d515e931",
+                  "type": "line_items",
+                  "relationships": {
+                    "product": {
+                      "data": {
+                        "id": "ae709162-4839-456f-b953-6bf41897d30a",
+                        "type": "products"
+                      }
+                    }
+                  }
+                },
+                {
+                  "id": "ae709162-4839-456f-b953-6bf41897d30a",
+                  "type": "products",
+                  "attributes": {
+                    "title": "Mis mejores zapatos",
+                    "description": "En muy buen estado",
+                    "category": null,
+                    "original_price": 80,
+                    "currency": null,
+                    "size": null,
+                    "price": 40,
+                    "comments_count": 0,
+                    "likes_count": 0
+                  },
+                  "relationships": {
+                    "product_pictures": {
+                      "data": [
+                        {
+                          "id": "1",
+                          "type": "product_pictures"
+                        }
+                      ]
+                    },
+                    "comments": {
+                      "data": []
+                    },
+                    "user": {
+                      "data": {
+                        "id": "ee336cd0-eb26-44c5-9b18-da01b58f7ca6",
+                        "type": "users"
+                      }
+                    }
+                  },
+                  "meta": {
+                    "liked_by_current_user": false
+                  }
+                },
+                {
+                  "id": "1",
+                  "type": "product_pictures",
+                  "attributes": {
+                    "url": "/pics/original/missing.png",
+                    "small_url": "/pics/small/missing.png",
+                    "large_url": "/pics/large/missing.png",
+                    "product_id": "ae709162-4839-456f-b953-6bf41897d30a"
+                  }
+                },
+                {
+                  "id": "e6913f8b-5159-4ac0-a05a-6067b5e72e2d",
+                  "type": "fulfillments",
+                  "attributes": {
+                    "status": "pending"
+                  },
+                  "relationships": {
+                    "comments": {
+                      "data": []
+                    }
+                  }
+                },
+                {
+                  "id": "8e4a36dc-ab21-4195-a559-3b250f20f628",
+                  "type": "users",
+                  "attributes": {
+                    "username": "johnsnow3",
+                    "profile_pic": "/pics/original/missing.png",
+                    "first_name": "John 3",
+                    "last_name": "Snow 3",
+                    "website": "http://www.google.com",
+                    "country": {
+                      "code": "VE",
+                      "name": "Venezuela"
+                    },
+                    "bio": "My Super Bio",
+                    "following_count": 0,
+                    "followers_count": 0,
+                    "currency": {
+                      "code": "VEF",
+                      "name": "Bolivares Fuertes",
+                      "symbol": "Bs"
+                    }
+                  }
+                }
+              ]
+            }
+
+## Orders [/v1/orders]
+
+### Create order [POST]
+
+### Get Orders  [GET]
+
+Fetch orders current user. This endpoint is paginated.It accepts included with the following options: 
+
+     line_items
+     line_items.product
+     line_items.product.product_pictures
+     user
+     fulfillment
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "data": [
+                {
+                  "id": "0fd3ec72-6a9c-427a-a0b0-2e8e85a21d38",
+                  "type": "orders",
+                  "attributes": {
+                    "shipping_address": "2930 Lyon Street - Apt 2A, San Francisco, CA, 94123",
+                    "total_amount": 40,
+                    "financial_status": "paid"
+                  },
+                  "relationships": {
+                    "line_items": {
+                      "data": [
+                        {
+                          "id": "7d6b0d0e-120c-469f-863a-9ff933082ea6",
+                          "type": "line_items"
+                        }
+                      ]
+                    },
+                    "fulfillment": {
+                      "data": {
+                        "id": "bfa331d6-6ba9-4a82-85c7-a4fbbdff660a",
+                        "type": "fulfillments"
+                      }
+                    },
+                    "user": {
+                      "data": {
+                        "id": "adab9726-08d3-4e89-a889-176e2be87ff7",
+                        "type": "users"
+                      }
+                    }
+                  }
+                }
+              ],
+              "included": [
+                {
+                  "id": "7d6b0d0e-120c-469f-863a-9ff933082ea6",
+                  "type": "line_items",
+                  "relationships": {
+                    "product": {
+                      "data": {
+                        "id": "20daef17-330b-4e91-9ef8-c97f7d48be3e",
+                        "type": "products"
+                      }
+                    }
+                  }
+                },
+                {
+                  "id": "20daef17-330b-4e91-9ef8-c97f7d48be3e",
+                  "type": "products",
+                  "attributes": {
+                    "title": "Mis mejores zapatos",
+                    "description": "En muy buen estado",
+                    "category": null,
+                    "original_price": 80,
+                    "currency": null,
+                    "size": null,
+                    "price": 40,
+                    "comments_count": 0,
+                    "likes_count": 0
+                  },
+                  "relationships": {
+                    "product_pictures": {
+                      "data": [
+                        {
+                          "id": "2",
+                          "type": "product_pictures"
+                        }
+                      ]
+                    },
+                    "comments": {
+                      "data": []
+                    },
+                    "user": {
+                      "data": {
+                        "id": "e10c16b4-008d-4dab-b572-1eb8d0b5593a",
+                        "type": "users"
+                      }
+                    }
+                  },
+                  "meta": {
+                    "liked_by_current_user": false
+                  }
+                },
+                {
+                  "id": "2",
+                  "type": "product_pictures",
+                  "attributes": {
+                    "url": "/pics/original/missing.png",
+                    "small_url": "/pics/small/missing.png",
+                    "large_url": "/pics/large/missing.png",
+                    "product_id": "20daef17-330b-4e91-9ef8-c97f7d48be3e"
+                  }
+                },
+                {
+                  "id": "bfa331d6-6ba9-4a82-85c7-a4fbbdff660a",
+                  "type": "fulfillments",
+                  "attributes": {
+                    "status": "pending"
+                  },
+                  "relationships": {
+                    "comments": {
+                      "data": []
+                    }
+                  }
+                },
+                {
+                  "id": "adab9726-08d3-4e89-a889-176e2be87ff7",
+                  "type": "users",
+                  "attributes": {
+                    "username": "johnsnow6",
+                    "profile_pic": "/pics/original/missing.png",
+                    "first_name": "John 6",
+                    "last_name": "Snow 6",
+                    "website": "http://www.google.com",
+                    "country": {
+                      "code": "VE",
+                      "name": "Venezuela"
+                    },
+                    "bio": "My Super Bio",
+                    "following_count": 0,
+                    "followers_count": 0,
+                    "currency": {
+                      "code": "VEF",
+                      "name": "Bolivares Fuertes",
+                      "symbol": "Bs"
+                    }
+                  }
+                }
+              ],
+              "links": {}
+            }
+            
+
+
+## Sales [/v1/sales/{sale_id}] 
+
+### Get Sale ID  [GET]
+
+Fetch order by id for current user. It accepts included with the following options: 
+
+      order
+      order.line_items
+      order.line_items.product
+      order.line_items.product.product_pictures
+      order.user
+      order.fulfillment
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "data": {
+                "id": "c8f6568a-90be-4705-b129-c5c4862ae004",
+                "type": "sales",
+                "attributes": {
+                  "amount": 32,
+                  "store_fee": 8
+                },
+                "relationships": {
+                  "order": {
+                    "data": {
+                      "id": "4bc40756-33dc-4d51-8a31-4bb7a3c6ecb4",
+                      "type": "orders"
+                    }
+                  }
+                }
+              },
+              "included": [
+                {
+                  "id": "4bc40756-33dc-4d51-8a31-4bb7a3c6ecb4",
+                  "type": "orders",
+                  "attributes": {
+                    "shipping_address": "2930 Lyon Street - Apt 2A, San Francisco, CA, 94123",
+                    "total_amount": 40,
+                    "financial_status": "paid"
+                  },
+                  "relationships": {
+                    "line_items": {
+                      "data": [
+                        {
+                          "id": "754f0286-0b96-47c0-bf8d-4d82da9c5bc8",
+                          "type": "line_items"
+                        }
+                      ]
+                    },
+                    "fulfillment": {
+                      "data": {
+                        "id": "a8cacccd-82b4-4d59-90fd-7bf1100c8b1a",
+                        "type": "fulfillments"
+                      }
+                    },
+                    "user": {
+                      "data": {
+                        "id": "842dee50-a8f3-4d8b-9c16-39cfb77f4812",
+                        "type": "users"
+                      }
+                    }
+                  }
+                },
+                {
+                  "id": "754f0286-0b96-47c0-bf8d-4d82da9c5bc8",
+                  "type": "line_items",
+                  "relationships": {
+                    "product": {
+                      "data": {
+                        "id": "a91f922f-0950-4a00-9cdd-24332809569e",
+                        "type": "products"
+                      }
+                    }
+                  }
+                },
+                {
+                  "id": "a91f922f-0950-4a00-9cdd-24332809569e",
+                  "type": "products",
+                  "attributes": {
+                    "title": "Mis mejores zapatos",
+                    "description": "En muy buen estado",
+                    "category": null,
+                    "original_price": 80,
+                    "currency": null,
+                    "size": null,
+                    "price": 40,
+                    "comments_count": 0,
+                    "likes_count": 0
+                  },
+                  "relationships": {
+                    "product_pictures": {
+                      "data": [
+                        {
+                          "id": "1",
+                          "type": "product_pictures"
+                        }
+                      ]
+                    },
+                    "comments": {
+                      "data": []
+                    },
+                    "user": {
+                      "data": {
+                        "id": "9875275f-56a6-437d-af34-e281ea8cbc62",
+                        "type": "users"
+                      }
+                    }
+                  },
+                  "meta": {
+                    "liked_by_current_user": false
+                  }
+                },
+                {
+                  "id": "1",
+                  "type": "product_pictures",
+                  "attributes": {
+                    "url": "/pics/original/missing.png",
+                    "small_url": "/pics/small/missing.png",
+                    "large_url": "/pics/large/missing.png",
+                    "product_id": "a91f922f-0950-4a00-9cdd-24332809569e"
+                  }
+                },
+                {
+                  "id": "a8cacccd-82b4-4d59-90fd-7bf1100c8b1a",
+                  "type": "fulfillments",
+                  "attributes": {
+                    "status": "pending"
+                  },
+                  "relationships": {
+                    "comments": {
+                      "data": []
+                    }
+                  }
+                },
+                {
+                  "id": "842dee50-a8f3-4d8b-9c16-39cfb77f4812",
+                  "type": "users",
+                  "attributes": {
+                    "username": "johnsnow3",
+                    "profile_pic": "/pics/original/missing.png",
+                    "first_name": "John 3",
+                    "last_name": "Snow 3",
+                    "website": "http://www.google.com",
+                    "country": {
+                      "code": "VE",
+                      "name": "Venezuela"
+                    },
+                    "bio": "My Super Bio",
+                    "following_count": 0,
+                    "followers_count": 0,
+                    "currency": {
+                      "code": "VEF",
+                      "name": "Bolivares Fuertes",
+                      "symbol": "Bs"
+                    }
+                  }
+                }
+              ]
+            }
+    
+        
+## Sales [/v1/sales]
+
+
+### Get Sales  [GET]
+
+Fetch sales current user. This endpoint is paginated. It accepts included with the following options: 
+
+      order
+      order.line_items
+      order.line_items.product
+      order.line_items.product.product_pictures
+      order.user
+      order.fulfillment
+
++ Payload
+
+    + Headers
+
+            Accept: application/json
+            Authorization: "Bearer 48e1358c41e14498c42ee4d5df3b0b5d"
+            Content-Type: application/json
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "data": [
+                {
+                  "id": "e0813ec0-b7fd-4398-81eb-b3fb044d7be3",
+                  "type": "sales",
+                  "attributes": {
+                    "amount": 32,
+                    "store_fee": 8
+                  },
+                  "relationships": {
+                    "order": {
+                      "data": {
+                        "id": "cc60d07e-57f3-435c-9c94-682a68f65e19",
+                        "type": "orders"
+                      }
+                    }
+                  }
+                }
+              ],
+              "included": [
+                {
+                  "id": "cc60d07e-57f3-435c-9c94-682a68f65e19",
+                  "type": "orders",
+                  "attributes": {
+                    "shipping_address": "2930 Lyon Street - Apt 2A, San Francisco, CA, 94123",
+                    "total_amount": 40,
+                    "financial_status": "paid"
+                  },
+                  "relationships": {
+                    "line_items": {
+                      "data": [
+                        {
+                          "id": "521e62a4-bff3-4919-ade2-e10f8e48870b",
+                          "type": "line_items"
+                        }
+                      ]
+                    },
+                    "fulfillment": {
+                      "data": {
+                        "id": "33907ab1-a9f9-4223-b091-863a5031f39e",
+                        "type": "fulfillments"
+                      }
+                    },
+                    "user": {
+                      "data": {
+                        "id": "6639d900-a416-4df6-8089-80f106fc30cd",
+                        "type": "users"
+                      }
+                    }
+                  }
+                },
+                {
+                  "id": "521e62a4-bff3-4919-ade2-e10f8e48870b",
+                  "type": "line_items",
+                  "relationships": {
+                    "product": {
+                      "data": {
+                        "id": "576ac1aa-36a9-413d-8fa3-32ad24307e86",
+                        "type": "products"
+                      }
+                    }
+                  }
+                },
+                {
+                  "id": "576ac1aa-36a9-413d-8fa3-32ad24307e86",
+                  "type": "products",
+                  "attributes": {
+                    "title": "Mis mejores zapatos",
+                    "description": "En muy buen estado",
+                    "category": null,
+                    "original_price": 80,
+                    "currency": null,
+                    "size": null,
+                    "price": 40,
+                    "comments_count": 0,
+                    "likes_count": 0
+                  },
+                  "relationships": {
+                    "product_pictures": {
+                      "data": [
+                        {
+                          "id": "1",
+                          "type": "product_pictures"
+                        }
+                      ]
+                    },
+                    "comments": {
+                      "data": []
+                    },
+                    "user": {
+                      "data": {
+                        "id": "49552a5f-5614-4453-81e8-d0bbf6134dda",
+                        "type": "users"
+                      }
+                    }
+                  },
+                  "meta": {
+                    "liked_by_current_user": false
+                  }
+                },
+                {
+                  "id": "1",
+                  "type": "product_pictures",
+                  "attributes": {
+                    "url": "/pics/original/missing.png",
+                    "small_url": "/pics/small/missing.png",
+                    "large_url": "/pics/large/missing.png",
+                    "product_id": "576ac1aa-36a9-413d-8fa3-32ad24307e86"
+                  }
+                },
+                {
+                  "id": "33907ab1-a9f9-4223-b091-863a5031f39e",
+                  "type": "fulfillments",
+                  "attributes": {
+                    "status": "pending"
+                  },
+                  "relationships": {
+                    "comments": {
+                      "data": []
+                    }
+                  }
+                },
+                {
+                  "id": "6639d900-a416-4df6-8089-80f106fc30cd",
+                  "type": "users",
+                  "attributes": {
+                    "username": "johnsnow3",
+                    "profile_pic": "/pics/original/missing.png",
+                    "first_name": "John 3",
+                    "last_name": "Snow 3",
+                    "website": "http://www.google.com",
+                    "country": {
+                      "code": "VE",
+                      "name": "Venezuela"
+                    },
+                    "bio": "My Super Bio",
+                    "following_count": 0,
+                    "followers_count": 0,
+                    "currency": {
+                      "code": "VEF",
+                      "name": "Bolivares Fuertes",
+                      "symbol": "Bs"
+                    }
+                  }
+                }
+              ],
+              "links": {}
+            }
