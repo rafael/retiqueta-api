@@ -69,7 +69,7 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
   it 'gets an order with included relationships' do
     post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
     expect(response.status).to eq(201)
-    id = json['id']
+    id = json['data']['id']
     included_sub_resources = ['line_items',
                               'line_items.product',
                               'line_items.product.product_pictures',
@@ -91,7 +91,7 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
   it 'seller can get order' do
     post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
     expect(response.status).to eq(201)
-    id = json['id']
+    id = json['data']['id']
     get "/v1/orders/#{id}",
         {},
         'X-Authenticated-Userid' => seller.uuid
