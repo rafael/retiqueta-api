@@ -18,4 +18,8 @@ class Order < ActiveRecord::Base
   ################
 
   include ArUuidGenerator
+
+  def sellers
+    line_items.map(&:product).map(&:user)
+  end
 end

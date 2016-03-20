@@ -7,6 +7,14 @@ class V1::OrdersController < ApplicationController
            status: 200
   end
 
+  def show
+    outcome = ::Orders::Read.call(params.merge(user_id: user_id))
+    render json: outcome,
+           serializer: OrderSerializer,
+           include: filtered_include,
+           status: 200
+  end
+
   def create
     outcome = ::Orders::Create.call(user_id: user_id, data: order_params)
     render json: outcome.success_result,

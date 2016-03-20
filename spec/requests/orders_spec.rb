@@ -2,6 +2,7 @@ require 'rails_helper'
 require 'set'
 
 RSpec.describe 'Orders Requests', vcr: true, type: :request do
+  let(:random_user) { create(:user) }
   let(:seller) { create(:user) }
   let(:buyer) { create(:user, password: '123456') }
   let(:product) { create(:product, user: seller) }
@@ -63,5 +64,47 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
                                                      'product_pictures',
                                                      'fulfillments',
                                                      'users']))
+  end
+
+  it 'gets an order with included relationships' do
+    post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
+    expect(response.status).to eq(201)
+    id = json['id']
+    included_sub_resources = ['line_items',
+                              'line_items.product',
+                              'line_items.product.product_pictures',
+                              'user',
+                              'fulfillment']
+    get "/v1/orders/#{id}",
+        { include: included_sub_resources.join(',')},
+        'X-Authenticated-Userid' => buyer.uuid
+    expect(response.status).to eq(200)
+    sub_resource_types =
+      json['included'].map { |sub_resource| sub_resource['type'] }
+    expect(sub_resource_types.to_set).to eq(Set.new(['line_items',
+                                                     'products',
+                                                     'product_pictures',
+                                                     'fulfillments',
+                                                     'users']))
+  end
+
+  it 'seller can get order' do
+    post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
+    expect(response.status).to eq(201)
+    id = json['id']
+    get "/v1/orders/#{id}",
+        {},
+        'X-Authenticated-Userid' => seller.uuid
+    expect(response.status).to eq(200)
+  end
+
+  it "can't get an order if it's not a buyer or seller" do
+    post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
+    expect(response.status).to eq(201)
+    id = json['data']['id']
+    get "/v1/orders/#{id}",
+        {},
+        'X-Authenticated-Userid' => random_user.uuid
+    expect(response.status).to eq(404)
   end
 end
