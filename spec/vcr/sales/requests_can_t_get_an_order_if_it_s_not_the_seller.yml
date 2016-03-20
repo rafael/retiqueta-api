@@ -21,7 +21,7 @@ http_interactions:
       message: Created
     headers:
       Date:
-      - Sun, 20 Mar 2016 01:26:18 GMT
+      - Sun, 20 Mar 2016 04:40:52 GMT
       Content-Type:
       - application/json;charset=UTF-8
       Transfer-Encoding:
@@ -37,13 +37,13 @@ http_interactions:
       Cache-Control:
       - max-age=0
       Etag:
-      - c6abc496d66ecb73923632e8123c349f
+      - e79d277f84aacb99d2c7215740c71f7a
       X-Content-Type-Option:
       - nosniff
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 60d435ce-ec2f-4e0b-a933-b3ad29087d31
+      - dc64d6a3-4962-4cc0-a9b3-2c0894d59628
       X-Xss-Protection:
       - 1; mode=block
       X-Content-Type-Options:
@@ -59,12 +59,12 @@ http_interactions:
       Access-Control-Max-Age:
       - '86400'
       X-Libra-Upstreamhost:
-      - 10.32.146.134
+      - 172.16.149.113
     body:
       encoding: UTF-8
-      string: '{"id":459427,"date_created":"2016-03-19T21:26:18.000-04:00","date_approved":"2016-03-19T21:26:18.000-04:00","date_last_updated":"2016-03-19T21:26:18.000-04:00","money_release_date":null,"operation_type":"regular_payment","issuer_id":"212","payment_method_id":"visa","payment_type_id":"credit_card","status":"approved","status_detail":"accredited","currency_id":"VEF","description":"Buy
-        in retiqueta.com","live_mode":false,"sponsor_id":null,"authorization_code":null,"collector_id":203200861,"payer":{"type":"guest","id":null,"email":"john3@winterfell.com","identification":{"type":null,"number":null},"phone":{"area_code":null,"number":null,"extension":""},"first_name":"","last_name":"john3"},"metadata":{},"order":{},"external_reference":null,"transaction_amount":40,"transaction_amount_refunded":0,"coupon_amount":0,"differential_pricing_id":null,"transaction_details":{"net_received_amount":37.2,"total_paid_amount":40,"overpaid_amount":0,"external_resource_url":null,"installment_amount":40,"financial_institution":null,"payment_method_reference_id":null},"fee_details":[{"type":"mercadopago_fee","amount":2.8,"fee_payer":"collector"}],"captured":true,"binary_mode":false,"call_for_authorize_id":null,"statement_descriptor":"WWW.MERCADOPAGO.COM","installments":1,"card":{"id":null,"first_six_digits":"450995","last_four_digits":"3704","expiration_month":12,"expiration_year":2016,"date_created":"2016-03-19T21:26:18.000-04:00","date_last_updated":"2016-03-19T21:26:18.000-04:00","cardholder":{"name":"APRO
+      string: '{"id":459557,"date_created":"2016-03-20T00:40:52.000-04:00","date_approved":"2016-03-20T00:40:52.000-04:00","date_last_updated":"2016-03-20T00:40:52.000-04:00","money_release_date":null,"operation_type":"regular_payment","issuer_id":"212","payment_method_id":"visa","payment_type_id":"credit_card","status":"approved","status_detail":"accredited","currency_id":"VEF","description":"Buy
+        in retiqueta.com","live_mode":false,"sponsor_id":null,"authorization_code":null,"collector_id":203200861,"payer":{"type":"guest","id":null,"email":"john3@winterfell.com","identification":{"type":null,"number":null},"phone":{"area_code":null,"number":null,"extension":""},"first_name":"","last_name":"john3"},"metadata":{},"order":{},"external_reference":null,"transaction_amount":40,"transaction_amount_refunded":0,"coupon_amount":0,"differential_pricing_id":null,"transaction_details":{"net_received_amount":37.2,"total_paid_amount":40,"overpaid_amount":0,"external_resource_url":null,"installment_amount":40,"financial_institution":null,"payment_method_reference_id":null},"fee_details":[{"type":"mercadopago_fee","amount":2.8,"fee_payer":"collector"}],"captured":true,"binary_mode":false,"call_for_authorize_id":null,"statement_descriptor":"WWW.MERCADOPAGO.COM","installments":1,"card":{"id":null,"first_six_digits":"450995","last_four_digits":"3704","expiration_month":12,"expiration_year":2016,"date_created":"2016-03-20T00:40:52.000-04:00","date_last_updated":"2016-03-20T00:40:52.000-04:00","cardholder":{"name":"APRO
         Rafael","identification":{"number":"12345678","type":"CI-V"}}},"notification_url":null,"refunds":[]}'
     http_version: 
-  recorded_at: Sun, 20 Mar 2016 01:11:13 GMT
+  recorded_at: Sun, 20 Mar 2016 04:40:52 GMT
 recorded_with: VCR 2.9.3

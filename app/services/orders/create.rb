@@ -99,7 +99,7 @@ module Orders
 
     def create_line_items!(order)
       line_items.each do |line_item|
-        LineItem.create!(product_type: line_item[:product_type],
+        LineItem.create!(product_type: line_item[:product_type].classify,
                          product_id: line_item[:product_id],
                          order_id: order.uuid)
       end
@@ -225,8 +225,10 @@ module Orders
     end
 
     def valid_line_items
+      # Use what json api uses to set the type of a resource:
+      # https://github.com/rails-api/active_model_serializers/blob/6b4c8df6fb6bc142ee6a74da51bb26c42a025b3c/lib/active_model_serializers/adapter/json_api/resource_identifier.rb#L26
       valid_types =
-        product_types.all? { |product_type| product_type == 'product' }
+        product_types.all? { |product_type| product_type == Product.model_name.plural }
 
       products = fetch_products
 

@@ -9,15 +9,17 @@ class Order < ActiveRecord::Base
   ##################
 
   belongs_to :user, primary_key: :uuid
-  has_one :conversation, as: :commentable
   belongs_to :payment_transaction, primary_key: :uuid
   has_many :line_items, primary_key: :uuid
   has_one :fulfillment, primary_key: :uuid
-  delegate :comments, to: :conversation
 
   ################
   ## Extensions ##
   ################
 
   include ArUuidGenerator
+
+  def sellers
+    line_items.map(&:product).map(&:user)
+  end
 end

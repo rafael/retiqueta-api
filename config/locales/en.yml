@@ -1,8 +1,12 @@
 en:
+  sales:
+    errors:
+      not_found: "Sale not found"
   orders:
     errors:
       something_went_wrong: 'Sorry, something went wrong while processing your order'
       fail_to_charge_credit_card: "Sorry, we couldn't charge your card"
+      not_found: "Order not found"
   user:
     errors:
       not_found: "User not found"
