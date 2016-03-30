@@ -16,6 +16,7 @@ gem 'elasticsearch-model', '0.1.8'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'mercadopago-sdk', '~> 0.3.4'
 gem 'countries', '1.2.5'
+gem 'koala', '~> 2.2'
 
 group :development, :test do
   gem 'pry-byebug'

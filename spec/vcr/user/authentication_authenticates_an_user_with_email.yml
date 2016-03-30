@@ -2,42 +2,44 @@
 http_interactions:
 - request:
     method: post
-    uri: https://kong:8443/users/oauth2/token
+    uri: https://kong:8443/v1/users/oauth2/token
     body:
       encoding: US-ASCII
-      string: client_secret=c4c6f41e11294965c998379111143ba8&client_id=ret-mobile-ios&scope=app&provision_key=a2a1ed0c2ef64868c85fa56e5770831a&grant_type=password&authenticated_userid=b1c0fff0-b2ec-468b-81bc-3ca4657e1051
+      string: client_secret=4649d46d7e6a474fc780ebe9cdbc06ab&client_id=f833910090df4ef8ce1c07f6a7819aca&scope=app&provision_key=7275091c88b749efc9aca9f3c3d8aaff&grant_type=password&authenticated_userid=85b2bda7-a223-4fad-886d-fbe3d030337d
     headers:
-      content-type:
+      Content-Type:
       - application/x-www-form-urlencoded
-      accept:
+      Accept:
       - application/json
-      user-agent:
+      User-Agent:
       - Faraday v0.9.2
-      accept-encoding:
+      Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
       code: 200
       message: OK
     headers:
-      date:
-      - Tue, 13 Oct 2015 02:27:28 GMT
-      content-type:
+      Date:
+      - Wed, 30 Mar 2016 06:30:06 GMT
+      Content-Type:
       - application/json; charset=utf-8
-      transfer-encoding:
+      Transfer-Encoding:
       - chunked
-      connection:
-      - close
-      server:
-      - kong/0.5.0
-      pragma:
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Origin:
+      - "*"
+      Server:
+      - kong/0.5.1
+      Pragma:
       - no-cache
-      cache-control:
+      Cache-Control:
       - no-store
     body:
       encoding: UTF-8
       string: |
-        {"refresh_token":"2dcf6a66a224484fc827cc5e9db7be5c","token_type":"bearer","access_token":"be136d6553564effce45de0eba04ff4d","expires_in":7200}
-    http_version: '1.1'
-  recorded_at: Tue, 13 Oct 2015 02:27:28 GMT
+        {"refresh_token":"5b39a94118634794c770d1bceaf9dbc5","token_type":"bearer","access_token":"1c6d592735db40b4c0c69c90a9a746ac","expires_in":7200}
+    http_version: 
+  recorded_at: Wed, 30 Mar 2016 06:30:06 GMT
 recorded_with: VCR 2.9.3

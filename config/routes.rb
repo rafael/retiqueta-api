@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
     resource :authenticate, only: :create do
       post 'token' => 'authenticates#refreh_token'
+      post 'fb/connect' => 'authenticates#fb_connect'
     end
 
     post 'send_password_reset' => 'password_actions#send_reset'
