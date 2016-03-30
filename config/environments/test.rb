@@ -9,7 +9,7 @@ Rails.application.configure do
   config.active_support.deprecation = :stderr
   config.active_record.raise_in_transactional_callbacks = true
   config.x.kong.internal_url = "https://kong:8443"
-  config.x.kong.users_ouath_token_path = "/users/oauth2/token"
+  config.x.kong.users_ouath_token_path = "/v1/users/oauth2/token"
   config.x.elastictsearch.host = "elasticsearch"
   config.x.elastictsearch.log = false
   config.x.reset_password_url = "https://retiqueta.com/reset_password?token={{token}}"

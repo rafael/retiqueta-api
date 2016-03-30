@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'User authentication', type: :request do
   let(:user) { create(:user, password: '123456') }
+  let(:fb_token) do
+    'CAACEdEose0cBABRxEbIBdeJepV39f9ZBWIguOnRZBS9o7Ilfm10xWwetqT5O8C9gokdThkuZBGqQoe3UKVzDcFwOc6gC0Emf7JGWgBFcZCVydUpJpkFU6bmmZAMVzWvZAe6ZATif0Rs07oqSVsRvReZAB9tqWUdG9s4w5rwZBGlrBbJWNqmNhy0mq06hE1fXjFdvnWyIZAt8ZBhdgZDZD'
+  end
 
   it 'validates presence of login' do
     post '/v1/authenticate'
@@ -66,5 +69,10 @@ RSpec.describe 'User authentication', type: :request do
     failed_error = ApiError::FailedValidation.new("Refresh token #{I18n.t('errors.messages.blank')}")
     expect(response.status).to eq(failed_error.status)
     expect(json).to have_error_json_as(failed_error)
+  end
+
+  it 'authenticates with a facebook token', vcr: true do
+    post '/v1/authenticate/fb/connect', token: fb_token, expires_in: '123456', client_id: 'ret-mobile-ios'
+    expect(response.status).to eq(200)
   end
 end

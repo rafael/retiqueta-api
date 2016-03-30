@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   ##################
 
   has_one :profile, autosave: true
+  has_one :facebook_account, primary_key: :uuid
   has_many :products, primary_key: :uuid
   has_many :push_tokens, primary_key: :uuid
 
@@ -59,6 +60,10 @@ class User < ActiveRecord::Base
 
   def following_count
     active_relationships.count
+  end
+
+  def self.find_by_facebook_id(uuid)
+    FacebookAccount.find_by_uuid(uuid.to_s).try(:user)
   end
 
   private

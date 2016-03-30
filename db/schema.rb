@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229045844) do
+ActiveRecord::Schema.define(version: 20160330045929) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "conversation_id", limit: 4
@@ -33,6 +33,18 @@ ActiveRecord::Schema.define(version: 20160229045844) do
   end
 
   add_index "conversations", ["commentable_id", "commentable_type"], name: "index_conversations_on_commentable_id_and_commentable_type", unique: true, using: :btree
+
+  create_table "facebook_accounts", force: :cascade do |t|
+    t.string   "user_id",    limit: 255
+    t.string   "token",      limit: 255
+    t.integer  "expires_in", limit: 4
+    t.string   "uuid",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "facebook_accounts", ["user_id"], name: "index_facebook_accounts_on_user_id", using: :btree
+  add_index "facebook_accounts", ["uuid"], name: "index_facebook_accounts_on_uuid", unique: true, using: :btree
 
   create_table "fulfillments", force: :cascade do |t|
     t.string   "uuid",       limit: 255, null: false
