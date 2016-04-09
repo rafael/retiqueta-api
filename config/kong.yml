@@ -10,42 +10,42 @@ apis:
     name: products-resource
     request_path: /v1/products
     strip_request_path: true
-    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/products
+    upstream_url: http://<%= ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT",  3000) %>) %>/v1/products
   -
     name: users-resource
     request_path: /v1/users
     strip_request_path: true
-    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/users
+    upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/users
   -
     name: authenticate-resource
     request_path: /v1/authenticate
     strip_request_path: true
-    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/authenticate
+    upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/authenticate
   -
     name: product-pictures-resource
     request_path: /v1/product_pictures
     strip_request_path: true
-    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/product_pictures
+    upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/product_pictures
   -
     name: registrations-resource
     request_path: /v1/registrations
     strip_request_path: true
-    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/registrations
+    upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/registrations
   -
     name: ionic-webhook
     request_path: /e22e9a38-cd10-4132-b2d3-a845b0aa0539
     strip_request_path: true
-    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/e22e9a38-cd10-4132-b2d3-a845b0aa0539
+    upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/e22e9a38-cd10-4132-b2d3-a845b0aa0539
   -
     name: send-password-reset
     request_path: /v1/send_password_reset
     strip_request_path: true
-    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/send_password_reset
+    upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/send_password_reset
   -
     name: reset-password
     request_path: /v1/reset_password
     strip_request_path: true
-    upstream_url: http://<%= ENV["DOCKER_HOST_IP"] %>:3000/v1/reset_password
+    upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/reset_password
 
 plugins:
   -
