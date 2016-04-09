@@ -25,7 +25,7 @@ api:
     SECRET_PATHS: "/etc/secrets"
     FB_CLIENT_ID: 218614578499396
     FB_CLIENT_SECRET: 27c75c1fdd4a408aaf923e2230e5150b
-    DOCKER_HOST_IP:
+    UPSTREAM_SERVICE_HOST:
 worker:
   build: .
   command: "config/container/start-workers.sh -bash"

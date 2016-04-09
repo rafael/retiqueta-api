@@ -126,7 +126,7 @@ namespace :kong do
   end
 
   def kong_admin_host
-    ENV.fetch("KONG_ADMIN_HOST", "kong")
+    ENV.fetch("KONG_PORT_443_TCP_ADDR", "kong")
   end
 
   def kong_admin_port
