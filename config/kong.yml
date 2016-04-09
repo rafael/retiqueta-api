@@ -68,9 +68,9 @@ plugins:
   -
     name: ssl
     apis: all
-     config.cert: "@/etc/ssl/kong/api.retiqueta.pem"
-     config.key: "@/etc/ssl/kong/api.retiqueta.key"
-     config.only_https: "true"
+    config.cert: "@/etc/ssl/kong/api.retiqueta.pem"
+    config.key: "@/etc/ssl/kong/api.retiqueta.key"
+    config.only_https: "true"
   -
     name: oauth2
     config.scopes: app
