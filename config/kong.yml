@@ -46,6 +46,16 @@ apis:
     request_path: /v1/reset_password
     strip_request_path: true
     upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/reset_password
+  -
+    name: sales-resource
+    request_path: /v1/sales
+    strip_request_path: true
+    upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/sales
+  -
+    name: orders-resource
+    request_path: /v1/orders
+    strip_request_path: true
+    upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/orders
 
 plugins:
   -
