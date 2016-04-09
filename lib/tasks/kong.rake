@@ -130,7 +130,7 @@ namespace :kong do
   end
 
   def kong_admin_port
-    ENV.fetch("KONG_ADMIN_PORT", "8001")
+    ENV.fetch("KONG_ADMIN_SERVICE_PORT", "8001")
   end
 
   def kong_admin_protocol
