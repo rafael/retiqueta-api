@@ -1,8 +1,6 @@
 namespace :kong do
   desc "Setup kong for development"
   task setup: :environment do
-    next if ENV["DOCKER_HOST_IP"].blank?
-
     wait_for_kong
 
     # recreate apis
@@ -127,10 +125,22 @@ namespace :kong do
     msgs.each { |msg| puts "# #{msg}" }
   end
 
+  def kong_admin_host
+    ENV.fetch("KONG_PORT_443_TCP_ADDR", "kong")
+  end
+
+  def kong_admin_port
+    ENV.fetch("KONG_ADMIN_PORT", "8001")
+  end
+
+  def kong_admin_protocol
+    ENV.fetch("KONG_ADMIN_PROTOCOL", "http")
+  end
+
   def kong_admin
     @client ||= begin
       options = {
-        url: "http://kong:8001",
+        url: "#{kong_admin_protocol}://#{kong_admin_host}:#{kong_admin_port}",
         headers: {
           "Content-Type" => "application/x-www-form-urlencoded",
           "Accept" => "application/json",
