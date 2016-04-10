@@ -116,7 +116,7 @@ namespace :kong do
     if pc["name"] == "ssl"
       apis.each do |api_name| 
         log "adding plugin: #{pc["name"]} to API: #{api_name}"
-        `curl -X POST http://#{kong_admin_host}:#{kong_admin_port}/apis/#{api_name}/plugins  --form "name=ssl"  --form "config.cert=@/etc/ssl/kong/api.retiqueta.pem"   --form "config.key=@/etc/ssl/kong/api.retiqueta.key"`
+`curl -X POST http://#{kong_admin_host}:#{kong_admin_port}/apis/#{api_name}/plugins  --form "name=ssl"  --form "config.cert=@/etc/ssl/kong/api.retiqueta.pem"   --form "config.key=@/etc/ssl/kong/api.retiqueta.key" --form "config.only_https=true"`
       end
     else
       apis.each do |api_name|
