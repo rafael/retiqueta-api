@@ -68,8 +68,8 @@ plugins:
   -
     name: ssl
     apis: all
-    config.cert: "@/etc/ssl/kong/api.retiqueta.pem"
-    config.key: "@/etc/ssl/kong/api.retiqueta.key"
+    config.cert: "<%= IO.read('/etc/ssl/kong/api.retiqueta.pem') %>" # Have to find a way to do this with faraday :/
+    config.key: "<%=  IO.read('/etc/ssl/kong/api.retiqueta.key') %>"
     config.only_https: "true"
   -
     name: oauth2

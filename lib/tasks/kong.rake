@@ -113,11 +113,17 @@ namespace :kong do
     # Remove this key as it's not a valid parameter
     pc = plugin_config.dup
     pc.delete("apis")
-
-    apis.each do |api_name|
-      log "adding plugin: #{pc["name"]} to API: #{api_name}"
-      response = kong_admin.post("/apis/#{api_name}/plugins", URI.encode_www_form(pc))
-      yield(response, api_name) if block_given?
+    if pc["name"] == "ssl"
+      apis.each do |api_name| 
+        log "adding plugin: #{pc["name"]} to API: #{api_name}"
+        `curl -X POST http://#{kong_admin_host}:#{kong_admin_port}/apis/#{api_name}/plugins  --form "name=ssl"  --form "config.cert=@/etc/ssl/kong/api.retiqueta.pem"   --form "config.key=@/etc/ssl/kong/api.retiqueta.key"`
+      end
+    else
+      apis.each do |api_name|
+        log "adding plugin: #{pc["name"]} to API: #{api_name}"
+        response = kong_admin.post("/apis/#{api_name}/plugins", URI.encode_www_form(pc))
+        yield(response, api_name) if block_given?
+      end
     end
   end
 
