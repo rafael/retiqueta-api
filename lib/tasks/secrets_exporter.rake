@@ -30,7 +30,7 @@ namespace :secrets do
   end
 
   def print_env_var(env_var)
-    puts "export #{env_var[:key]}=#{env_var[:value]}"
+    puts "export #{env_var[:key]}=\"#{env_var[:value]}\""
   end
 
   def each_secret_file(path, &block)
