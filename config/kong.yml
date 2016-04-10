@@ -10,7 +10,7 @@ apis:
     name: products-resource
     request_path: /v1/products
     strip_request_path: true
-    upstream_url: http://<%= ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT",  3000) %>) %>/v1/products
+    upstream_url: http://<%= ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT",  3000) %>/v1/products
   -
     name: users-resource
     request_path: /v1/users
