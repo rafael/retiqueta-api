@@ -3,7 +3,7 @@ api:
   command: "config/container/start-server-dev.sh -bash"
   volumes:
     - .:/app
-    - ./config/container/dev/ssl:/etc/ssl/kong
+    - ./config/container/dev/ssl:/etc/secrets
   ports:
     - "3000:3000"
   links:
