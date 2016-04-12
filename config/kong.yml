@@ -80,3 +80,5 @@ plugins:
       - products-resource
       - users-resource
       - product-pictures-resource
+      - orders-resource
+      - sales-resource
