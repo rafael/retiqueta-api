@@ -44,8 +44,4 @@ class UserSerializer < ActiveModel::Serializer
 
     { code: code, name: name, symbol: symbol }
   end
-
-  meta do
-    { followed_by_current_user: current_user && current_user.following?(object) }
-  end
 end

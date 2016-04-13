@@ -24,6 +24,9 @@ class ProductSerializer < ActiveModel::Serializer
   end
 
   meta do
-    { liked_by_current_user: current_user && current_user.liked?(object) }
+    {
+      liked_by_current_user: current_user && current_user.liked?(object),
+      followed_by_current_user: current_user && current_user.following?(object.user)
+    }
   end
 end

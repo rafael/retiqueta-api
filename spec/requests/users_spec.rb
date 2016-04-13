@@ -49,13 +49,6 @@ RSpec.describe 'Users', type: :request do
                                                        'symbol' => 'Bs')
   end
 
-  it 'returns meta data with following information' do
-    user_2 = create(:user)
-    get "/v1/users/#{user.uuid}", nil, 'X-Authenticated-Userid' => user_2.uuid
-    expect(response.status).to eq(200)
-    expect(json["meta"]).to eq({"followed_by_current_user" => false })
-  end
-
   it 'updates user website, first_name, last_name, bio, country' do
     patch "/v1/users/#{user.uuid}", update_params, 'X-Authenticated-Userid' => user.uuid
     expect(response.status).to eq(204)
