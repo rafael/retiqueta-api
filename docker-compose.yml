@@ -60,7 +60,7 @@ db:
   environment:
     MYSQL_ROOT_PASSWORD: 123456
 kong:
-  image: rafael/kong:0.5.2
+  image: rafael/kong:0.7.0
   ports:
     - "80:8000"
     - "443:8443"
