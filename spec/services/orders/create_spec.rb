@@ -131,6 +131,14 @@ RSpec.describe Orders::Create, type: :model do
     expect(order.total_amount).to eq(product_1.price + product_2.price)
   end
 
+  it 'assigns payment method to payment transaction' do
+    service_result = described_class.call(params, default_dependencies)
+    expect(service_result).to_not be_nil
+    order = service_result.success_result
+    expect(order.payment_transaction).to_not be_nil
+    expect(order.payment_transaction.payment_method).to eq('visa')
+  end
+
   it 'payment audit trail corresponds to payment transaction' do
     service_result = described_class.call(params, default_dependencies)
     expect(service_result).to_not be_nil

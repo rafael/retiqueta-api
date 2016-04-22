@@ -3,6 +3,7 @@ api:
   command: "config/container/start-server-dev.sh -bash"
   volumes:
     - .:/app
+    - ./config/container/dev/ssl:/etc/secrets
   ports:
     - "3000:3000"
   links:
@@ -12,8 +13,8 @@ api:
     - elasticsearch
   environment:
     S3_BUCKET_NAME: "retiqueta-dev-images"
-    AWS_ACCESS_KEY_ID: "AKIAJPD6UFMMPDH2LNZA"
-    AWS_SECRET_ACCESS_KEY: "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"
+    AWS_ACCESS_KEY_ID: "AKIAINKHBRALJ2V7JMDQ"
+    AWS_SECRET_ACCESS_KEY: "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"
     MYSQL_ROOT_PASSWORD: 123456
     REDIS_SERVICE_HOST: "redis"
     REDIS_SERVICE_PORT: "6379"
@@ -25,6 +26,8 @@ api:
     SECRET_PATHS: "/etc/secrets"
     FB_CLIENT_ID: 218614578499396
     FB_CLIENT_SECRET: 27c75c1fdd4a408aaf923e2230e5150b
+    KONG_ADMIN_SERVICE_HOST: kong
+    KONG_ADMIN_SERVICE_PORT: 8001
     UPSTREAM_SERVICE_HOST:
 worker:
   build: .
@@ -38,8 +41,8 @@ worker:
     - kong
   environment:
     S3_BUCKET_NAME: "retiqueta-dev-images"
-    AWS_ACCESS_KEY_ID: "AKIAJPD6UFMMPDH2LNZA"
-    AWS_SECRET_ACCESS_KEY: "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"
+    AWS_ACCESS_KEY_ID: "AKIAINKHBRALJ2V7JMDQ"
+    AWS_SECRET_ACCESS_KEY: "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"
     MYSQL_ROOT_PASSWORD: 123456
     REDIS_SERVICE_HOST: "redis"
     REDIS_SERVICE_PORT: "6379"
@@ -57,13 +60,15 @@ db:
   environment:
     MYSQL_ROOT_PASSWORD: 123456
 kong:
-  image: rafael/kong:0.5.1
+  image: rafael/kong:0.7.0
   ports:
     - "80:8000"
     - "443:8443"
     - "8001:8001"
   links:
     - cassandra
+  volumes:
+    - ./config/container/dev/kong:/etc/kong
 cassandra:
   image: mashape/cassandra
   ports:

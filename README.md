@@ -12,7 +12,7 @@ In order to configure Kong you need to set the variable `DOCKER_HOST_IP` to the 
 
 If you're using docker-machine, this example shows you how to run all services.
 ```
-$ DOCKER_HOST_IP=$(docker-machine ip DOCKER_MACHINE_NAME) docker-compose up
+$ UPSTREAM_SERVICE_HOST=$(docker-machine ip DOCKER_MACHINE_NAME) docker-compose up
 ```
 
 #### Testing

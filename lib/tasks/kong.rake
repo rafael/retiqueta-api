@@ -113,11 +113,17 @@ namespace :kong do
     # Remove this key as it's not a valid parameter
     pc = plugin_config.dup
     pc.delete("apis")
-
-    apis.each do |api_name|
-      log "adding plugin: #{pc["name"]} to API: #{api_name}"
-      response = kong_admin.post("/apis/#{api_name}/plugins", URI.encode_www_form(pc))
-      yield(response, api_name) if block_given?
+    if pc["name"] == "ssl"
+      apis.each do |api_name| 
+        log "adding plugin: #{pc["name"]} to API: #{api_name}"
+        `curl -X POST http://#{kong_admin_host}:#{kong_admin_port}/apis/#{api_name}/plugins  --form "name=ssl"  --form "config.cert=@/etc/secrets/retiqueta-ssl-api-pem"   --form "config.key=@/etc/secrets/retiqueta-ssl-api-key" --form "config.only_https=true"`
+      end
+    else
+      apis.each do |api_name|
+        log "adding plugin: #{pc["name"]} to API: #{api_name}"
+        response = kong_admin.post("/apis/#{api_name}/plugins", URI.encode_www_form(pc))
+        yield(response, api_name) if block_given?
+      end
     end
   end
 
@@ -126,11 +132,11 @@ namespace :kong do
   end
 
   def kong_admin_host
-    ENV.fetch("KONG_PORT_443_TCP_ADDR", "kong")
+    ENV.fetch("KONG_ADMIN_SERVICE_HOST", "kong")
   end
 
   def kong_admin_port
-    ENV.fetch("KONG_ADMIN_PORT", "8001")
+    ENV.fetch("KONG_ADMIN_SERVICE_PORT", "8001")
   end
 
   def kong_admin_protocol

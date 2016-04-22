@@ -13,6 +13,8 @@ class Order < ActiveRecord::Base
   has_many :line_items, primary_key: :uuid
   has_one :fulfillment, primary_key: :uuid
 
+  delegate :payment_method, to: :payment_transaction
+
   ################
   ## Extensions ##
   ################

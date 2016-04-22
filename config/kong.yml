@@ -10,7 +10,7 @@ apis:
     name: products-resource
     request_path: /v1/products
     strip_request_path: true
-    upstream_url: http://<%= ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT",  3000) %>) %>/v1/products
+    upstream_url: http://<%= ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT",  3000) %>/v1/products
   -
     name: users-resource
     request_path: /v1/users
@@ -46,6 +46,16 @@ apis:
     request_path: /v1/reset_password
     strip_request_path: true
     upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/reset_password
+  -
+    name: sales-resource
+    request_path: /v1/sales
+    strip_request_path: true
+    upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/sales
+  -
+    name: orders-resource
+    request_path: /v1/orders
+    strip_request_path: true
+    upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/orders
 
 plugins:
   -
@@ -56,6 +66,12 @@ plugins:
     name: cors
     apis: all
   -
+    name: ssl
+    apis: all
+    config.cert: "<%= IO.read('/etc/secrets/retiqueta-ssl-api-pem') %>" # Have to find a way to do this with faraday :/
+    config.key: "<%=  IO.read('/etc/secrets/retiqueta-ssl-api-key') %>"
+    config.only_https: "true"
+  -
     name: oauth2
     config.scopes: app
     config.mandatory_scope: true
@@ -64,3 +80,5 @@ plugins:
       - products-resource
       - users-resource
       - product-pictures-resource
+      - orders-resource
+      - sales-resource
