@@ -43,6 +43,9 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
     expect(json['data'].first['attributes']['shipping_address']).to eq('2930 Lyon Street - Apt 2A, San Francisco, CA, 94123')
     expect(json['data'].first['attributes']['total_amount']).to eq(product.price)
     expect(json['data'].first['attributes']['financial_status']).to eq('paid')
+    expect(json['data'].first['attributes']['currency']).to eq('VEF')
+    expect(json['data'].first['attributes']['created_at']).to eq(Order.last.created_at.iso8601)
+    expect(json['data'].first['attributes']['payment_method']).to eq('visa')
   end
 
   it 'show index of orders with included relationships' do

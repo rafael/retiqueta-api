@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330045929) do
+ActiveRecord::Schema.define(version: 20160422030423) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "conversation_id", limit: 4
@@ -99,12 +99,14 @@ ActiveRecord::Schema.define(version: 20160330045929) do
   add_index "payment_audit_trails", ["user_id"], name: "index_payment_audit_trails_on_user_id", using: :btree
 
   create_table "payment_transactions", force: :cascade do |t|
-    t.string   "uuid",       limit: 255,   null: false
-    t.string   "user_id",    limit: 255,   null: false
-    t.string   "status",     limit: 255
-    t.text     "metadata",   limit: 65535
+    t.string   "uuid",             limit: 255,   null: false
+    t.string   "user_id",          limit: 255,   null: false
+    t.string   "status",           limit: 255
+    t.text     "metadata",         limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "payment_method",   limit: 20
+    t.string   "payment_provider", limit: 60
   end
 
   create_table "product_pictures", force: :cascade do |t|
