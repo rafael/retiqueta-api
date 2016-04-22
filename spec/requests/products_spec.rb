@@ -90,6 +90,11 @@ RSpec.describe 'Products', type: :request do
     expect(response.status).to eq(204)
   end
 
+  it "updates a product" do
+    put "/v1/products/#{product.uuid}", params, 'X-Authenticated-Userid' => user.uuid
+    expect(response.status).to eq(204)
+  end
+
   context 'search' do
     it 'searches a product' do
       product = create(:product, title: 'zapato super #nike')

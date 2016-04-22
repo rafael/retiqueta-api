@@ -7,7 +7,7 @@ FactoryGirl.define do
     original_price 80.0
     status "published"
     after(:create) do |product, evaluator|
-      create(:product_picture, product: product)
+      create(:product_picture, product: product) if product.product_pictures.empty?
     end
   end
 end
