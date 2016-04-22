@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   namespace :v1 do
     get 'products/search' => 'products#search'
     resources :registrations, only: :create
-    resources :products,  only: [:create, :index, :destroy, :show] do
+    resources :products, except: [:new, :edit] do
       resources :comments, only: [:create, :index, :destroy], path: 'relationships/comments', module: 'products'
       resources :likes, only: [:index], path: 'relationships/likes', module: 'products'
       post 'like' => 'products#like'
