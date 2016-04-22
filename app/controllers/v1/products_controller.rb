@@ -19,8 +19,13 @@ class V1::ProductsController < ApplicationController
   end
 
   def create
-    outcome = ::Products::Create.call(user_id:  user_id, data: create_product_params)
+    outcome = ::Products::Create.call(user_id:  user_id, data: create_or_update_product_params)
     render json: outcome.success_result, serializer: ProductSerializer, status: 201
+  end
+
+  def update
+    outcome = ::Products::Update.call(user_id: user_id, id: params[:id], data: create_or_update_product_params)
+    render json: {}, status: 204
   end
 
   def destroy
@@ -44,14 +49,19 @@ class V1::ProductsController < ApplicationController
     (params[:include] || "").split(",").find_all { |filter| ['product_pictures', 'user', 'comments'].include?(filter)  }
   end
 
-  def create_product_params
-    params.require(:data).permit(:type,
-                                 attributes: [:category,
-                                              :title,
-                                              :description,
-                                              :original_price,
-                                              :price,
-                                              :size,
-                                              pictures: []])
+  def create_or_update_product_params
+    params.require(:data).permit(:type, attributes: allowed_product_attributes)
+  end
+
+  def allowed_product_attributes
+    [
+      :category,
+      :title,
+      :description,
+      :original_price,
+      :price,
+      :size,
+      pictures: []
+    ]
   end
 end
