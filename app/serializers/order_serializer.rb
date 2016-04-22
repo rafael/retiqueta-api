@@ -3,7 +3,7 @@ require 'time'
 class OrderSerializer < ActiveModel::Serializer
 
   attributes :id, :shipping_address, :total_amount, :financial_status,
-             :created_at, :currency
+             :created_at, :currency, :payment_method
 
   has_many :line_items
   has_one :fulfillment

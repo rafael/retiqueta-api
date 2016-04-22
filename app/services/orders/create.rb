@@ -154,7 +154,7 @@ module Orders
       create_audit(payment_transaction_id,
                    'attempting_to_charge_card',
                    { paylod_to_payment_provider: prepared_payment_data,
-                     payment_provide: 'mercado_pago_ve',
+                     payment_provider: PaymentProviders::ML_VE_NAME,
                      line_items: line_items }.to_json)
       payment_response = payment_providers.mp_ve.post('/v1/payments',
                                                       prepared_payment_data)
@@ -177,6 +177,8 @@ module Orders
       PaymentTransaction.create!(uuid: payment_transaction_id,
                                  user_id: user.uuid,
                                  status: PaymentTransaction::PROCESSED_STATE,
+                                 payment_provider: PaymentProviders::ML_VE_NAME,
+                                 payment_method: payment_data[:payment_method_id],
                                  metadata: payment_response.to_json)
     end
 
