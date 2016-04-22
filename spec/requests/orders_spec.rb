@@ -45,7 +45,12 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
     expect(json['data'].first['attributes']['financial_status']).to eq('paid')
     expect(json['data'].first['attributes']['currency']).to eq('VEF')
     expect(json['data'].first['attributes']['created_at']).to eq(Order.last.created_at.iso8601)
-    expect(json['data'].first['attributes']['payment_method']).to eq('visa')
+    expect(json['data'].first['attributes']['payment_info']['payment_method']).to eq('visa')
+    expect(json['data'].first['attributes']['payment_info']['type']).to eq('credit_card')
+    expect(json['data'].first['attributes']['payment_info']['last_four']).to eq(3704)
+    expect(json['data'].first['attributes']['payment_info']['expiration_year']).to eq(2016)
+    expect(json['data'].first['attributes']['payment_info']['expiration_month']).to eq(12)
+    expect(json['data'].first['attributes']['payment_info']['cardholder_name']).to eq('APRO Rafael')
   end
 
   it 'show index of orders with included relationships' do
