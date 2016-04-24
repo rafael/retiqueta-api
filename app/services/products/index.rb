@@ -24,7 +24,12 @@ module Products
     end
 
     def generate_result!
-      products = Product.where(featured: true).order(created_at: :desc).page(page).per(per_page)
+      products = Product
+                 .where(featured: true)
+                 .where(status: Product::PUBLISHED_STATUS)
+                 .order(created_at: :desc)
+                 .page(page)
+                 .per(per_page)
       self.success_result = products
     end
   end
