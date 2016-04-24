@@ -25,6 +25,12 @@ Rails.application.routes.draw do
 
     resources :orders, only: [:create, :index, :show]
 
+    resources :fulfillments, only: :show do
+      resources :comments,
+                only: [:create, :index, :destroy],
+                path: 'relationships/comments', module: 'fulfillments'
+    end
+
     resources :sales, only: [:index, :show]
 
     resource :authenticate, only: :create do

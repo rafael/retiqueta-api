@@ -2,6 +2,9 @@ en:
   sales:
     errors:
       not_found: "Sale not found"
+  fulfillments:
+    errors:
+      not_found: "Fulfillment not found"
   orders:
     errors:
       something_went_wrong: 'Sorry, something went wrong while processing your order'
