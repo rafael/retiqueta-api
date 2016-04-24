@@ -11,7 +11,7 @@ class Product < ActiveRecord::Base
 
   belongs_to :user, primary_key: :uuid
   has_many :product_pictures, -> { order(position: :asc) }, primary_key: :uuid
-  has_one :conversation, as: :commentable
+  has_one :conversation, as: :commentable, dependent: :delete
   delegate :comments, to: :conversation
 
   ###############
