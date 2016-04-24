@@ -23,10 +23,12 @@ Rails.application.routes.draw do
       put 'upload-profile-pic' => 'users#upload_profile_pic'
     end
 
-    resources :orders, only: [:create, :index, :show] do
-      resource :fulfillment, only: :show, path: 'relationships/fulfillment', module: 'orders' do
-        resources :comments, only: [:create, :index]
-      end
+    resources :orders, only: [:create, :index, :show]
+
+    resources :fulfillments, only: :show do
+      resources :comments,
+                only: [:create, :index, :destroy],
+                path: 'relationships/comments', module: 'fulfillments'
     end
 
     resources :sales, only: [:index, :show]
