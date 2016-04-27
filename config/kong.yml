@@ -88,3 +88,4 @@ plugins:
       - product-pictures-resource
       - orders-resource
       - sales-resource
+      - fulfillments-resource
