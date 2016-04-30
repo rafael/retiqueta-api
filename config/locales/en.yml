@@ -27,6 +27,7 @@ en:
       invalid_category: "The category provided is invalid. Provided %{category}, required %{valid_categories}"
       pictures_are_empty: "Pictures are empty. You need to provide at least one"
       invalid_pictures: "Some of the provided images are not valid"
+      pictures_are_used_in_other_product: "The provided picture ids are not valid, they are already in used by a different product"
   errors:
     # The default format to use in full error messages.
     format: "%{attribute} %{message}"

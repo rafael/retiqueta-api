@@ -1,6 +1,5 @@
 module Products
   class Create
-
     #################
     ## Extensions  ##
     #################
@@ -27,14 +26,14 @@ module Products
     validate :valid_pictures
     validate :valid_user
 
-    RESOURCE_TYPE = "products"
+    RESOURCE_TYPE = 'products'
 
     ###################
     ## Class Methods ##
     ###################
 
     def self.call(params = {})
-      service = self.new(params)
+      service = new(params)
       service.generate_result!
       service
     end
@@ -56,7 +55,7 @@ module Products
       @original_price = attributes[:original_price]
       @price = attributes[:price]
       @pictures = attributes[:pictures]
-      attributes[:status] = "published"
+      attributes[:status] = 'published'
       valid?
     end
 
@@ -74,9 +73,9 @@ module Products
         self.success_result = product
       else
         product.errors.each do |k, v|
-          self.errors.add(k, v)
+          errors.add(k, v)
         end
-        raise ApiError::FailedValidation.new(errors.full_messages.join(', '))
+        fail ApiError::FailedValidation.new(errors.full_messages.join(', '))
       end
     end
 
@@ -84,7 +83,7 @@ module Products
 
     def type_is_products
       unless type == RESOURCE_TYPE
-        raise ApiError::FailedValidation.new(I18n.t("errors.invalid_type", type: type, resource_type: RESOURCE_TYPE))
+        fail ApiError::FailedValidation.new(I18n.t('errors.invalid_type', type: type, resource_type: RESOURCE_TYPE))
       end
     end
 
@@ -102,14 +101,16 @@ module Products
 
     def valid_pictures
       if product_pictures.empty? || product_pictures.size != pictures.size
-        raise ApiError::FailedValidation.new(I18n.t("product.errors.pictures_are_empty"))
+        fail ApiError::FailedValidation.new(I18n.t('product.errors.pictures_are_empty'))
+      end
+      unless product_pictures.map(&:product_id).compact.empty?
+        fail ApiError::FailedValidation.new(
+               I18n.t('product.errors.pictures_are_used_in_other_product'))
       end
     end
 
     def valid_user
-      unless user
-        raise ApiError::NotFound.new(I18n.t("user.errors.not_found"))
-      end
+      fail ApiError::NotFound.new(I18n.t('user.errors.not_found')) unless user
     end
   end
 end
