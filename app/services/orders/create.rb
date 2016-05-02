@@ -94,7 +94,7 @@ module Orders
         url = Rails
               .application
               .routes
-              .url_helpers.v1_sale_path(sale.uuid, host: 'https://api.retiqueta.com')
+              .url_helpers.v1_sale_url(sale.uuid, host: 'https://api.retiqueta.com')
         payload = {
           type: 'url',
           url:  url
