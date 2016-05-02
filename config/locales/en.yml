@@ -20,6 +20,8 @@ en:
   comment:
     errors:
       not_found: "Comment not found"
+  order:
+    seller_notification: "Congratulations! You just made a sell!"
   product:
     errors:
       not_found: "Product not found"

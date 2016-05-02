@@ -41,6 +41,12 @@ class Product < ActiveRecord::Base
     __elasticsearch__.client.indices.delete(index: index_name)
   end
 
+  def self.reindex_elastict_search
+    clean_elastic_search_index
+    __elasticsearch__.create_index!
+    import
+  end
+
   def self.elastic_search_settings
     {
       index: {
