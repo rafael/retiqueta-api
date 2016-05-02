@@ -83,9 +83,27 @@ module Orders
       order_amount = order_amount(products)
       order = create_order!(charge, order_amount)
       create_line_items!(order)
-      create_sale!(order, order_amount, products)
+      sales = create_sale!(order, order_amount, products)
       create_fulfillment!(order)
+      send_push_to_sellers(sales)
       order
+    end
+
+    def send_push_to_sellers(sales)
+      sales.each do |sale| 
+        url = Rails
+              .application
+              .routes
+              .url_helpers.v1_sale_path(sale.uuid, host: 'https://api.retiqueta.com')
+        payload = {
+          type: 'url',
+          url:  url
+        }
+        SendPushNotification.perform_later([sale.user],
+                                           'Retiqueta',
+                                           I18n.t('order.seller_notification'),
+                                           payload)
+      end
     end
 
     def create_order!(charge, order_amount)
@@ -111,7 +129,7 @@ module Orders
     end
 
     def create_sale!(order, order_amount, products)
-      products.each do |product|
+      products.map do |product|
         Sale.create!(user_id: product.user.uuid,
                      order_id: order.uuid,
                      store_fee: order_amount * (1 - 0.8), # TODO: Replace with user fee
