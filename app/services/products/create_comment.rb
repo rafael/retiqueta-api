@@ -55,10 +55,28 @@ module Products
     def generate_result!
       comment = product.comments.build(user: user, data: data.to_json, user_pic: user.pic.url(:small))
       comment.save!
+      send_push_notification(comment)
       self.success_result = comment
     end
 
     private
+
+    def send_push_notification(comment)
+      url = Rails
+            .application
+            .routes
+            .url_helpers.v1_product_comment_url(product.uuid, comment.uuid, host: 'https://api.retiqueta.com')
+      payload = {
+        type: 'url',
+        url:  url
+      }
+      SendPushNotification.perform_later([product.user],
+                                         'Retiqueta',
+                                         I18n.t('comment.creation_push_notification',
+                                                username: user.username,
+                                                comment: text),
+                                         payload)
+    end
 
     def valid_type
       unless type == RESOURCE_TYPE

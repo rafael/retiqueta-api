@@ -18,6 +18,7 @@ en:
       following_itself_not_allowed: "You can't follow yourself"
       already_following: "You can't follow an user twice"
   comment:
+    creation_push_notification: "@%{username} - \"%{comment}\""
     errors:
       not_found: "Comment not found"
   order:
