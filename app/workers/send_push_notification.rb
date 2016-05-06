@@ -8,11 +8,13 @@ class SendPushNotification < ActiveJob::Base
   end
 
   def perform(users, title, message, payload)
-    response = client.send_push(user_ids: users.map(&:uuid),
-                                title: title,
-                                message: message,
-                                payload: payload)
-    Rails.logger.info(response.body)
+    users.each do |user|
+      response = client.send_push(tokens: user.push_tokens.where(environment: 'production').map(&:token),
+                                  title: title,
+                                  message: message,
+                                  payload: payload)
+      Rails.logger.info(response.body)
+    end
   end
 
 end

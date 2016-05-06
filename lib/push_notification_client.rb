@@ -3,7 +3,7 @@ class PushNotificationClient
 
   def send_push(params = {})
     payload = {
-      user_ids: params.fetch(:user_ids),
+      tokens: params.fetch(:tokens),
       profile: params.fetch(:profile, PRODUCTION_PROFILE_NAME),
       notification: {
         android: {
