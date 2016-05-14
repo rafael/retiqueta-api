@@ -3,6 +3,29 @@ require 'rails_helper'
 RSpec.describe 'Users', type: :request do
   let(:user) { create(:user, password: '123456') }
   let(:followed) { create(:user, password: '123456') }
+  let(:update_params_with_bank_account) do
+    {
+      data: {
+        type: 'users',
+        attributes: {
+          website: 'http://www.google.com',
+          first_name: 'Juanito',
+          last_name: 'Alimana',
+          bio: 'My super biografia',
+          country: 'US',
+          bank_account: {
+            document_type: 'rif',
+            document_id: 'V17646702',
+            owner_name: 'Juanito Alimana',
+            bank_name: 'Banplus',
+            account_type: 'checking',
+            account_number: '00000000000000'
+          }
+        }
+      }
+    }
+  end
+
   let(:update_params) do
     {
       data: {
@@ -36,6 +59,7 @@ RSpec.describe 'Users', type: :request do
                                                           bio
                                                           following_count
                                                           followers_count
+                                                          bank_account
                                                           currency).to_set)
     expect(user_response_attributes['email']).to eq(user.email)
     expect(user_response_attributes['username']).to eq(user.username)
@@ -57,6 +81,34 @@ RSpec.describe 'Users', type: :request do
     expect(user.last_name).to eq('Alimana')
     expect(user.bio).to eq('My super biografia')
     expect(user.country).to eq('US')
+  end
+
+  it 'updates user bank account' do
+    patch "/v1/users/#{user.uuid}", update_params_with_bank_account, 'X-Authenticated-Userid' => user.uuid
+    expect(response.status).to eq(204)
+    user = User.last
+    expect(user.bank_account).to_not be_nil
+    bank_account = BankAccount.last
+    bank_account_attributes = update_params_with_bank_account[:data][:attributes][:bank_account]
+    expect(bank_account.document_type).to eq(bank_account_attributes[:document_type])
+    expect(bank_account.document_id).to eq(bank_account_attributes[:document_id])
+    expect(bank_account.owner_name).to eq(bank_account_attributes[:owner_name])
+    expect(bank_account.account_type).to eq(bank_account_attributes[:account_type])
+    expect(bank_account.account_number).to eq(bank_account_attributes[:account_number])
+    expect(bank_account.country).to eq('venezuela') # this gets set by default in the db
+  end
+
+  it 'gives error when there are problems with the bank account' do
+    invalid_params = update_params_with_bank_account
+    invalid_params[:data][:attributes][:bank_account][:account_type] = "invalid"
+    patch "/v1/users/#{user.uuid}", invalid_params, 'X-Authenticated-Userid' => user.uuid
+    expect(response.status).to eq(400)
+    user = User.last
+    expect(user.bank_account).to be_nil
+    failed_error =
+      ApiError::FailedValidation.new(I18n.t('profiles.errors.bank_account.invalid_type',
+                                            valid_types: BankAccount::VALID_ACCOUNT_TYPES.join(', ')))
+    expect(json).to have_error_json_as(failed_error)
   end
 
   it 'uses a different serializer when another user is seeing the profile' do

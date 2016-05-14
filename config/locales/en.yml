@@ -10,6 +10,11 @@ en:
       something_went_wrong: 'Sorry, something went wrong while processing your order'
       fail_to_charge_credit_card: "Sorry, we couldn't charge your card"
       not_found: "Order not found"
+  profiles:
+    errors:
+      bank_account:
+        invalid_type: "Invalid account type. Valid ones: %{valid_types}"
+        invalid_document_id_type: "Invalid document id type. Valid ones: %{valid_types}"
   user:
     errors:
       not_found: "User not found"

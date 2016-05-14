@@ -48,7 +48,8 @@ class User < ActiveRecord::Base
            source: :followed,
            primary_key: :uuid
 
-  delegate :pic, :first_name, :last_name, :bio, :website, :country, to: :profile
+  delegate :pic, :first_name, :last_name, :bio,
+           :website, :country, :bank_account, to: :profile
 
   def following?(user)
     active_relationships.where(followed_id: user.uuid).count > 0

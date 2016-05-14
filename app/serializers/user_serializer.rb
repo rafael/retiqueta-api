@@ -10,10 +10,28 @@ class UserSerializer < ActiveModel::Serializer
              :bio,
              :following_count,
              :followers_count,
-             :currency
+             :currency,
+             :bank_account
 
   def id
     object.uuid
+  end
+
+  def bank_account
+    bank_account = object.bank_account
+    if bank_account
+      {
+        document_type: bank_account.document_type,
+        document_id: bank_account.document_id,
+        owner_name: bank_account.owner_name,
+        bank_name: bank_account.bank_name,
+        account_type: bank_account.account_type,
+        account_number: bank_account.account_number,
+        country: bank_account.country
+      }
+    else
+      nil
+    end
   end
 
   def profile_pic
