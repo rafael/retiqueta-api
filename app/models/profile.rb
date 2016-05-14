@@ -13,4 +13,6 @@ class Profile < ActiveRecord::Base
   process_in_background :pic
 
   validates_attachment_content_type :pic, :content_type => /\Aimage\/.*\Z/
+
+  has_one :bank_account
 end
