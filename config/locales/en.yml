@@ -10,6 +10,11 @@ en:
       something_went_wrong: 'Sorry, something went wrong while processing your order'
       fail_to_charge_credit_card: "Sorry, we couldn't charge your card"
       not_found: "Order not found"
+  profiles:
+    errors:
+      bank_account:
+        invalid_type: "Invalid account type. Valid ones: %{valid_types}"
+        invalid_document_id_type: "Invalid document id type. Valid ones: %{valid_types}"
   user:
     errors:
       not_found: "User not found"
@@ -18,8 +23,11 @@ en:
       following_itself_not_allowed: "You can't follow yourself"
       already_following: "You can't follow an user twice"
   comment:
+    creation_push_notification: "@%{username} - \"%{comment}\""
     errors:
       not_found: "Comment not found"
+  order:
+    seller_notification: "Congratulations! You just made a sell!"
   product:
     errors:
       not_found: "Product not found"
@@ -27,6 +35,7 @@ en:
       invalid_category: "The category provided is invalid. Provided %{category}, required %{valid_categories}"
       pictures_are_empty: "Pictures are empty. You need to provide at least one"
       invalid_pictures: "Some of the provided images are not valid"
+      pictures_are_used_in_other_product: "The provided picture ids are not valid, they are already in used by a different product"
   errors:
     # The default format to use in full error messages.
     format: "%{attribute} %{message}"

@@ -1,6 +1,5 @@
 module Products
   class Destroy
-
     #################
     ## Extensions  ##
     #################
@@ -20,14 +19,14 @@ module Products
     validate :user_can_delete_product
     validate :status_is_published
 
-    PUBLISHED_STATUS = "published"
+    PUBLISHED_STATUS = 'published'
 
     ###################
     ## Class Methods ##
     ###################
 
     def self.call(params = {})
-      service = self.new(params)
+      service = new(params)
       service.generate_result!
       service
     end
@@ -59,26 +58,24 @@ module Products
     end
 
     def valid_user
-      unless user
-        raise ApiError::NotFound.new(I18n.t("user.errors.not_found"))
-      end
+      fail ApiError::NotFound.new(I18n.t('user.errors.not_found')) unless user
     end
 
     def valid_product
       unless product
-        raise ApiError::NotFound.new(I18n.t("product.errors.not_found"))
+        fail ApiError::NotFound.new(I18n.t('product.errors.not_found'))
       end
     end
 
     def user_can_delete_product
       unless product.user == user
-        raise ApiError::Unauthorized.new(I18n.t("errors.messages.unauthorized"))
+        fail ApiError::Unauthorized.new(I18n.t('errors.messages.unauthorized'))
       end
     end
 
     def status_is_published
       unless product.status == PUBLISHED_STATUS
-        raise ApiError::FailedValidation.new(I18n.t("product.errors.invalid_type"))
+        fail ApiError::FailedValidation.new(I18n.t('product.errors.invalid_type'))
       end
     end
   end

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     get 'products/search' => 'products#search'
     resources :registrations, only: :create
     resources :products, except: [:new, :edit] do
-      resources :comments, only: [:create, :index, :destroy], path: 'relationships/comments', module: 'products'
+      resources :comments, only: [:create, :index, :destroy, :show], path: 'relationships/comments', module: 'products'
       resources :likes, only: [:index], path: 'relationships/likes', module: 'products'
       post 'like' => 'products#like'
       post 'unlike' => 'products#unlike'
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
     resources :fulfillments, only: :show do
       resources :comments,
-                only: [:create, :index, :destroy],
+                only: [:create, :index, :destroy, :show],
                 path: 'relationships/comments', module: 'fulfillments'
     end
 

@@ -50,7 +50,17 @@ class V1::UsersController < ApplicationController
                                               :last_name,
                                               :website,
                                               :bio,
-                                              :country])
+                                              :country,
+                                              bank_account: [
+                                                :document_type,
+                                                :document_id,
+                                                :owner_name,
+                                                :bank_name,
+                                                :account_type,
+                                                :account_number,
+                                                :country
+                                              ]
+                                             ])
   end
 
   def upload_pic_params
