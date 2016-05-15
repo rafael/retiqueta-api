@@ -26,8 +26,7 @@ class V1::OrdersController < ApplicationController
 
   def order_params
     params.require(:data).permit(:type,
-                                 attributes: [:shipping_address,
-                                              payment_data: [:token,
+                                 attributes: [payment_data: [:token,
                                                              :payment_method_id],
                                               line_items: [:product_type,
                                                            :product_id]])
