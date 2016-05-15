@@ -62,6 +62,10 @@ apis:
     strip_request_path: true
     upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/fulfillments
 
+    name: payouts-resource
+    request_path: /v1/payouts
+    strip_request_path: true
+    upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/payouts
 
 plugins:
   -
@@ -89,3 +93,4 @@ plugins:
       - orders-resource
       - sales-resource
       - fulfillments-resource
+      - payouts-resource

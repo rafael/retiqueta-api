@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
   has_one :profile, autosave: true
   has_one :facebook_account, primary_key: :uuid
   has_many :products, primary_key: :uuid
+  has_many :payouts, primary_key: :uuid
+  has_many :sales, primary_key: :uuid
   has_many :push_tokens, primary_key: :uuid
 
   has_many :active_relationships,

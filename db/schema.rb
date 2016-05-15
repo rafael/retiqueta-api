@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422030423) do
+ActiveRecord::Schema.define(version: 20160514191802) do
+
+  create_table "bank_accounts", force: :cascade do |t|
+    t.integer  "profile_id",     limit: 4,                        null: false
+    t.string   "document_type",  limit: 20,                       null: false
+    t.string   "document_id",    limit: 50,                       null: false
+    t.string   "owner_name",     limit: 50,                       null: false
+    t.string   "bank_name",      limit: 50,                       null: false
+    t.string   "account_type",   limit: 20,                       null: false
+    t.string   "account_number", limit: 60,                       null: false
+    t.string   "country",        limit: 20, default: "venezuela", null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+  end
+
+  add_index "bank_accounts", ["profile_id"], name: "index_bank_accounts_on_profile_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "conversation_id", limit: 4
@@ -108,6 +123,17 @@ ActiveRecord::Schema.define(version: 20160422030423) do
     t.string   "payment_method",   limit: 20
     t.string   "payment_provider", limit: 60
   end
+
+  create_table "payouts", force: :cascade do |t|
+    t.string   "user_id",    limit: 255
+    t.string   "uuid",       limit: 255
+    t.float    "amount",     limit: 24,  null: false
+    t.string   "status",     limit: 40,  null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "payouts", ["user_id"], name: "index_payouts_on_user_id", using: :btree
 
   create_table "product_pictures", force: :cascade do |t|
     t.string   "user_id",          limit: 255
@@ -254,5 +280,6 @@ ActiveRecord::Schema.define(version: 20160422030423) do
   add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
   add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
+  add_foreign_key "bank_accounts", "profiles"
   add_foreign_key "profiles", "users"
 end
