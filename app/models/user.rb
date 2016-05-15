@@ -65,6 +65,12 @@ class User < ActiveRecord::Base
     active_relationships.count
   end
 
+  def available_balance
+    sales_amount = sales.map(&:amount).reduce(0, &:+)
+    payout_amount = payouts.map(&:amount).reduce(0, &:+)
+    sales_amount - payout_amount
+  end
+
   def self.find_by_facebook_id(uuid)
     FacebookAccount.find_by_uuid(uuid.to_s).try(:user)
   end

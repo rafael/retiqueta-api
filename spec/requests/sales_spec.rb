@@ -23,7 +23,6 @@ RSpec.describe 'Sales Requests', vcr: true, type: :request do
             token: '6ecea994186748ba94649878637af8fc',
             payment_method_id: 'visa'
           },
-          shipping_address: '2930 Lyon Street - Apt 2A, San Francisco, CA, 94123',
           line_items: [valid_line_item]
         }
       }

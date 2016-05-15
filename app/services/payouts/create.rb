@@ -67,10 +67,7 @@ module Payouts
       # There will be a race condition here between the moment we check this
       # condition and the moment we commit the payout. We will solve this when
       # the time comes.
-      sales_amount = user.sales.map(&:amount).reduce(0, &:+)
-      payout_amount = user.payouts.map(&:amount).reduce(0, &:+)
-      available_amount = sales_amount - payout_amount
-      return if available_amount >= amount
+      return if user.available_balance >= amount
       fail(ApiError::FailedValidation,
            I18n.t('payouts.errors.insufficient_funds'))
     end

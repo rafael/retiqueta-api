@@ -23,7 +23,6 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
             token: '6ecea994186748ba94649878637af8fc',
             payment_method_id: 'visa'
           },
-          shipping_address: '2930 Lyon Street - Apt 2A, San Francisco, CA, 94123',
           line_items: [valid_line_item]
         }
       }
@@ -40,7 +39,6 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
     expect(response.status).to eq(201)
     get '/v1/orders', {}, 'X-Authenticated-Userid' => buyer.uuid
     expect(response.status).to eq(200)
-    expect(json['data'].first['attributes']['shipping_address']).to eq('2930 Lyon Street - Apt 2A, San Francisco, CA, 94123')
     expect(json['data'].first['attributes']['total_amount']).to eq(product.price)
     expect(json['data'].first['attributes']['financial_status']).to eq('paid')
     expect(json['data'].first['attributes']['currency']).to eq('VEF')
