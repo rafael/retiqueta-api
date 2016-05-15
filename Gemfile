@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.4'
+gem 'rails-i18n', '~> 4.0.0'
 gem 'rails-api', '0.4.0'
 gem 'mysql2', '0.3.18'
 gem 'active_model_serializers', git: 'https://github.com/rafael/active_model_serializers.git', branch: 'resource-level-meta'

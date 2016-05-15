@@ -1,8 +1,8 @@
 require 'ar_uuid_generator'
 
-class PaymentTransaction < ActiveRecord::Base
+class Payout < ActiveRecord::Base
 
-  PROCESSED_STATE = 'processed'
+  PROCESSING_STATUS = 'processing'
 
   belongs_to :user, primary_key: :uuid
 
