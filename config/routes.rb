@@ -25,6 +25,8 @@ Rails.application.routes.draw do
 
     resources :orders, only: [:create, :index, :show]
 
+    resources :payouts, only: [:create, :index]
+
     resources :fulfillments, only: :show do
       resources :comments,
                 only: [:create, :index, :destroy, :show],

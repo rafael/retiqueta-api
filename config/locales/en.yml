@@ -10,6 +10,9 @@ en:
       something_went_wrong: 'Sorry, something went wrong while processing your order'
       fail_to_charge_credit_card: "Sorry, we couldn't charge your card"
       not_found: "Order not found"
+  payouts:
+    errors:
+      insufficient_funds: "Sorry, you don't have enough money to request this payout"
   profiles:
     errors:
       bank_account:

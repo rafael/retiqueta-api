@@ -90,7 +90,7 @@ module Orders
     end
 
     def send_push_to_sellers(sales)
-      sales.each do |sale| 
+      sales.each do |sale|
         url = Rails
               .application
               .routes
