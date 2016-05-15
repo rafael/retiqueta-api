@@ -15,7 +15,6 @@ module Orders
               :type,
               :user_id,
               :payment_data,
-              :shipping_address,
               :line_items,
               presence: true, strict: ApiError::FailedValidation
 
@@ -46,7 +45,6 @@ module Orders
                   :data,
                   :user_id,
                   :payment_data,
-                  :shipping_address,
                   :line_items,
                   :product_ar_interface,
                   :payment_providers
@@ -58,7 +56,6 @@ module Orders
       @type = data[:type]
       @line_items = attributes[:line_items]
       @payment_data = attributes[:payment_data]
-      @shipping_address = attributes[:shipping_address]
       @product_ar_interface = deps.fetch(:product_ar_interface) { Product }
       @payment_providers = deps.fetch(:payment_providers) { PaymentProviders }
       valid?
@@ -107,8 +104,7 @@ module Orders
     end
 
     def create_order!(charge, order_amount)
-      Order.create!(shipping_address: shipping_address,
-                    user_id: user.uuid,
+      Order.create!(user_id: user.uuid,
                     payment_transaction_id: charge.uuid,
                     total_amount: order_amount,
                     financial_status: Order::PAID_STATUS,

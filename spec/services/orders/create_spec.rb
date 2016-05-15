@@ -64,7 +64,6 @@ RSpec.describe Orders::Create, type: :model do
         type: 'orders',
         attributes: {
           payment_data: { token: 'token', payment_method_id: 'visa' },
-          shipping_address: '2930 Lyon Street - Apt 2A, San Francisco, CA, 94123',
           line_items: [valid_line_item_1, valid_line_item_2]
         }
       }
