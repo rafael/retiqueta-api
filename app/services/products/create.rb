@@ -15,7 +15,6 @@ module Products
               :type,
               :user_id,
               :category,
-              :title,
               :description,
               :original_price,
               :price,
