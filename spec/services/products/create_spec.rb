@@ -56,7 +56,7 @@ RSpec.describe Products::Create, type: :model do
       end.to raise_error(ApiError::NotFound, 'User not found')
     end
 
-    [:title, :category, :description, :price, :pictures].each do |required_attribute|
+    [:category, :description, :price, :pictures].each do |required_attribute|
       it 'throws error if required attribute is missing' do
         new_params = params
         attributes = params[:data][:attributes]
