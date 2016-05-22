@@ -43,7 +43,9 @@ RSpec.describe 'Products', type: :request do
           original_price: 60,
           price: 40,
           pictures: nil,
-          size: '8'
+          size: '8',
+          location: 'Caracas',
+          lat_lon: "50, 20"
         }
       }
     }
@@ -64,6 +66,8 @@ RSpec.describe 'Products', type: :request do
     expect(product_response_attributes['description']).to eq('Estos zapatos tienen mucha historia conmigo')
     expect(product_response_attributes['original_price']).to eq(60)
     expect(product_response_attributes['size']).to eq('8')
+    expect(product_response_attributes['location']).to eq('Caracas')
+    expect(product_response_attributes['lat_lon']).to eq('50, 20')
   end
 
   it 'product index only returns featured products' do
