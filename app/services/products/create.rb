@@ -41,7 +41,9 @@ module Products
     ## Instance Methods ##
     ######################
 
-    attr_accessor :success_result, :type, :attributes, :data, :user_id, :category, :title, :description, :original_price, :price, :pictures
+    attr_accessor :success_result, :type, :attributes, :data, :user_id,
+                  :category, :title, :description, :original_price,
+                  :price, :pictures
 
     def initialize(params = {})
       @user_id = params[:user_id]

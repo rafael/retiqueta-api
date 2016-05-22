@@ -17,7 +17,9 @@ RSpec.describe Products::Create, type: :model do
             original_price: 60,
             price: 40,
             pictures: [picture.id],
-            size: '8'
+            size: '8',
+            location: 'Baruta, Caracas',
+            lat_lon: '80, 70'
           }
         }
       }
@@ -31,6 +33,8 @@ RSpec.describe Products::Create, type: :model do
       expect(product.user).to eq(user)
       expect(product.product_pictures).to eq([picture])
       expect(product.size).to eq('8')
+      expect(product.location).to eq('Baruta, Caracas')
+      expect(product.lat_lon).to eq('80, 70')
     end
 
     it 'fails when trying to reuse picture id' do
