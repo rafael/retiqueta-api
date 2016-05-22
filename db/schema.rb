@@ -88,7 +88,6 @@ ActiveRecord::Schema.define(version: 20160522161719) do
 
   create_table "orders", force: :cascade do |t|
     t.string   "uuid",                   limit: 255, null: false
-    t.string   "shipping_address",       limit: 255, null: false
     t.string   "payment_transaction_id", limit: 255, null: false
     t.float    "total_amount",           limit: 24,  null: false
     t.string   "user_id",                limit: 255, null: false
