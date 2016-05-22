@@ -20,3 +20,5 @@ production:
   username: <%= ENV['RETIQUETA_API_DATABASE_USER'] %>
   password: <%= ENV['RETIQUETA_API_DATABASE_PASSWORD'] %>
   host: <%= ENV['MYSQL_SERVICE_HOST'] %>
+  encoding: utf8mb4
+  collation: utf8mb4_unicode_ci
