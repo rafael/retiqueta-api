@@ -61,6 +61,8 @@ class V1::ProductsController < ApplicationController
       :original_price,
       :price,
       :size,
+      :location,
+      :lat_lon,
       pictures: []
     ]
   end

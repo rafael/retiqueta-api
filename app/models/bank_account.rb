@@ -1,6 +1,6 @@
 class BankAccount < ActiveRecord::Base
   VALID_ACCOUNT_TYPES = %w(checking savings)
-  VALID_DOCUMENT_ID_TYPES = %w(ci rif passport)
+  #VALID_DOCUMENT_ID_TYPES = %w(ci rif passport)
 
   belongs_to :profile
 
@@ -13,7 +13,7 @@ class BankAccount < ActiveRecord::Base
                                                         strict: true
 
   validate :valid_account_type
-  validate :valid_document_type
+  #validate :valid_document_type
 
   private
 
