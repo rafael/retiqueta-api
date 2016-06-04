@@ -1,5 +1,10 @@
 class ChangeFeaturedTypeInProducts < ActiveRecord::Migration
-  def change
-    change_column :products, :featured, :boolean
+  def up
+    execute 'ALTER TABLE products DROP COLUMN featured'
+    execute 'ALTER TABLE products ADD COLUMN featured boolean'
+  end
+
+  def down
+    # NOOP
   end
 end
