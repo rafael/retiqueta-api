@@ -13,8 +13,11 @@
 
 ActiveRecord::Schema.define(version: 20160522161719) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "bank_accounts", force: :cascade do |t|
-    t.integer  "profile_id",     limit: 4,                        null: false
+    t.integer  "profile_id",                                      null: false
     t.string   "document_type",  limit: 20,                       null: false
     t.string   "document_id",    limit: 50,                       null: false
     t.string   "owner_name",     limit: 50,                       null: false
@@ -29,94 +32,94 @@ ActiveRecord::Schema.define(version: 20160522161719) do
   add_index "bank_accounts", ["profile_id"], name: "index_bank_accounts_on_profile_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
-    t.integer  "conversation_id", limit: 4
-    t.string   "uuid",            limit: 255,   null: false
-    t.string   "user_id",         limit: 255,   null: false
-    t.text     "data",            limit: 65535, null: false
-    t.string   "user_pic",        limit: 255
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.integer  "conversation_id"
+    t.string   "uuid",            null: false
+    t.string   "user_id",         null: false
+    t.text     "data",            null: false
+    t.string   "user_pic"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "comments", ["conversation_id"], name: "index_comments_on_conversation_id", using: :btree
 
   create_table "conversations", force: :cascade do |t|
-    t.integer  "commentable_id",   limit: 4
-    t.string   "commentable_type", limit: 255
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   add_index "conversations", ["commentable_id", "commentable_type"], name: "index_conversations_on_commentable_id_and_commentable_type", unique: true, using: :btree
 
   create_table "facebook_accounts", force: :cascade do |t|
-    t.string   "user_id",    limit: 255
-    t.string   "token",      limit: 255
-    t.integer  "expires_in", limit: 4
-    t.string   "uuid",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "user_id"
+    t.string   "token"
+    t.integer  "expires_in"
+    t.string   "uuid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "facebook_accounts", ["user_id"], name: "index_facebook_accounts_on_user_id", using: :btree
   add_index "facebook_accounts", ["uuid"], name: "index_facebook_accounts_on_uuid", unique: true, using: :btree
 
   create_table "fulfillments", force: :cascade do |t|
-    t.string   "uuid",       limit: 255, null: false
-    t.string   "order_id",   limit: 255, null: false
-    t.string   "status",     limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "uuid",       null: false
+    t.string   "order_id",   null: false
+    t.string   "status",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "fulfillments", ["order_id"], name: "index_fulfillments_on_order_id", using: :btree
 
   create_table "ionic_webhook_callbacks", force: :cascade do |t|
-    t.text     "payload",    limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "payload"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "line_items", force: :cascade do |t|
-    t.string   "uuid",         limit: 255, null: false
-    t.string   "order_id",     limit: 255, null: false
-    t.string   "product_type", limit: 255, null: false
-    t.string   "product_id",   limit: 255, null: false
+    t.string   "uuid",         null: false
+    t.string   "order_id",     null: false
+    t.string   "product_type", null: false
+    t.string   "product_id",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string   "uuid",                   limit: 255, null: false
-    t.string   "payment_transaction_id", limit: 255, null: false
-    t.float    "total_amount",           limit: 24,  null: false
-    t.string   "user_id",                limit: 255, null: false
-    t.string   "financial_status",       limit: 255, null: false
-    t.string   "currency",               limit: 255, null: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.string   "uuid",                   null: false
+    t.string   "payment_transaction_id", null: false
+    t.float    "total_amount",           null: false
+    t.string   "user_id",                null: false
+    t.string   "financial_status",       null: false
+    t.string   "currency",               null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "orders", ["user_id", "uuid"], name: "index_orders_on_user_id_and_uuid", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "payment_audit_trails", force: :cascade do |t|
-    t.string   "uuid",                   limit: 255,   null: false
-    t.string   "user_id",                limit: 255,   null: false
-    t.string   "payment_transaction_id", limit: 255,   null: false
-    t.string   "action",                 limit: 255,   null: false
-    t.text     "metadata",               limit: 65535
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.string   "uuid",                   null: false
+    t.string   "user_id",                null: false
+    t.string   "payment_transaction_id", null: false
+    t.string   "action",                 null: false
+    t.text     "metadata"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "payment_audit_trails", ["user_id"], name: "index_payment_audit_trails_on_user_id", using: :btree
 
   create_table "payment_transactions", force: :cascade do |t|
-    t.string   "uuid",             limit: 255,   null: false
-    t.string   "user_id",          limit: 255,   null: false
-    t.string   "status",           limit: 255
-    t.text     "metadata",         limit: 65535
+    t.string   "uuid",                        null: false
+    t.string   "user_id",                     null: false
+    t.string   "status"
+    t.text     "metadata"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "payment_method",   limit: 20
@@ -124,25 +127,25 @@ ActiveRecord::Schema.define(version: 20160522161719) do
   end
 
   create_table "payouts", force: :cascade do |t|
-    t.string   "user_id",    limit: 255
-    t.string   "uuid",       limit: 255
-    t.float    "amount",     limit: 24,  null: false
-    t.string   "status",     limit: 40,  null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "user_id"
+    t.string   "uuid"
+    t.float    "amount",                null: false
+    t.string   "status",     limit: 40, null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   add_index "payouts", ["user_id"], name: "index_payouts_on_user_id", using: :btree
 
   create_table "product_pictures", force: :cascade do |t|
-    t.string   "user_id",          limit: 255
-    t.string   "product_id",       limit: 255
-    t.integer  "position",         limit: 4
-    t.datetime "created_at",                   precision: 3, null: false
-    t.datetime "updated_at",                   precision: 3, null: false
-    t.string   "pic_file_name",    limit: 255
-    t.string   "pic_content_type", limit: 255
-    t.integer  "pic_file_size",    limit: 4
+    t.string   "user_id"
+    t.string   "product_id"
+    t.integer  "position"
+    t.datetime "created_at",       precision: 3, null: false
+    t.datetime "updated_at",       precision: 3, null: false
+    t.string   "pic_file_name"
+    t.string   "pic_content_type"
+    t.integer  "pic_file_size"
     t.datetime "pic_updated_at"
   end
 
@@ -150,28 +153,28 @@ ActiveRecord::Schema.define(version: 20160522161719) do
   add_index "product_pictures", ["user_id"], name: "index_product_pictures_on_user_id", using: :btree
 
   create_table "products", force: :cascade do |t|
-    t.string   "uuid",                    limit: 255
-    t.string   "title",                   limit: 255
-    t.text     "description",             limit: 65535
-    t.string   "category",                limit: 255
-    t.string   "user_id",                 limit: 255,                               null: false
-    t.float    "price",                   limit: 24
-    t.float    "original_price",          limit: 24
+    t.string   "uuid"
+    t.string   "title"
+    t.text     "description"
+    t.string   "category"
+    t.string   "user_id",                                             null: false
+    t.float    "price"
+    t.float    "original_price"
+    t.string   "currency"
+    t.string   "status"
+    t.string   "location"
+    t.string   "lat_lon"
+    t.datetime "created_at",              precision: 3,               null: false
+    t.datetime "updated_at",              precision: 3,               null: false
     t.boolean  "featured"
-    t.string   "currency",                limit: 255
-    t.string   "status",                  limit: 255
-    t.string   "location",                limit: 255
-    t.string   "lat_lon",                 limit: 255
-    t.datetime "created_at",                            precision: 3,               null: false
-    t.datetime "updated_at",                            precision: 3,               null: false
-    t.integer  "cached_votes_total",      limit: 4,                   default: 0
-    t.integer  "cached_votes_score",      limit: 4,                   default: 0
-    t.integer  "cached_votes_up",         limit: 4,                   default: 0
-    t.integer  "cached_votes_down",       limit: 4,                   default: 0
-    t.integer  "cached_weighted_score",   limit: 4,                   default: 0
-    t.integer  "cached_weighted_total",   limit: 4,                   default: 0
-    t.float    "cached_weighted_average", limit: 24,                  default: 0.0
-    t.string   "size",                    limit: 255
+    t.integer  "cached_votes_total",                    default: 0
+    t.integer  "cached_votes_score",                    default: 0
+    t.integer  "cached_votes_up",                       default: 0
+    t.integer  "cached_votes_down",                     default: 0
+    t.integer  "cached_weighted_score",                 default: 0
+    t.integer  "cached_weighted_total",                 default: 0
+    t.float    "cached_weighted_average",               default: 0.0
+    t.string   "size"
   end
 
   add_index "products", ["cached_votes_down"], name: "index_products_on_cached_votes_down", using: :btree
@@ -184,18 +187,18 @@ ActiveRecord::Schema.define(version: 20160522161719) do
   add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
-    t.integer  "user_id",          limit: 4
-    t.datetime "created_at",                     precision: 3, null: false
-    t.datetime "updated_at",                     precision: 3, null: false
-    t.string   "pic_file_name",    limit: 255
-    t.string   "pic_content_type", limit: 255
-    t.integer  "pic_file_size",    limit: 4
+    t.integer  "user_id"
+    t.datetime "created_at",       precision: 3, null: false
+    t.datetime "updated_at",       precision: 3, null: false
+    t.string   "pic_file_name"
+    t.string   "pic_content_type"
+    t.integer  "pic_file_size"
     t.datetime "pic_updated_at"
-    t.text     "bio",              limit: 65535
-    t.string   "country",          limit: 255
-    t.string   "first_name",       limit: 255
-    t.string   "last_name",        limit: 255
-    t.string   "website",          limit: 255
+    t.text     "bio"
+    t.string   "country"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "website"
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
@@ -215,10 +218,10 @@ ActiveRecord::Schema.define(version: 20160522161719) do
   add_index "push_tokens", ["user_id"], name: "index_push_tokens_on_user_id", using: :btree
 
   create_table "relationships", force: :cascade do |t|
-    t.string   "follower_id", limit: 255, null: false
-    t.string   "followed_id", limit: 255, null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "follower_id", null: false
+    t.string   "followed_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id", using: :btree
@@ -226,33 +229,33 @@ ActiveRecord::Schema.define(version: 20160522161719) do
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
 
   create_table "sales", force: :cascade do |t|
-    t.string   "uuid",       limit: 255, null: false
-    t.string   "user_id",    limit: 255, null: false
-    t.string   "order_id",   limit: 255, null: false
-    t.float    "amount",     limit: 24,  null: false
-    t.float    "store_fee",  limit: 24,  null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "uuid",       null: false
+    t.string   "user_id",    null: false
+    t.string   "order_id",   null: false
+    t.float    "amount",     null: false
+    t.float    "store_fee",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "sales", ["user_id", "uuid"], name: "index_sales_on_user_id_and_uuid", using: :btree
   add_index "sales", ["user_id"], name: "index_sales_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",               limit: 255,                           null: false
-    t.string   "uuid",                   limit: 255,                           null: false
-    t.string   "email",                  limit: 255,                           null: false
-    t.string   "crypted_password",       limit: 255
-    t.string   "password_salt",          limit: 255
-    t.string   "persistence_token",      limit: 255
-    t.string   "perishable_token",       limit: 255
-    t.integer  "login_count",            limit: 4,                 default: 0, null: false
-    t.integer  "failed_login_count",     limit: 4,                 default: 0, null: false
+    t.string   "username",                                                     null: false
+    t.string   "uuid",                                                         null: false
+    t.string   "email",                                                        null: false
+    t.string   "crypted_password"
+    t.string   "password_salt"
+    t.string   "persistence_token"
+    t.string   "perishable_token"
+    t.integer  "login_count",                                      default: 0, null: false
+    t.integer  "failed_login_count",                               default: 0, null: false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
-    t.string   "current_login_ip",       limit: 255
-    t.string   "last_login_ip",          limit: 255
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
     t.datetime "created_at",                         precision: 3,             null: false
     t.datetime "updated_at",                         precision: 3,             null: false
     t.string   "password_reset_token",   limit: 128
@@ -265,13 +268,13 @@ ActiveRecord::Schema.define(version: 20160522161719) do
   add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true, using: :btree
 
   create_table "votes", force: :cascade do |t|
-    t.integer  "votable_id",   limit: 4
-    t.string   "votable_type", limit: 255
-    t.integer  "voter_id",     limit: 4
-    t.string   "voter_type",   limit: 255
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "voter_id"
+    t.string   "voter_type"
     t.boolean  "vote_flag"
-    t.string   "vote_scope",   limit: 255
-    t.integer  "vote_weight",  limit: 4
+    t.string   "vote_scope"
+    t.integer  "vote_weight"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

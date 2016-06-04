@@ -1,6 +1,6 @@
 default: &default
-  adapter: mysql2
-  encoding: utf8
+  adapter: postgresql
+  encoding: unicode
   pool: 5
   username: root
   password: 123456
@@ -19,6 +19,4 @@ production:
   database: retiqueta_api_production
   username: <%= ENV['RETIQUETA_API_DATABASE_USER'] %>
   password: <%= ENV['RETIQUETA_API_DATABASE_PASSWORD'] %>
-  host: <%= ENV['MYSQL_SERVICE_HOST'] %>
-  encoding: utf8mb4
-  collation: utf8mb4_unicode_ci
+  host: <%= ENV['POSTGRES_SERVICE_HOST'] %>

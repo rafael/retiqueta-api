@@ -1,18 +1,22 @@
 development:
-  adapter: mysql2
+  adapter: postgresql
   host: localhost
-  encoding: utf8
+  encoding: unicode
   pool: 10
-  username: <%= ENV['MYSQL_USER'] %>
-  password: <%= ENV['MYSQL_PASSWORD'] %>
+  username: <%= ENV['PG_USER'] %>
+  template: template1
+  password: <%= ENV['PG_PASSWORD'] %>
   database: development<%= ENV['TEST_ENV_NUMBER'] %>
-  socket: /var/run/mysqld/mysqld.sock
+  port: 5435
+  sslmode: disable
 test:
-  adapter: mysql2
+  adapter: postgresql
   host: localhost
-  encoding: utf8
+  encoding: unicode
   pool: 10
-  username: <%= ENV['MYSQL_USER'] %>
-  password: <%= ENV['MYSQL_PASSWORD'] %>
+  username: <%= ENV['PG_USER'] %>
+  template: template1
+  password: <%= ENV['PG_PASSWORD'] %>
   database: test<%= ENV['TEST_ENV_NUMBER'] %>
-  socket: /var/run/mysqld/mysqld.sock
+  port: 5435
+  sslmode: disable

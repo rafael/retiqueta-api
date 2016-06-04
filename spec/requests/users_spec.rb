@@ -240,7 +240,7 @@ RSpec.describe 'Users', type: :request do
         }
 
       post "/v1/users/#{user.uuid}/relationships/push_tokens", params, 'X-Authenticated-Userid' => user.uuid
-      expect(response.status).to eq(204)
+      expect(response.status).to eq(201)
     end
   end
 end

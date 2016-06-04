@@ -260,7 +260,6 @@ GEM
     minitest (5.8.2)
     multi_json (1.11.2)
     multipart-post (2.0.0)
-    mysql2 (0.3.18)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.0.1)
@@ -272,6 +271,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    pg (0.18.4)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -387,8 +387,8 @@ DEPENDENCIES
   kaminari (= 0.16.3)
   koala (~> 2.2)
   mercadopago-sdk (~> 0.3.4)
-  mysql2 (= 0.3.18)
   paperclip (= 4.3.1)
+  pg
   pry-byebug
   rails (= 4.2.4)
   rails-api (= 0.4.0)
@@ -400,4 +400,4 @@ DEPENDENCIES
   webmock (= 1.22.1)
 
 BUNDLED WITH
-   1.11.2
+   1.12.5

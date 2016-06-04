@@ -5,7 +5,7 @@ class V1::Users::PushTokensController < ApplicationController
   def create
     ::Users::CreatePushToken.call(user_id: user_id, data: create_push_token_params)
     render json: {},
-           status: 204
+           status: 201
   end
 
   private
