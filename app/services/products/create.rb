@@ -97,7 +97,7 @@ module Products
     end
 
     def product_picture_positions
-      @product_picture_positions ||= pictures.each_with_index.inject({}) { |acc, (id, index)| acc[id] = index; acc }
+      @product_picture_positions ||= pictures.each_with_index.inject({}) { |acc, (id, index)| acc[id.to_i] = index; acc }
     end
 
     def valid_pictures
