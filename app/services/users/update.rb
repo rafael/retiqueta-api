@@ -72,7 +72,7 @@ module Users
     end
 
     def profile_attributes
-      [:first_name, :last_name, :bio, :website, :country]
+      [:first_name, :last_name, :bio, :website, :country, :username]
     end
 
     def type_is_users
