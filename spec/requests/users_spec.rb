@@ -35,7 +35,8 @@ RSpec.describe 'Users', type: :request do
           first_name: 'Juanito',
           last_name: 'Alimana',
           bio: 'My super biografia',
-          country: 'US'
+          country: 'US',
+          username: 'newuser'
         }
       }
     }
@@ -82,6 +83,7 @@ RSpec.describe 'Users', type: :request do
     expect(user.last_name).to eq('Alimana')
     expect(user.bio).to eq('My super biografia')
     expect(user.country).to eq('US')
+    expect(user.username).to eq('newuser')
   end
 
   it 'updates user bank account' do

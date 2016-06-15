@@ -44,6 +44,7 @@ module Users
 
     def generate_result!
       fetched_profile_attributes = attributes.slice(*profile_attributes)
+      user.update(username: attributes[:username]) if attributes[:username]
       update_bank_account if bank_account_attributes
       user.profile.update_attributes(fetched_profile_attributes)
       true
@@ -72,7 +73,7 @@ module Users
     end
 
     def profile_attributes
-      [:first_name, :last_name, :bio, :website, :country, :username]
+      [:first_name, :last_name, :bio, :website, :country]
     end
 
     def type_is_users
