@@ -86,7 +86,7 @@ plugins:
     config.scopes: app
     config.mandatory_scope: true
     config.enable_password_grant: true
-    config.token_expiration: 60
+    config.token_expiration: 72000
     apis:
       - products-resource
       - users-resource

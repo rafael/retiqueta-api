@@ -27,7 +27,6 @@ module Users
     def generate_result!
       products = Product
                  .where(user_id: id)
-                 .where(status: Product::PUBLISHED_STATUS)
                  .order(created_at: :desc)
                  .page(page)
                  .per(per_page)

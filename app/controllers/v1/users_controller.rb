@@ -51,6 +51,7 @@ class V1::UsersController < ApplicationController
                                               :website,
                                               :bio,
                                               :country,
+                                              :username,
                                               bank_account: [
                                                 :document_type,
                                                 :document_id,

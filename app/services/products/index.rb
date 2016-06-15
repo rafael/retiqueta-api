@@ -26,7 +26,6 @@ module Products
     def generate_result!
       products = Product
                  .where(featured: true)
-                 .where(status: Product::PUBLISHED_STATUS)
                  .order(created_at: :desc)
                  .page(page)
                  .per(per_page)
