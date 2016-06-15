@@ -15,7 +15,6 @@ module Users
     validates :data, :attributes, :type, :id, presence: true,
                                               strict: ApiError::FailedValidation
 
-
     RESOURCE_TYPE = 'users'
 
     ###################
@@ -53,11 +52,14 @@ module Users
     private
 
     def update_bank_account
-      new_bank_account = user
-                         .profile
-                         .build_bank_account(bank_account_attributes)
-      new_bank_account.valid?
-      new_bank_account.save
+      bank_account = if user.profile.bank_account
+                       user.profile.bank_account
+                     else
+                       user
+                       .profile
+                       .build_bank_account
+                     end
+      bank_account.update_attributes(bank_account_attributes)
     end
 
     def user
