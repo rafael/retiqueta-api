@@ -7,6 +7,8 @@ module Products
 
     include ActiveModel::Validations
 
+    validate :valid_product
+
     ###################
     ## Class Methods ##
     ###################
