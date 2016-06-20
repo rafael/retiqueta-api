@@ -27,7 +27,7 @@ module Products
 
     def initialize(params = {})
       @product_id = params.fetch(:product_id)
-      valid?
+      #valid?
     end
 
     def generate_result!
