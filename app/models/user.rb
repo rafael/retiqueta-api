@@ -54,7 +54,6 @@ class User < ActiveRecord::Base
            :website, :country, :bank_account, to: :profile
 
   def following?(user)
-    return false unless user
     active_relationships.where(followed_id: user.uuid).count > 0
   end
 
