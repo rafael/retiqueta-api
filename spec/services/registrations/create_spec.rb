@@ -3,51 +3,64 @@ require 'rails_helper'
 RSpec.describe Registrations::Create, type: :model do
   include ActiveJob::TestHelper
 
-  describe ".call" do
+  describe '.call' do
     let(:params) do
       {
         data: {
-          type: "users",
+          type: 'users',
           attributes: {
-            password: "123456",
-            email: "rafaelchacon@gmail.com",
-            username: "rafael"
+            password: '123456',
+            email: 'rafaelchacon@gmail.com',
+            username: 'rafael'
           }
         }
       }
     end
 
-    context "when all the required fields are provided" do
+    context 'when all the required fields are provided' do
       let(:service_result) { Registrations::Create.call(params) }
 
-      it "saves the user" do
+      it 'saves the user' do
         expect(service_result).to be_valid
       end
 
-      it "updates service result to be newly created user" do
+      it 'updates service result to be newly created user' do
         expect(service_result.success_result).to eq(User.last)
       end
 
-      it "enqueues a welcome email for the user" do
+      it 'enqueues account bootstrap' do
+        service_result = nil
+        allow(AccountBootstrap).to receive(:perform_later).and_call_original
+
+        expect do
+          service_result = Registrations::Create.call(params)
+        end.to change(enqueued_jobs, :size).by(2)
+
+        expect(AccountBootstrap)
+          .to have_received(:perform_later)
+          .with(service_result.success_result)
+      end
+
+      it 'enqueues a welcome email for the user' do
         service_result = nil
         allow(UserMailer).to receive(:signup_email).and_call_original
 
-        expect {
+        expect do
           service_result = Registrations::Create.call(params)
-        }.to change(enqueued_jobs, :size).by(1)
+        end.to change(enqueued_jobs, :size).by(2)
 
         expect(UserMailer)
           .to have_received(:signup_email)
           .with(service_result.success_result)
       end
 
-      it "sets Venezuela as default country" do
-        expect(service_result.success_result.country).to eq("VE")
+      it 'sets Venezuela as default country' do
+        expect(service_result.success_result.country).to eq('VE')
       end
     end
 
-    it "delegates errors from user object" do
-      params[:data][:attributes][:password] = "12"
+    it 'delegates errors from user object' do
+      params[:data][:attributes][:password] = '12'
       expect do
         Registrations::Create.call(params)
       end.to raise_error(ApiError::FailedValidation)

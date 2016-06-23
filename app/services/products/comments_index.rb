@@ -7,6 +7,8 @@ module Products
 
     include ActiveModel::Validations
 
+    validate :valid_product
+
     ###################
     ## Class Methods ##
     ###################
@@ -25,6 +27,7 @@ module Products
 
     def initialize(params = {})
       @product_id = params.fetch(:product_id)
+      valid?
     end
 
     def generate_result!

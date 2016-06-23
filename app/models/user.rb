@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  validates :username, format: { with: /\A[a-zA-Z0-9]+\z/ }
+
   ###############
   ## Callbacks ##
   ###############

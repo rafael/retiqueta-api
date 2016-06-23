@@ -48,6 +48,7 @@ module Registrations
       user.build_profile.country = "VE"
       if user.valid? && user.save
         UserMailer.signup_email(user).deliver_later
+        AccountBootstrap.perform_later(user)
         self.success_result = user
       else
         user.errors.each do |k, v|
