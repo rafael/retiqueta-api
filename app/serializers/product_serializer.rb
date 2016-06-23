@@ -1,7 +1,7 @@
 class ProductSerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :category, :original_price,
              :currency, :size, :price, :comments_count, :likes_count,
-             :location, :lat_lon
+             :location, :lat_lon, :status
 
   has_many :product_pictures
   has_many :comments, serializer: TextCommentSerializer
