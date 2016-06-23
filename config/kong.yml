@@ -74,6 +74,11 @@ apis:
 plugins:
   -
     name: request-transformer
+    config.add.headers: "x_forwarded_host: admin.retiqueta.com ,x_forwarded_port: 80"
+    apis:
+      - admin-www
+  -
+    name: request-transformer
     config.add.headers: "x_forwarded_host:<%= Rails.configuration.x.kong.external_host %>,x_forwarded_port:<%= Rails.configuration.x.kong.external_port %>"
     apis: all
   -
