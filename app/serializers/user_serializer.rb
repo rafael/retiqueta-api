@@ -12,7 +12,8 @@ class UserSerializer < ActiveModel::Serializer
              :followers_count,
              :currency,
              :bank_account,
-             :available_balance
+             :available_balance,
+             :store_fee
 
   def id
     object.uuid

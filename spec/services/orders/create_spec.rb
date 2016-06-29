@@ -130,6 +130,18 @@ RSpec.describe Orders::Create, type: :model do
     expect(order.total_amount).to eq(product_1.price + product_2.price)
   end
 
+  it 'creates a sale' do
+    seller.profile.update(store_fee: 0.2)
+    service_result = described_class.call(params, default_dependencies)
+    sale = Sale.last
+    expect(service_result).to_not be_nil
+    expect(sale).to_not be_nil
+    # Amount should equal to total amount minus store fee
+    expect(sale.amount).to eq((product_1.price + product_2.price) * 0.8)
+    # Store fee should equal to user store_fee
+    expect(sale.store_fee).to eq((product_1.price + product_2.price) * 0.2)
+  end
+
   it 'assigns payment method to payment transaction' do
     service_result = described_class.call(params, default_dependencies)
     expect(service_result).to_not be_nil
@@ -146,8 +158,8 @@ RSpec.describe Orders::Create, type: :model do
     audit_trails =
       PaymentAuditTrail.where(payment_transaction_id: order.payment_transaction_id)
     expect(audit_trails.count).to eq(2)
-    expect(audit_trails.map(&:action)).to eq(['attempting_to_charge_card',
-                                              'credit_card_succesfully_charged'])
+    expect(audit_trails.map(&:action).to_set).to eq(['attempting_to_charge_card',
+                                                     'credit_card_succesfully_charged'].to_set)
   end
 
   it 'Line items are created' do
