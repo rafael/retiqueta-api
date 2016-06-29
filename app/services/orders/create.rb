@@ -128,8 +128,8 @@ module Orders
       products.map do |product|
         Sale.create!(user_id: product.user.uuid,
                      order_id: order.uuid,
-                     store_fee: order_amount * (1 - 0.8), # TODO: Replace with user fee
-                     amount: order_amount * 0.8) # TODO Replace with user fee
+                     store_fee: order_amount * product.user.store_fee,
+                     amount: order_amount * (1 - product.user.store_fee))
       end
     end
 
