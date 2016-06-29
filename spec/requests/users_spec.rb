@@ -62,6 +62,7 @@ RSpec.describe 'Users', type: :request do
                                                           followers_count
                                                           bank_account
                                                           available_balance
+                                                          store_fee
                                                           currency).to_set)
     expect(user_response_attributes['email']).to eq(user.email)
     expect(user_response_attributes['username']).to eq(user.username)
