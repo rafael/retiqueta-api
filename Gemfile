@@ -18,6 +18,7 @@ gem 'mercadopago-sdk', '~> 0.3.4'
 gem 'countries', '1.2.5'
 gem 'koala', '~> 2.2'
 gem 'pg'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'pry-byebug'
