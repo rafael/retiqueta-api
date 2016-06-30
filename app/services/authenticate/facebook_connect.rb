@@ -50,7 +50,7 @@ module Authenticate
     private
 
     def setup_new_user
-      fail FailedValidation, 'Facebook is not returning email information' unless get_fb_profile['email']
+      fail ApiError::FailedValidation, 'Facebook is not returning email information' unless get_fb_profile['email']
       Registrations::Create.call(data: {
                                    type: "users",
                                    attributes: {
