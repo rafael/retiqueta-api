@@ -17,7 +17,7 @@ class ProductsIndexer < ActiveJob::Base
     when /delete/
       client.delete(index: Product.__elasticsearch__.index_name,
                     type: Product.__elasticsearch__.document_type,
-                    id: record_id)
+                    id: record.id)
     else raise ArgumentError, "Unknown operation '#{operation}'"
     end
   end
