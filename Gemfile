@@ -17,8 +17,9 @@ gem 'acts_as_votable', '~> 0.10.0'
 gem 'mercadopago-sdk', '~> 0.3.4'
 gem 'countries', '1.2.5'
 gem 'koala', '~> 2.2'
-gem 'pg'
-gem 'newrelic_rpm'
+gem 'pg', '0.18.4'
+gem 'newrelic_rpm', '3.16.0.318'
+gem 'rollbar', '2.12.0'
 
 group :development, :test do
   gem 'pry-byebug'
