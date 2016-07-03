@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://graph.facebook.com/me?access_token=CAACEdEose0cBABRxEbIBdeJepV39f9ZBWIguOnRZBS9o7Ilfm10xWwetqT5O8C9gokdThkuZBGqQoe3UKVzDcFwOc6gC0Emf7JGWgBFcZCVydUpJpkFU6bmmZAMVzWvZAe6ZATif0Rs07oqSVsRvReZAB9tqWUdG9s4w5rwZBGlrBbJWNqmNhy0mq06hE1fXjFdvnWyIZAt8ZBhdgZDZD
+    uri: https://graph.facebook.com/v2.6/me?access_token=EAACEdEose0cBAEn932kZAW9DZBVJRSpW3yN71YsNfZAL5uuekUUN9JAZC2lWCkv6bxfVq3SNXwPrmJKP5cudu0HmfRXow65RvXRmTTIOI9PhCOclvYTYt32hRe57bILfqwRsNPIMBVRBmxuqNMMwP9UEnN8VItUD2RQSSyOK4AZDZD&fields=email
     body:
       encoding: US-ASCII
       string: ''
@@ -19,60 +19,44 @@ http_interactions:
       message: OK
     headers:
       Etag:
-      - '"2644584336147361dfd27341d6a88ea453907a0b"'
+      - '"43a11198efb2fe296b6c29bfd08c71a860c4ec7e"'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      X-Fb-Rev:
+      - '2425895'
+      X-Fb-Trace-Id:
+      - G5FH3H40FEG
       Expires:
       - Sat, 01 Jan 2000 00:00:00 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Facebook-Api-Version:
+      - v2.6
       Cache-Control:
       - private, no-cache, no-store, must-revalidate
       Pragma:
       - no-cache
-      X-Fb-Rev:
-      - '2256867'
-      X-Fb-Trace-Id:
-      - H8wwKfnyxWH
-      Facebook-Api-Version:
-      - v2.0
-      Content-Type:
-      - application/json; charset=UTF-8
       Access-Control-Allow-Origin:
       - "*"
-      Last-Modified:
-      - '2016-03-19T06:22:14+0000'
-      Vary:
-      - Accept-Encoding
       X-Fb-Debug:
-      - YLUjdIHmJuuzTaD6T7Rh2AoL1IehFtkDmopzurb278iBC1p05wRFIcbedvrmq5beqsgniQwqlmFxX5erRPo7+Q==
+      - uOic2OnHaJFHrK/qYf1AaspJEPv9xDENRbdZ4mv4cqWKxb4lQFpafNLps/Kae3fXb6xDi5wQSriXzua+cACguA==
       Date:
-      - Wed, 30 Mar 2016 06:14:23 GMT
+      - Sun, 03 Jul 2016 01:11:30 GMT
       Connection:
       - keep-alive
       Content-Length:
-      - '963'
+      - '56'
     body:
-      encoding: ASCII-8BIT
-      string: '{"id":"589160260","bio":"http:\/\/www.flickr.com\/photos\/rafaelchacon","birthday":"08\/31\/1985","education":[{"school":{"id":"112454562100382","name":"Maria
-        Montessori"},"type":"High School","year":{"id":"194603703904595","name":"2003"},"id":"10150401097845261"},{"concentration":[{"id":"112377098773944","name":"Computer
-        Engineering"}],"school":{"id":"106362012738603","name":"Sim\u00f3n Bol\u00edvar
-        University"},"type":"College","year":{"id":"141778012509913","name":"2008"},"id":"10150816740930261"}],"email":"rafaelchacon\u0040gmail.com","favorite_athletes":[{"id":"186676354713214","name":"James
-        Rodriguez"}],"first_name":"Rafael","gender":"male","hometown":{"id":"115175415163151","name":"San
-        Crist\u00f3bal, Venezuela"},"languages":[{"id":"110343528993409","name":"Spanish
-        (language)"},{"id":"106059522759137","name":"English"},{"id":"112264595467201","name":"Fran\u00e7ais"}],"last_name":"Chac\u00f3n
-        Vivas","link":"https:\/\/www.facebook.com\/app_scoped_user_id\/589160260\/","location":{"id":"114952118516947","name":"San
-        Francisco, California"},"locale":"en_US","middle_name":"Alberto","name":"Rafael
-        Alberto Chac\u00f3n Vivas","political":"Liberal","relationship_status":"Married","significant_other":{"name":"Johanna
-        Figueira","id":"10154027788405010"},"quotes":"El hombre es la medida de todas
-        las cosas....., \n","timezone":-7,"updated_time":"2016-03-19T06:22:14+0000","verified":true,"work":[{"employer":{"id":"105630153496","name":"MyFitnessPal"},"location":{"id":"114952118516947","name":"San
-        Francisco, California"},"position":{"id":"109542932398298","name":"Software
-        Engineer"},"start_date":"2014-01-31","id":"10154002183805261"},{"end_date":"2013-01-31","employer":{"id":"18506803485","name":"Noomii"},"location":{"id":"114497808567786","name":"Vancouver,
-        British Columbia"},"position":{"id":"109542932398298","name":"Software Engineer"},"start_date":"2011-06-01","id":"10153545065250261"}]}'
+      encoding: UTF-8
+      string: '{"email":"rafaelchacon\u0040gmail.com","id":"589160260"}'
     http_version: 
-  recorded_at: Wed, 30 Mar 2016 06:14:23 GMT
+  recorded_at: Sun, 03 Jul 2016 01:11:30 GMT
 - request:
     method: post
     uri: https://kong:8443/v1/users/oauth2/token
     body:
       encoding: US-ASCII
-      string: client_secret=4649d46d7e6a474fc780ebe9cdbc06ab&client_id=f833910090df4ef8ce1c07f6a7819aca&scope=app&provision_key=d66888c6fd07437cc3ae4a65f74884ef&grant_type=password&authenticated_userid=82881652-2540-4d5b-93ba-f70cac8d775b
+      string: client_secret=7b8c99643062493abfa663df84670e7b&client_id=c7d40213f62c439c83ae930c604cb4a3&scope=app&provision_key=455871e48d2f454aae8ee3c239add5f8&grant_type=password&authenticated_userid=b32d1701-98e1-4dc9-885f-a4eec9e55952
     headers:
       Content-Type:
       - application/x-www-form-urlencoded
@@ -88,7 +72,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 30 Mar 2016 06:14:24 GMT
+      - Sun, 03 Jul 2016 01:11:30 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -98,7 +82,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Server:
-      - kong/0.5.1
+      - kong/0.7.0
       Pragma:
       - no-cache
       Cache-Control:
@@ -106,12 +90,12 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"refresh_token":"a02a2e1a75da499cc9a9cac325567a55","token_type":"bearer","access_token":"6c0d6d33935940d4c0b28a5f3ad36c65","expires_in":7200}
+        {"refresh_token":"006c04edea0c4e668de9c67970dd4a95","token_type":"bearer","access_token":"23752834da0f406d97e0dc906854a0fe","expires_in":72000}
     http_version: 
-  recorded_at: Wed, 30 Mar 2016 06:14:24 GMT
+  recorded_at: Sun, 03 Jul 2016 01:11:30 GMT
 - request:
     method: get
-    uri: https://graph.facebook.com/me?access_token=CAACEdEose0cBABRxEbIBdeJepV39f9ZBWIguOnRZBS9o7Ilfm10xWwetqT5O8C9gokdThkuZBGqQoe3UKVzDcFwOc6gC0Emf7JGWgBFcZCVydUpJpkFU6bmmZAMVzWvZAe6ZATif0Rs07oqSVsRvReZAB9tqWUdG9s4w5rwZBGlrBbJWNqmNhy0mq06hE1fXjFdvnWyIZAt8ZBhdgZDZD
+    uri: https://graph.facebook.com/me?access_token=EAACEdEose0cBAEn932kZAW9DZBVJRSpW3yN71YsNfZAL5uuekUUN9JAZC2lWCkv6bxfVq3SNXwPrmJKP5cudu0HmfRXow65RvXRmTTIOI9PhCOclvYTYt32hRe57bILfqwRsNPIMBVRBmxuqNMMwP9UEnN8VItUD2RQSSyOK4AZDZD
     body:
       encoding: US-ASCII
       string: ''
@@ -129,20 +113,22 @@ http_interactions:
     headers:
       Etag:
       - '"2644584336147361dfd27341d6a88ea453907a0b"'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      X-Fb-Rev:
+      - '2425895'
+      X-Fb-Trace-Id:
+      - CeJrmXlsJ0S
       Expires:
       - Sat, 01 Jan 2000 00:00:00 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      Facebook-Api-Version:
+      - v2.0
       Cache-Control:
       - private, no-cache, no-store, must-revalidate
       Pragma:
       - no-cache
-      X-Fb-Rev:
-      - '2256867'
-      X-Fb-Trace-Id:
-      - DY2mROB/Aq6
-      Facebook-Api-Version:
-      - v2.0
-      Content-Type:
-      - application/json; charset=UTF-8
       Access-Control-Allow-Origin:
       - "*"
       Last-Modified:
@@ -150,13 +136,13 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Fb-Debug:
-      - aPCR2y4UsGAP9Guka0I21+Ueqk86itbs/6VfD/2fSqQiUsBpfH7JvwOA7hBsiPKe2hyHxsKdu66o4/7OMOyWiw==
+      - BzZOaDASSULxk2o33Q4vzBlIGkI0kn6wRqJUtM0EQlhxQu/fv7ThIQ9iwBq4p0ztn7u/DSKw9TVwfJl9ML4L9Q==
       Date:
-      - Wed, 30 Mar 2016 06:14:24 GMT
+      - Sun, 03 Jul 2016 01:11:30 GMT
       Connection:
       - keep-alive
       Content-Length:
-      - '963'
+      - '950'
     body:
       encoding: ASCII-8BIT
       string: '{"id":"589160260","bio":"http:\/\/www.flickr.com\/photos\/rafaelchacon","birthday":"08\/31\/1985","education":[{"school":{"id":"112454562100382","name":"Maria
@@ -175,5 +161,5 @@ http_interactions:
         Engineer"},"start_date":"2014-01-31","id":"10154002183805261"},{"end_date":"2013-01-31","employer":{"id":"18506803485","name":"Noomii"},"location":{"id":"114497808567786","name":"Vancouver,
         British Columbia"},"position":{"id":"109542932398298","name":"Software Engineer"},"start_date":"2011-06-01","id":"10153545065250261"}]}'
     http_version: 
-  recorded_at: Wed, 30 Mar 2016 06:14:24 GMT
+  recorded_at: Sun, 03 Jul 2016 01:11:30 GMT
 recorded_with: VCR 2.9.3
