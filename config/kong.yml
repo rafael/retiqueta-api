@@ -78,7 +78,7 @@ apis:
 
 plugins:
   -
-    name: request-transformer-for-admin
+    name: request-transformer
     config.add.headers: "x_forwarded_host: admin.retiqueta.com ,x_forwarded_port: 80"
     apis:
       - admin-www
