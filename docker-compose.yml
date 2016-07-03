@@ -59,7 +59,7 @@ db:
     POSTGRES_PASSWORD: 123456
     POSTGRES_USER: root
 kong:
-  image: rafael/kong:0.7.0
+  image: rafael/kong:0.8.0
   ports:
     - "80:8000"
     - "443:8443"
