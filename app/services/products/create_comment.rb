@@ -70,7 +70,8 @@ module Products
         type: 'url',
         url:  url
       }
-      SendPushNotification.perform_later([product.user],
+
+      SendPushNotification.perform_later(users_for_comment(product, comment),
                                          'Retiqueta',
                                          I18n.t('comment.creation_push_notification',
                                                 username: user.username,
@@ -102,6 +103,22 @@ module Products
       unless user
         raise ApiError::NotFound.new(I18n.t("user.errors.not_found"))
       end
+    end
+
+    def users_for_comment(product, comment)
+      users = Set.new
+      users << product.user if comment.user != product.user
+      users << mentioned_users_from_comment(comment)
+      users.to_a
+    end
+
+    def mentioned_users_from_comment(comment)
+      parsed_comment = JSON.parse(comment.data)
+      return nil unless parsed_comment['type'] == 'text_comments'
+      text = parsed_comment['attributes']['text']
+      return nil unless text
+      usernames = text.scan(/@[a-zA-Z0-9]+/).map { |s| s.gsub('@', '') }
+      User.where(username: usernames)
     end
   end
 end

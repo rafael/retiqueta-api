@@ -1,23 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe Products::CreateComment, type: :model do
-  describe ".call" do
+  describe '.call' do
     let(:user) { create(:user) }
     let(:product) { create(:product) }
-    let(:params) {
+    let(:params) do
       {
         user_id: user.uuid,
         product_id: product.uuid,
         data: {
-          type: "text_comments",
+          type: 'text_comments',
           attributes: {
-            text: "Hey I like your shoes @rafael"
+            text: 'Hey I like your shoes @rafael'
           }
         }
       }
-    }
+    end
 
-    it "adds a comment to the product" do
+    it 'adds a comment to the product' do
       service_result = described_class.call(params)
       expect(service_result.success_result).to eq(Comment.last)
       comment = service_result.success_result
@@ -26,16 +26,16 @@ RSpec.describe Products::CreateComment, type: :model do
       expect(comment.data).to eq(params[:data].to_json)
     end
 
-    it "gives proper error when user_id is invalid" do
+    it 'gives proper error when user_id is invalid' do
       expect do
-        described_class.call(params.merge(user_id: "invalid"))
-      end.to raise_error(ApiError::NotFound, "User not found")
+        described_class.call(params.merge(user_id: 'invalid'))
+      end.to raise_error(ApiError::NotFound, 'User not found')
     end
 
-    it "gives proper error when product_id is invalid" do
+    it 'gives proper error when product_id is invalid' do
       expect do
-        described_class.call(params.merge(product_id: "invalid"))
-      end.to raise_error(ApiError::NotFound, "Product not found")
+        described_class.call(params.merge(product_id: 'invalid'))
+      end.to raise_error(ApiError::NotFound, 'Product not found')
     end
   end
 end
