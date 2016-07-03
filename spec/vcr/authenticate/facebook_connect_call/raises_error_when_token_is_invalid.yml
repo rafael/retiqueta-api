@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://graph.facebook.com/me?access_token=invalid
+    uri: https://graph.facebook.com/v2.6/me?access_token=invalid&fields=email
     body:
       encoding: US-ASCII
       string: ''
@@ -22,29 +22,31 @@ http_interactions:
       - OAuth "Facebook Platform" "invalid_token" "Invalid OAuth access token."
       Access-Control-Allow-Origin:
       - "*"
-      Content-Type:
-      - application/json; charset=UTF-8
-      X-Fb-Trace-Id:
-      - BbR6t0MxOOP
-      X-Fb-Rev:
-      - '2256867'
       Pragma:
       - no-cache
       Cache-Control:
       - no-store
       Expires:
       - Sat, 01 Jan 2000 00:00:00 GMT
+      Content-Type:
+      - application/json; charset=UTF-8
+      X-Fb-Trace-Id:
+      - EdF3uo/i5Pv
+      X-Fb-Rev:
+      - '2425895'
+      Access-Control-Allow-Credentials:
+      - 'true'
       X-Fb-Debug:
-      - ciMGMtdqA4YGJF1BtQfFgLbL98lJvPbSPfrzFtxcd+9PULGRGhud04MbOBTVjYadocokzXMbjLS0vWoqoSw7lg==
+      - tC6Ku/8WEM8MAl1wrAGj3wcYuKF3VJHMOC9JrS6piDNNCdJfty22JrWYvoCCumLEmfeFQBuFroVJi3amwllERA==
       Date:
-      - Wed, 30 Mar 2016 06:14:50 GMT
+      - Sun, 03 Jul 2016 01:11:29 GMT
       Connection:
       - keep-alive
       Content-Length:
-      - '113'
+      - '114'
     body:
       encoding: UTF-8
-      string: '{"error":{"message":"Invalid OAuth access token.","type":"OAuthException","code":190,"fbtrace_id":"BbR6t0MxOOP"}}'
+      string: '{"error":{"message":"Invalid OAuth access token.","type":"OAuthException","code":190,"fbtrace_id":"EdF3uo\/i5Pv"}}'
     http_version: 
-  recorded_at: Wed, 30 Mar 2016 06:14:50 GMT
+  recorded_at: Sun, 03 Jul 2016 01:11:29 GMT
 recorded_with: VCR 2.9.3

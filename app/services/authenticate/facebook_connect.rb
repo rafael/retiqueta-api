@@ -36,7 +36,7 @@ module Authenticate
     end
 
     def generate_result!
-      user = find_user_with_fb_profile(get_fb_profile)
+      user = find_user_with_fb_profile(fb_profile)
       if user
         create_facebook_account(user) unless user.facebook_account
         authorize_user_in_kong_and_set_response(user)
@@ -50,19 +50,25 @@ module Authenticate
     private
 
     def setup_new_user
-      fail ApiError::FailedValidation, 'Facebook is not returning email information' unless get_fb_profile['email']
+      unless fb_profile['email']
+        Rollbar.error(
+          RuntimeError.new("Invalid data from facebook profile: #{fb_profile}")
+        )
+        fail ApiError::FailedValidation, 'Facebook is not returning email information'
+      end
+
       Registrations::Create.call(data: {
                                    type: "users",
                                    attributes: {
                                      password: SecureRandom.uuid,
-                                     email: get_fb_profile['email'],
-                                     username: "#{get_fb_profile['email'].split("@").first}#{rand(10000)}"
+                                     email: fb_profile['email'],
+                                     username: "#{fb_profile['email'].split("@").first}#{rand(10000)}"
                                    }
                                  }).success_result
 
     end
     def create_facebook_account(user)
-      FacebookAccount.create(user_id: user.uuid, token: token, expires_in: expires_in, uuid: get_fb_profile['id'])
+      FacebookAccount.create(user_id: user.uuid, token: token, expires_in: expires_in, uuid: fb_profile['id'])
     end
 
     def authorize_user_in_kong_and_set_response(user)
@@ -85,8 +91,10 @@ module Authenticate
       user
     end
 
-    def get_fb_profile
-      @fb_profile ||= graph_api.get_object("me")
+    def fb_profile
+      @fb_profile ||= graph_api.get_object('me',
+                                           { fields: 'email'},
+                                           api_version: 'v2.6')
     rescue Koala::Facebook::AuthenticationError
       raise ApiError::Unauthorized, I18n.t('user.errors.invalid_password')
     end
