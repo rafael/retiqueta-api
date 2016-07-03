@@ -7,6 +7,10 @@ class ProductsIndexer < ActiveJob::Base
                                           log: true)
   end
 
+  rescue_from ActiveJob::DeserializationError do |e|
+    Rails.logger.warn "Couldn't find  product: #{e.message}"
+  end
+
   def perform(record, operation)
     case operation.to_s
     when /index/
