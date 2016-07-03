@@ -1,0 +1,83 @@
+es:
+  sales:
+    errors:
+      not_found: "Venta no encontrada"
+  fulfillments:
+    errors:
+      not_found: "Ordern de entrega no encontrada"
+  orders:
+    seller_notification: "​¡​Felicidades! - Acabas de hacer una venta"
+    ml_description: "Compra en Retiqueta.com"
+    errors:
+      something_went_wrong: 'Discuple, hubo un error mientras procesabamos su orden'
+      fail_to_charge_credit_card: "Disculpe, no pudimos hacer el cargo a su tarjeta"
+      not_found: "Orden no encontrada"
+  payouts:
+    errors:
+      insufficient_funds: "Disculpe, saldo insuficiente"
+  profiles:
+    errors:
+      bank_account:
+        invalid_type: "Tipo de cuenta es invalido. Elegir entre los siguientes: %{valid_types}"
+        invalid_document_id_type: "Documento de identificación inválido. Elegir entre los siguientes: %{valid_types}"
+  user:
+    errors:
+      not_found: "Usuario no encontrado"
+      invalid_password: "Contraseña inválida"
+      invalid_username: "Nombre de usuario inválido"
+      following_itself_not_allowed: "Esta acción no está permitida"
+      already_following: "Ya sigues a este usuario"
+  comment:
+    creation_push_notification: "@%{username} - %{comment}"
+    errors:
+      not_found: "Comentario no encontrado"
+  product:
+    errors:
+      not_found: "Producto no encontrado"
+      invalid_type: "Solo puede borrar productos que se encuentren en estado: publicados"
+      invalid_category: "La categoría seleccionada es invalidad. Se encontró %{category}, requerido: %{valid_categories}"
+      pictures_are_empty: "Debe tomar al menos tomar una foto"
+      invalid_pictures: "Imágenes inválidas"
+      pictures_are_used_in_other_product: "The provided picture ids are not valid, they are already in used by a different product"
+  errors:
+    # The default format to use in full error messages.
+    format: "%{attribute} %{message}"
+    # The values :model, :attribute and :value are always available for interpolation
+    # The value :count is available when applicable. Can be used for pluralization.
+    invalid_type: "Type is invalid. Provided %{type}, required %{resource_type}"
+    invalid_password_reset_token: "Token para restablecer contraseña es inválido"
+    messages:
+      model_invalid: "Problema de validación: %{errors}"
+      inclusion: "no esta incluido en last lista"
+      exclusion: "esta prohibo"
+      invalid: "es invalido"
+      confirmation: "no concuerda %{attribute}"
+      accepted: "tiene que aceptar"
+      empty: "no puede estar vacío"
+      blank: "no puede ser blanco"
+      present: "debe ser blanco"
+      too_long:
+        one: "es demasiado largo (maximo un caracter)"
+        other: "es demasiado largo (maximo %{count} caracteres)"
+      too_short:
+        one: "es demasiado corto (minimo 1 caracter)"
+        other: "es demasiado corto (minimo %{count} caracteres)"
+      wrong_length:
+        one: "is the wrong length (should be 1 character)"
+        other: "is the wrong length (should be %{count} characters)"
+      not_a_number: "is not a number"
+      not_an_integer: "must be an integer"
+      greater_than: "must be greater than %{count}"
+      greater_than_or_equal_to: "must be greater than or equal to %{count}"
+      equal_to: "must be equal to %{count}"
+      less_than: "must be less than %{count}"
+      less_than_or_equal_to: "must be less than or equal to %{count}"
+      other_than: "must be other than %{count}"
+      odd: "must be odd"
+      even: "must be even"
+      unauthorized: "You don't have access to see the requested resource"
+  user_mailer:
+    signup_email:
+      subject: "Bienvenido a Retiqueta"
+    password_reset_email:
+      subject: "Restablecer contraseña"

@@ -98,7 +98,7 @@ module Orders
         }
         SendPushNotification.perform_later([sale.user],
                                            'Retiqueta',
-                                           I18n.t('order.seller_notification'),
+                                           I18n.t('orders.seller_notification'),
                                            payload)
       end
     end
@@ -156,7 +156,7 @@ module Orders
       order_amount = order_amount(products)
       prepared_payment_data = {
         transaction_amount: order_amount,
-        description:  'Buy in retiqueta.com',
+        description:  I18n.t('orders.ml_description'),
         installments:  1,
         payer:  {
           email:  user.email

@@ -6,6 +6,8 @@ en:
     errors:
       not_found: "Fulfillment not found"
   orders:
+    seller_notification: "​Congrats, you just made  sale!"
+    ml_description: "Buy in retiqueta"
     errors:
       something_went_wrong: 'Sorry, something went wrong while processing your order'
       fail_to_charge_credit_card: "Sorry, we couldn't charge your card"
@@ -29,8 +31,6 @@ en:
     creation_push_notification: "@%{username} - \"%{comment}\""
     errors:
       not_found: "Comment not found"
-  order:
-    seller_notification: "Congratulations! You just made a sell!"
   product:
     errors:
       not_found: "Product not found"
