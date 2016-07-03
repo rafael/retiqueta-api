@@ -25,7 +25,7 @@ module Products
     end
 
     def generate_result!
-      products = Product.search(query: query).records.page(page).per(per_page)
+      products = Product.search(query: query).page(page).per(per_page).records
       # products_search_result = Product.search(query: query, per_page: per_page, page: page)
       # products = products_search_result.map do |result|
       #   # Let's fake an AR product.
