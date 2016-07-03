@@ -108,7 +108,9 @@ module Products
     def users_for_comment(product, comment)
       users = Set.new
       users << product.user if comment.user != product.user
-      users << mentioned_users_from_comment(comment)
+      mentioned_users_from_comment(comment).each do |mentioned_user|
+        users << mentioned_user
+      end
       users.to_a
     end
 
