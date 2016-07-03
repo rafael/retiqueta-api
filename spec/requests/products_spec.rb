@@ -6,11 +6,11 @@ RSpec.describe 'Products', type: :request do
 
   def search_response_double(product)
     search_response_double = double('search')
-    expect(search_response_double).to receive(:records)
+    expect(search_response_double).to receive(:per)
       .and_return(search_response_double)
     expect(search_response_double).to receive(:page)
       .and_return(search_response_double)
-    expect(search_response_double).to receive(:per)
+    expect(search_response_double).to receive(:records)
       .and_return(Kaminari.paginate_array([product]))
     search_response_double
   end
