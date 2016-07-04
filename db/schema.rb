@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629035832) do
+ActiveRecord::Schema.define(version: 20160704044126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -215,6 +215,7 @@ ActiveRecord::Schema.define(version: 20160629035832) do
     t.datetime "updated_at",              null: false
   end
 
+  add_index "push_tokens", ["token", "platform"], name: "index_push_tokens_on_token_and_platform", unique: true, using: :btree
   add_index "push_tokens", ["user_id", "platform"], name: "index_push_tokens_on_user_id_and_platform", using: :btree
   add_index "push_tokens", ["user_id"], name: "index_push_tokens_on_user_id", using: :btree
 
