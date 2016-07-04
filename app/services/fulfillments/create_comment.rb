@@ -54,10 +54,42 @@ module Fulfillments
     def generate_result!
       comment = fulfillment.comments.build(user: user, data: data.to_json, user_pic: user.pic.url(:small))
       comment.save!
+      send_push_notification(comment)
       self.success_result = comment
     end
 
     private
+
+    def send_push_notification(comment)
+      url = Rails
+            .application
+            .routes
+            .url_helpers.v1_fulfillment_comment_url(fulfillment.uuid, comment.uuid, host: 'https://api.retiqueta.com')
+      payload = {
+        type: 'url',
+        url:  url
+      }
+
+      SendPushNotification.perform_later(user_for_notification(fulfillment.order),
+                                         'Retiqueta',
+                                         I18n.t('comment.creation_push_notification',
+                                                username: user.username,
+                                                comment: text),
+                                         payload)
+    end
+
+    def user_for_notification(order)
+      # This is a terrible hack and I should change the api to make more sense of this.
+      # But basically the rule will be: It's either the seller (at the moment we only have
+      # one seller per order) or the order owner
+      @user_for_notification ||= begin
+                                   if order.line_items.first.product.user == user
+                                     order.line_items.first.product.user
+                                   else
+                                     order.user
+                                   end
+                                 end
+    end
 
     def valid_type
       unless type == RESOURCE_TYPE

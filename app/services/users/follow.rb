@@ -38,12 +38,30 @@ module Users
     end
 
     def generate_result!
-      follower.active_relationships.create!(followed_id: followed.uuid)
+      result = follower.active_relationships.create!(followed_id: followed.uuid)
+      send_push_notification
+      result
     rescue ActiveRecord::RecordNotUnique
       raise ApiError::FailedValidation.new(I18n.t("user.errors.already_following"))
     end
 
     private
+
+    def send_push_notification
+      url = Rails
+            .application
+            .routes
+            .url_helpers.v1_user_url(followed_id, host: 'https://api.retiqueta.com')
+      payload = {
+        type: 'url',
+        url:  url
+      }
+
+      SendPushNotification.perform_later(followed,
+                                         'Retiqueta',
+                                         I18n.t('user.new_follower_push', username: follower.username),
+                                         payload)
+    end
 
     def followed
       @followed ||= User.find_by_uuid(followed_id)

@@ -21,6 +21,7 @@ en:
         invalid_type: "Invalid account type. Valid ones: %{valid_types}"
         invalid_document_id_type: "Invalid document id type. Valid ones: %{valid_types}"
   user:
+    new_follower_push: "@%{username} is now following you"
     errors:
       not_found: "User not found"
       invalid_password: "Invalid password"
@@ -32,6 +33,7 @@ en:
     errors:
       not_found: "Comment not found"
   product:
+    like_push: '@%{username} just liked your product!'
     errors:
       not_found: "Product not found"
       invalid_type: "Only published products can be deleted"
