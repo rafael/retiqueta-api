@@ -71,8 +71,10 @@ module Products
           end
           product.save!
         end
+        Librato.increment 'product.create.success'
         self.success_result = product
       else
+        Librato.increment 'product.create.failure'
         product.errors.each do |k, v|
           errors.add(k, v)
         end

@@ -49,8 +49,10 @@ module Registrations
       if user.valid? && user.save
         UserMailer.signup_email(user).deliver_later
         AccountBootstrap.perform_later(user)
+        Librato.increment 'user.signup.success'
         self.success_result = user
       else
+        Librato.increment 'user.signup.failure'
         user.errors.each do |k, v|
           self.errors.add(k, v)
         end

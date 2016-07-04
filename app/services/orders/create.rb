@@ -84,7 +84,11 @@ module Orders
       create_fulfillment!(order)
       UserMailer.order_created(order).deliver_later
       send_sales_notfications(sales)
+      Librato.increment 'order.create.success'
       order
+    rescue => e
+      Librato.increment 'order.create.failure'
+      raise e
     end
 
     def send_sales_notfications(sales)

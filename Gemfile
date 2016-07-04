@@ -20,6 +20,7 @@ gem 'koala', '~> 2.3.0'
 gem 'pg', '0.18.4'
 gem 'newrelic_rpm', '3.16.0.318'
 gem 'rollbar', '2.12.0'
+gem 'librato-rails'
 
 group :development, :test do
   gem 'pry-byebug'
