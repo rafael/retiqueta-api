@@ -43,6 +43,7 @@ module Products
     end
 
     def send_push_notification
+      return if product.user == user
       url = Rails
             .application
             .routes
@@ -52,7 +53,7 @@ module Products
         url:  url
       }
 
-      SendPushNotification.perform_later(product.user,
+      SendPushNotification.perform_later([product.user],
                                          'Retiqueta',
                                          I18n.t('product.like_push', username: user.username),
                                          payload)

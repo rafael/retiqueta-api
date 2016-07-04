@@ -57,7 +57,7 @@ module Users
         url:  url
       }
 
-      SendPushNotification.perform_later(followed,
+      SendPushNotification.perform_later([followed],
                                          'Retiqueta',
                                          I18n.t('user.new_follower_push', username: follower.username),
                                          payload)
