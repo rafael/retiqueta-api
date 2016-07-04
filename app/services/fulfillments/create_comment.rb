@@ -70,7 +70,7 @@ module Fulfillments
         url:  url
       }
 
-      SendPushNotification.perform_later(user_for_notification(fulfillment.order),
+      SendPushNotification.perform_later([user_for_notification(fulfillment.order)],
                                          'Retiqueta',
                                          I18n.t('comment.creation_push_notification',
                                                 username: user.username,
