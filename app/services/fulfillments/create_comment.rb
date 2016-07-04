@@ -83,10 +83,12 @@ module Fulfillments
       # But basically the rule will be: It's either the seller (at the moment we only have
       # one seller per order) or the order owner
       @user_for_notification ||= begin
-                                   if order.line_items.first.product.user == user
-                                     order.line_items.first.product.user
+                                   seller = order.line_items.first.product.user
+                                   buyer = order.user
+                                   if seller == user
+                                     buyer
                                    else
-                                     order.user
+                                     seller
                                    end
                                  end
     end
