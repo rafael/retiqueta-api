@@ -10,6 +10,15 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email)
   end
 
+  def product_sale(sale)
+    @user = sale.user
+    mail(to: @user.email)
+  end
+
+  def order_created(order)
+    @user = order.user
+    mail(to: @user.email)
+  end
 
   private
 

@@ -82,8 +82,20 @@ module Orders
       create_line_items!(order)
       sales = create_sale!(order, order_amount, products)
       create_fulfillment!(order)
-      send_push_to_sellers(sales)
+      UserMailer.order_created(order).deliver_later
+      send_sales_notfications(sales)
       order
+    end
+
+    def send_sales_notfications(sales)
+      send_push_to_sellers(sales)
+      send_email_to_sellers(sales)
+    end
+
+    def send_email_to_sellers(sales)
+      sales.each do |sale|
+        UserMailer.product_sale(sale).deliver_later
+      end
     end
 
     def send_push_to_sellers(sales)

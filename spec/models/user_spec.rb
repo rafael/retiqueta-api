@@ -47,5 +47,23 @@ RSpec.describe User, type: :model do
       expect(user).to_not be_valid
       expect(user.errors.full_messages).to eq(['Username is invalid'])
     end
+
+    it 'name returns username when first_name is not present' do
+      user = User.new(email: 'rafaelchacon@gmail.com',
+                      password: '123456',
+                      username: 'rafael')
+      user.save!
+      expect(user.name).to eq('rafael')
+    end
+
+    it 'name returns FirstName when  first_name is present' do
+      user = User.new(email: 'rafaelchacon@gmail.com',
+                      password: '123456',
+                      username: 'rafael')
+      user.save!
+      user.profile.first_name = 'jose'
+      user.profile.save!
+      expect(user.name).to eq('Jose')
+    end
   end
 end
