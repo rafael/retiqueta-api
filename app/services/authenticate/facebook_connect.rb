@@ -62,7 +62,7 @@ module Authenticate
                                    attributes: {
                                      password: SecureRandom.uuid,
                                      email: fb_profile['email'],
-                                     username: "#{fb_profile['email'].split("@").first}#{rand(10000)}"
+                                     username: "#{fb_profile['email'].split("@").first.tr('^A-Za-z0-9', '')}#{rand(10000)}"
                                    }
                                  }).success_result
 
