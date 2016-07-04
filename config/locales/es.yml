@@ -21,6 +21,7 @@ es:
         invalid_type: "Tipo de cuenta es invalido. Elegir entre los siguientes: %{valid_types}"
         invalid_document_id_type: "Documento de identificación inválido. Elegir entre los siguientes: %{valid_types}"
   user:
+    new_follower_push: "@%{username} te esta siguiendo"
     errors:
       not_found: "Usuario no encontrado"
       invalid_password: "Contraseña inválida"
@@ -32,6 +33,7 @@ es:
     errors:
       not_found: "Comentario no encontrado"
   product:
+    like_push: '@%{username} le gusta tu producto!'
     errors:
       not_found: "Producto no encontrado"
       invalid_type: "Solo puede borrar productos que se encuentren en estado: publicados"

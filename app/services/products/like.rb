@@ -37,7 +37,25 @@ module Products
     end
 
     def generate_result!
-      product.liked_by(user)
+      result = product.liked_by(user)
+      send_push_notification
+      result
+    end
+
+    def send_push_notification
+      url = Rails
+            .application
+            .routes
+            .url_helpers.v1_product_url(product.uuid, host: 'https://api.retiqueta.com')
+      payload = {
+        type: 'url',
+        url:  url
+      }
+
+      SendPushNotification.perform_later(product.user,
+                                         'Retiqueta',
+                                         I18n.t('product.like_push', username: user.username),
+                                         payload)
     end
 
     private
