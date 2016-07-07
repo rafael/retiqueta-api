@@ -49,8 +49,9 @@ module Orders
     end
 
     def valid_order
+      fail ApiError::NotFound, I18n.t("orders.errors.not_found") unless order
       if order.user_id != user.uuid && !order.sellers.map(&:uuid).include?(user.uuid)
-        raise ApiError::NotFound, I18n.t("orders.errors.not_found")
+        fail ApiError::NotFound, I18n.t("orders.errors.not_found")
       end
     end
 
