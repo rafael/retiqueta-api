@@ -66,8 +66,9 @@ module Fulfillments
             .routes
             .url_helpers.v1_fulfillment_comment_url(fulfillment.uuid, comment.uuid, host: 'https://api.retiqueta.com')
       payload = {
-        type: 'url',
-        url:  url
+        type: 'fulfillment_comment',
+        url:  url,
+        order_id: fulfillment.order.uuid
       }
 
       SendPushNotification.perform_later([user_for_notification(fulfillment.order)],
