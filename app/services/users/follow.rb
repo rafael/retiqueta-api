@@ -51,7 +51,7 @@ module Users
       url = Rails
             .application
             .routes
-            .url_helpers.v1_user_url(followed_id, host: 'https://api.retiqueta.com')
+            .url_helpers.v1_user_url(follower_id, host: 'https://api.retiqueta.com')
       payload = {
         type: 'url',
         url:  url
