@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'User authentication', type: :request do
   let(:user) { create(:user, password: '123456') }
   let(:fb_token) do
-    'EAACEdEose0cBAIRxGQnRSVDZCYmR8tRXiErwvxljf6TwiUcBcZBud6y7EtzJG2x8T0UuyZB04v1QzockmCFAtQUZClhjfFZAcMojCiJZA12jkByV8aLZCGLXiNU9ldL7npOejVGiXwnxcEB4L4G4kbggCItLNIB5tLlfLXZAU71vZCgZDZD'
+    'EAACEdEose0cBAOyptxp0nMIx2GVcD3KDzEZCZB4ZCiTpsB4XuKKWqZCeZBB9Ps4l3cIrt3bmPq0aXZCiWJhmtMmPlZBxmiUn7TmHXr8NeKh6NkhCc7aBqu4EMjZAonGaqd52o4KMZBmYkYNbBg12kSE6HXSo6vHZCv1CPJNYG2JAniIgZDZD'
   end
 
   it 'validates presence of login' do

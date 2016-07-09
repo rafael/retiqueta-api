@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://graph.facebook.com/me?access_token=EAACEdEose0cBAIRxGQnRSVDZCYmR8tRXiErwvxljf6TwiUcBcZBud6y7EtzJG2x8T0UuyZB04v1QzockmCFAtQUZClhjfFZAcMojCiJZA12jkByV8aLZCGLXiNU9ldL7npOejVGiXwnxcEB4L4G4kbggCItLNIB5tLlfLXZAU71vZCgZDZD
+    uri: https://graph.facebook.com/me?access_token=EAACEdEose0cBAOyptxp0nMIx2GVcD3KDzEZCZB4ZCiTpsB4XuKKWqZCeZBB9Ps4l3cIrt3bmPq0aXZCiWJhmtMmPlZBxmiUn7TmHXr8NeKh6NkhCc7aBqu4EMjZAonGaqd52o4KMZBmYkYNbBg12kSE6HXSo6vHZCv1CPJNYG2JAniIgZDZD
     body:
       encoding: US-ASCII
       string: ''
@@ -19,13 +19,13 @@ http_interactions:
       message: OK
     headers:
       X-App-Usage:
-      - '{"call_count":3,"total_cputime":2,"total_time":2}'
+      - '{"call_count":4,"total_cputime":3,"total_time":2}'
       Etag:
-      - '"2644584336147361dfd27341d6a88ea453907a0b"'
+      - '"fd321f0c4e6d9b831aa4f63a33384ad43f2c24e1"'
       X-Fb-Rev:
       - '2435736'
       X-Fb-Trace-Id:
-      - C0BBNVp1quS
+      - H7qHmdk9FsN
       Expires:
       - Sat, 01 Jan 2000 00:00:00 GMT
       Content-Type:
@@ -39,20 +39,20 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Last-Modified:
-      - '2016-03-19T06:22:14+0000'
+      - '2016-07-09T21:22:35+0000'
       Vary:
       - Accept-Encoding
       X-Fb-Debug:
-      - 7H6YAOfPIKDRmIqXxRxUOPo7sQJHUSNM4xbEUssAVn3/Bg4y5Arvj8mgJdRvZUTiKd+W++h/VoSwiJHCP4GYew==
+      - mpHYMQovmU3Ph5OtvZWiQmgxjqOssIIEUvdjl8QEWxtAUxCdW1qNXjlI3rv86VAbRyL3XRJGniKNIAZZlse8tQ==
       Date:
-      - Sat, 09 Jul 2016 20:48:31 GMT
+      - Sat, 09 Jul 2016 22:37:09 GMT
       Connection:
       - keep-alive
       Content-Length:
-      - '950'
+      - '937'
     body:
       encoding: ASCII-8BIT
-      string: '{"id":"589160260","bio":"http:\/\/www.flickr.com\/photos\/rafaelchacon","birthday":"08\/31\/1985","education":[{"school":{"id":"112454562100382","name":"Maria
+      string: '{"id":"589160260","bio":"Yei!","birthday":"08\/31\/1985","education":[{"school":{"id":"112454562100382","name":"Maria
         Montessori"},"type":"High School","year":{"id":"194603703904595","name":"2003"},"id":"10150401097845261"},{"concentration":[{"id":"112377098773944","name":"Computer
         Engineering"}],"school":{"id":"106362012738603","name":"Sim\u00f3n Bol\u00edvar
         University"},"type":"College","year":{"id":"141778012509913","name":"2008"},"id":"10150816740930261"}],"email":"rafaelchacon\u0040gmail.com","favorite_athletes":[{"id":"186676354713214","name":"James
@@ -63,15 +63,15 @@ http_interactions:
         Francisco, California"},"locale":"en_US","middle_name":"Alberto","name":"Rafael
         Alberto Chac\u00f3n Vivas","political":"Liberal","relationship_status":"Married","significant_other":{"name":"Johanna
         Figueira","id":"10154027788405010"},"quotes":"El hombre es la medida de todas
-        las cosas....., \n","timezone":-7,"updated_time":"2016-03-19T06:22:14+0000","verified":true,"work":[{"employer":{"id":"105630153496","name":"MyFitnessPal"},"location":{"id":"114952118516947","name":"San
+        las cosas....., \n","timezone":-7,"updated_time":"2016-07-09T21:22:35+0000","verified":true,"work":[{"employer":{"id":"105630153496","name":"MyFitnessPal"},"location":{"id":"114952118516947","name":"San
         Francisco, California"},"position":{"id":"109542932398298","name":"Software
         Engineer"},"start_date":"2014-01-31","id":"10154002183805261"},{"end_date":"2013-01-31","employer":{"id":"18506803485","name":"Noomii"},"location":{"id":"114497808567786","name":"Vancouver,
         British Columbia"},"position":{"id":"109542932398298","name":"Software Engineer"},"start_date":"2011-06-01","id":"10153545065250261"}]}'
     http_version: 
-  recorded_at: Sat, 09 Jul 2016 20:48:31 GMT
+  recorded_at: Sat, 09 Jul 2016 22:37:09 GMT
 - request:
     method: get
-    uri: https://graph.facebook.com/v2.6/me?access_token=EAACEdEose0cBAIRxGQnRSVDZCYmR8tRXiErwvxljf6TwiUcBcZBud6y7EtzJG2x8T0UuyZB04v1QzockmCFAtQUZClhjfFZAcMojCiJZA12jkByV8aLZCGLXiNU9ldL7npOejVGiXwnxcEB4L4G4kbggCItLNIB5tLlfLXZAU71vZCgZDZD&fields=email,first_name,last_name,picture.type(large)
+    uri: https://graph.facebook.com/v2.6/me?access_token=EAACEdEose0cBAOyptxp0nMIx2GVcD3KDzEZCZB4ZCiTpsB4XuKKWqZCeZBB9Ps4l3cIrt3bmPq0aXZCiWJhmtMmPlZBxmiUn7TmHXr8NeKh6NkhCc7aBqu4EMjZAonGaqd52o4KMZBmYkYNbBg12kSE6HXSo6vHZCv1CPJNYG2JAniIgZDZD&fields=email,first_name,last_name,picture.type(large),bio,website
     body:
       encoding: US-ASCII
       string: ''
@@ -88,11 +88,11 @@ http_interactions:
       message: OK
     headers:
       X-App-Usage:
-      - '{"call_count":3,"total_cputime":2,"total_time":2}'
+      - '{"call_count":4,"total_cputime":3,"total_time":2}'
       X-Fb-Rev:
       - '2435736'
       X-Fb-Trace-Id:
-      - FMtsPnTEeo9
+      - E+TAPl7f6Ps
       Expires:
       - Sat, 01 Jan 2000 00:00:00 GMT
       Content-Type:
@@ -104,31 +104,31 @@ http_interactions:
       Pragma:
       - no-cache
       Etag:
-      - '"a136f4821093dfb342e36c06326fb628db51f86a"'
+      - '"38740ed065b43d4d2332d6a151640c4731ad8d65"'
       Access-Control-Allow-Origin:
       - "*"
       Vary:
       - Accept-Encoding
       X-Fb-Debug:
-      - q8fP750z4sVRzu0bMRJ5y5lEMtxpymEw6GyM5Y9rtbSZK5yf4ByWa7R07FUkg5dNfAh2AouNpsm75aakhQFsCg==
+      - 9p7JdkxgoU3nOueuyG3XQfVlHb7wE82dfKOCZX7c95OnvRkyAQ8yTZrs9yVyFqujMsHVNl8paK5gXtCb/nrPPw==
       Date:
-      - Sat, 09 Jul 2016 20:48:31 GMT
+      - Sat, 09 Jul 2016 22:37:09 GMT
       Connection:
       - keep-alive
       Content-Length:
-      - '256'
+      - '267'
     body:
       encoding: ASCII-8BIT
       string: '{"email":"rafaelchacon\u0040gmail.com","first_name":"Rafael","last_name":"Chac\u00f3n
-        Vivas","picture":{"data":{"is_silhouette":false,"url":"https:\/\/scontent.xx.fbcdn.net\/v\/t1.0-1\/p200x200\/1509000_10153823490520261_711811054_n.jpg?oh=1afce5475c6942bc25ed6dcb2e0728ca&oe=582BA0AB"}},"id":"589160260"}'
+        Vivas","picture":{"data":{"is_silhouette":false,"url":"https:\/\/scontent.xx.fbcdn.net\/v\/t1.0-1\/p200x200\/1509000_10153823490520261_711811054_n.jpg?oh=1afce5475c6942bc25ed6dcb2e0728ca&oe=582BA0AB"}},"bio":"Yei!","id":"589160260"}'
     http_version: 
-  recorded_at: Sat, 09 Jul 2016 20:48:31 GMT
+  recorded_at: Sat, 09 Jul 2016 22:37:09 GMT
 - request:
     method: post
     uri: https://kong:8443/v1/users/oauth2/token
     body:
       encoding: US-ASCII
-      string: client_secret=c8781848973840d0abb7066be259a9b9&client_id=cb682a2bd36c49e6a344db38279fccba&scope=app&provision_key=6bd5652d5ba641b2b21e424c5dda07fa&grant_type=password&authenticated_userid=cd693da2-c06c-498c-90ce-de4b333540d7
+      string: client_secret=80c68b9e1ee6481e919838b8ff844e8b&client_id=c3cd6be1d8ab440791c1483158c292bd&scope=app&provision_key=15630cd47d1e4f9d83f24820e7453616&grant_type=password&authenticated_userid=f40390b0-4475-4008-b9d8-f4af16c9ce6a
     headers:
       Content-Type:
       - application/x-www-form-urlencoded
@@ -144,7 +144,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 09 Jul 2016 20:48:31 GMT
+      - Sat, 09 Jul 2016 22:37:09 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -162,7 +162,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"refresh_token":"df83aee062904c00b442dc10ddc7acec","token_type":"bearer","access_token":"56d74cce037d463e880f1d1aa1035dff","expires_in":72000}
+        {"refresh_token":"2bd5c2f2bc204710a946523e16cc5d0a","token_type":"bearer","access_token":"9a7ab046ce2d4189a83f9aff02b441db","expires_in":72000}
     http_version: 
-  recorded_at: Sat, 09 Jul 2016 20:48:32 GMT
+  recorded_at: Sat, 09 Jul 2016 22:37:09 GMT
 recorded_with: VCR 2.9.3
