@@ -1,5 +1,7 @@
 module Authenticate
   class FacebookConnect
+    FB_FIELDS = 'email,first_name,last_name,picture.type(large),bio,website'
+
     #################
     ## Extensions  ##
     #################
@@ -43,6 +45,12 @@ module Authenticate
       else
         new_user = setup_new_user
         create_facebook_account(new_user)
+        PrefillUserDataFromFb.perform_later(new_user,
+                                            fb_profile['first_name'],
+                                            fb_profile['last_name'],
+                                            fb_profile['picture'],
+                                            fb_profile['bio'],
+                                            fb_profile['website'])
         authorize_user_in_kong_and_set_response(new_user)
       end
     end
@@ -63,6 +71,7 @@ module Authenticate
                                               username: "#{fb_profile['email'].split('@').first.tr('^A-Za-z0-9', '')}#{rand(10_000)}"
                                             }
                                           }).success_result
+
       Librato.increment 'user.facebook_connect.success'
       result
     rescue => e
@@ -96,7 +105,7 @@ module Authenticate
 
     def fb_profile
       @fb_profile ||= graph_api.get_object('me',
-                                           { fields: 'email' },
+                                           { fields: FB_FIELDS },
                                            api_version: 'v2.6')
     rescue Koala::Facebook::AuthenticationError
       Librato.increment 'user.facebook_connect.auth_error'

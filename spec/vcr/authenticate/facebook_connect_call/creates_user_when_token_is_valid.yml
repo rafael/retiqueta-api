@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://graph.facebook.com/v2.6/me?access_token=EAACEdEose0cBAEn932kZAW9DZBVJRSpW3yN71YsNfZAL5uuekUUN9JAZC2lWCkv6bxfVq3SNXwPrmJKP5cudu0HmfRXow65RvXRmTTIOI9PhCOclvYTYt32hRe57bILfqwRsNPIMBVRBmxuqNMMwP9UEnN8VItUD2RQSSyOK4AZDZD&fields=email
+    uri: https://graph.facebook.com/v2.6/me?access_token=EAACEdEose0cBAIRxGQnRSVDZCYmR8tRXiErwvxljf6TwiUcBcZBud6y7EtzJG2x8T0UuyZB04v1QzockmCFAtQUZClhjfFZAcMojCiJZA12jkByV8aLZCGLXiNU9ldL7npOejVGiXwnxcEB4L4G4kbggCItLNIB5tLlfLXZAU71vZCgZDZD&fields=email,first_name,last_name,picture.type(large)
     body:
       encoding: US-ASCII
       string: ''
@@ -18,14 +18,12 @@ http_interactions:
       code: 200
       message: OK
     headers:
-      Etag:
-      - '"43a11198efb2fe296b6c29bfd08c71a860c4ec7e"'
-      Access-Control-Allow-Credentials:
-      - 'true'
+      X-App-Usage:
+      - '{"call_count":3,"total_cputime":2,"total_time":2}'
       X-Fb-Rev:
-      - '2425895'
+      - '2435736'
       X-Fb-Trace-Id:
-      - G5FH3H40FEG
+      - AZW8nIIdk4U
       Expires:
       - Sat, 01 Jan 2000 00:00:00 GMT
       Content-Type:
@@ -36,27 +34,32 @@ http_interactions:
       - private, no-cache, no-store, must-revalidate
       Pragma:
       - no-cache
+      Etag:
+      - '"a136f4821093dfb342e36c06326fb628db51f86a"'
       Access-Control-Allow-Origin:
       - "*"
+      Vary:
+      - Accept-Encoding
       X-Fb-Debug:
-      - uOic2OnHaJFHrK/qYf1AaspJEPv9xDENRbdZ4mv4cqWKxb4lQFpafNLps/Kae3fXb6xDi5wQSriXzua+cACguA==
+      - mdhew82Y0xB0IV/QWa/orguMT4ASKrg5SlyH4K6dBGZ4kNtytlL+0KloehQkx9GS5yvYQGaSN3RAKR2NloOE3w==
       Date:
-      - Sun, 03 Jul 2016 01:11:30 GMT
+      - Sat, 09 Jul 2016 20:48:32 GMT
       Connection:
       - keep-alive
       Content-Length:
-      - '56'
+      - '256'
     body:
-      encoding: UTF-8
-      string: '{"email":"rafaelchacon\u0040gmail.com","id":"589160260"}'
+      encoding: ASCII-8BIT
+      string: '{"email":"rafaelchacon\u0040gmail.com","first_name":"Rafael","last_name":"Chac\u00f3n
+        Vivas","picture":{"data":{"is_silhouette":false,"url":"https:\/\/scontent.xx.fbcdn.net\/v\/t1.0-1\/p200x200\/1509000_10153823490520261_711811054_n.jpg?oh=1afce5475c6942bc25ed6dcb2e0728ca&oe=582BA0AB"}},"id":"589160260"}'
     http_version: 
-  recorded_at: Sun, 03 Jul 2016 01:11:30 GMT
+  recorded_at: Sat, 09 Jul 2016 20:48:32 GMT
 - request:
     method: post
     uri: https://kong:8443/v1/users/oauth2/token
     body:
       encoding: US-ASCII
-      string: client_secret=7b8c99643062493abfa663df84670e7b&client_id=c7d40213f62c439c83ae930c604cb4a3&scope=app&provision_key=455871e48d2f454aae8ee3c239add5f8&grant_type=password&authenticated_userid=b32d1701-98e1-4dc9-885f-a4eec9e55952
+      string: client_secret=c8781848973840d0abb7066be259a9b9&client_id=cb682a2bd36c49e6a344db38279fccba&scope=app&provision_key=6bd5652d5ba641b2b21e424c5dda07fa&grant_type=password&authenticated_userid=0547296d-ba4b-435f-ba55-d2206ea6574a
     headers:
       Content-Type:
       - application/x-www-form-urlencoded
@@ -72,7 +75,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 03 Jul 2016 01:11:30 GMT
+      - Sat, 09 Jul 2016 20:48:32 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -82,7 +85,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Server:
-      - kong/0.7.0
+      - kong/0.8.0
       Pragma:
       - no-cache
       Cache-Control:
@@ -90,12 +93,12 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"refresh_token":"006c04edea0c4e668de9c67970dd4a95","token_type":"bearer","access_token":"23752834da0f406d97e0dc906854a0fe","expires_in":72000}
+        {"refresh_token":"5fc11fcd420949f09bb0f9dba6465979","token_type":"bearer","access_token":"d6f55d78b2314182989b855fe5add423","expires_in":72000}
     http_version: 
-  recorded_at: Sun, 03 Jul 2016 01:11:30 GMT
+  recorded_at: Sat, 09 Jul 2016 20:48:32 GMT
 - request:
     method: get
-    uri: https://graph.facebook.com/me?access_token=EAACEdEose0cBAEn932kZAW9DZBVJRSpW3yN71YsNfZAL5uuekUUN9JAZC2lWCkv6bxfVq3SNXwPrmJKP5cudu0HmfRXow65RvXRmTTIOI9PhCOclvYTYt32hRe57bILfqwRsNPIMBVRBmxuqNMMwP9UEnN8VItUD2RQSSyOK4AZDZD
+    uri: https://graph.facebook.com/me?access_token=EAACEdEose0cBAIRxGQnRSVDZCYmR8tRXiErwvxljf6TwiUcBcZBud6y7EtzJG2x8T0UuyZB04v1QzockmCFAtQUZClhjfFZAcMojCiJZA12jkByV8aLZCGLXiNU9ldL7npOejVGiXwnxcEB4L4G4kbggCItLNIB5tLlfLXZAU71vZCgZDZD
     body:
       encoding: US-ASCII
       string: ''
@@ -111,14 +114,14 @@ http_interactions:
       code: 200
       message: OK
     headers:
+      X-App-Usage:
+      - '{"call_count":3,"total_cputime":2,"total_time":2}'
       Etag:
       - '"2644584336147361dfd27341d6a88ea453907a0b"'
-      Access-Control-Allow-Credentials:
-      - 'true'
       X-Fb-Rev:
-      - '2425895'
+      - '2435736'
       X-Fb-Trace-Id:
-      - CeJrmXlsJ0S
+      - EtBSa+i9voF
       Expires:
       - Sat, 01 Jan 2000 00:00:00 GMT
       Content-Type:
@@ -136,9 +139,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Fb-Debug:
-      - BzZOaDASSULxk2o33Q4vzBlIGkI0kn6wRqJUtM0EQlhxQu/fv7ThIQ9iwBq4p0ztn7u/DSKw9TVwfJl9ML4L9Q==
+      - f5RGO1LwODnaT8lk5ehywI8hrPkwc+bTA7pbNuLRieZmtWy/OMlBwEPPY2J4MEabJZg8iGtyobFbhoThNHIcVg==
       Date:
-      - Sun, 03 Jul 2016 01:11:30 GMT
+      - Sat, 09 Jul 2016 20:48:32 GMT
       Connection:
       - keep-alive
       Content-Length:
@@ -161,5 +164,5 @@ http_interactions:
         Engineer"},"start_date":"2014-01-31","id":"10154002183805261"},{"end_date":"2013-01-31","employer":{"id":"18506803485","name":"Noomii"},"location":{"id":"114497808567786","name":"Vancouver,
         British Columbia"},"position":{"id":"109542932398298","name":"Software Engineer"},"start_date":"2011-06-01","id":"10153545065250261"}]}'
     http_version: 
-  recorded_at: Sun, 03 Jul 2016 01:11:30 GMT
+  recorded_at: Sat, 09 Jul 2016 20:48:32 GMT
 recorded_with: VCR 2.9.3

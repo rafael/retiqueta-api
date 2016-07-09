@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://graph.facebook.com/v2.6/me?access_token=invalid&fields=email
+    uri: https://graph.facebook.com/v2.6/me?access_token=invalid&fields=email,first_name,last_name,picture.type(large)
     body:
       encoding: US-ASCII
       string: ''
@@ -31,22 +31,20 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       X-Fb-Trace-Id:
-      - EdF3uo/i5Pv
+      - AkA7LyREf8M
       X-Fb-Rev:
-      - '2425895'
-      Access-Control-Allow-Credentials:
-      - 'true'
+      - '2435736'
       X-Fb-Debug:
-      - tC6Ku/8WEM8MAl1wrAGj3wcYuKF3VJHMOC9JrS6piDNNCdJfty22JrWYvoCCumLEmfeFQBuFroVJi3amwllERA==
+      - 8s5la8DD2Hf8NCyCpyM/6MUh4c+QONz4RRjbYCvrRKBPJymcVTzTHxKP1RT7VvLD0axXnKOrPSCW13wRpm5ogQ==
       Date:
-      - Sun, 03 Jul 2016 01:11:29 GMT
+      - Sat, 09 Jul 2016 20:48:31 GMT
       Connection:
       - keep-alive
       Content-Length:
-      - '114'
+      - '113'
     body:
       encoding: UTF-8
-      string: '{"error":{"message":"Invalid OAuth access token.","type":"OAuthException","code":190,"fbtrace_id":"EdF3uo\/i5Pv"}}'
+      string: '{"error":{"message":"Invalid OAuth access token.","type":"OAuthException","code":190,"fbtrace_id":"AkA7LyREf8M"}}'
     http_version: 
-  recorded_at: Sun, 03 Jul 2016 01:11:29 GMT
+  recorded_at: Sat, 09 Jul 2016 20:48:31 GMT
 recorded_with: VCR 2.9.3
