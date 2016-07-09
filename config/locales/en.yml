@@ -83,3 +83,5 @@ en:
       subject: "Welcome to Retiqueta"
     password_reset_email:
       subject: "Retiqueta password reset"
+    landing_welcome:
+      subject: "Download Retiqueta!"

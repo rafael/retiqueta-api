@@ -20,6 +20,10 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email)
   end
 
+  def landing_welcome(email)
+    mail(to: email)
+  end
+
   private
 
   helper do
