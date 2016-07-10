@@ -8,6 +8,7 @@ class Profile < ActiveRecord::Base
                     },
                     url: ':s3_domain_url',
                     path: '/system/:hash.:extension',
+                    keep_old_files: true,
                     hash_secret: Rails.application.secrets.secret_key_base
 
   process_in_background :pic
