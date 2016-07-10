@@ -1,4 +1,3 @@
-require 'open-uri'
 require 'rack/mime'
 
 # Job that prefills user info based on facebook
@@ -20,7 +19,7 @@ class PrefillUserDataFromFb < ActiveJob::Base
     return unless fb_picture['data']
     return if fb_picture['data']['is_silhouette']
     fb_picture_url = fb_picture['data']['url']
-    io = open(URI.parse(fb_picture_url))
+    io = open(fb_picture_url)
     uploaded_file = ActionDispatch::Http::UploadedFile.new(
       tempfile: io,
       filename: "#{SecureRandom.uuid}#{Rack::Mime::MIME_TYPES.invert[io.content_type]}"
