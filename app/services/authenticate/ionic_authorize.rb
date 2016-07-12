@@ -47,9 +47,10 @@ module Authenticate
       # Ionic sends username in the field, but the client
       # should be sending emails to the backend in this field
       fail ApiError::Unauthorized, 'Invalid JWT token' unless data_payload
-      email = data_payload['username']
+      email_or_username = data_payload['username']
       password = data_payload['password']
-      user = User.find_by_email(email)
+      user = User.find_by_email(email_or_username)
+      user ||= User.find_by_username(email_or_username)
       fail ApiError::NotFound, I18n.t('user.errors.invalid_username') unless user
       fail ApiError::Unauthorized, I18n.t('user.errors.invalid_password') unless user.valid_password?(password)
       payload = { user_id: user.uuid }
