@@ -75,4 +75,43 @@ RSpec.describe 'User authentication', type: :request do
     post '/v1/authenticate/fb/connect', token: fb_token, expires_in: '123456', client_id: 'ret-mobile-ios'
     expect(response.status).to eq(200)
   end
+
+  it 'authenticates with jwt token from ionic' do
+    Rails.application.secrets.ionic_jwt_secret = 'secret'
+    payload = { data: { username: user.email, password: '123456' } }
+    token = JWT.encode(payload, 'secret', 'HS256')
+    redirect_uri = 'http://dummy.com/ionic/success'
+    get '/v1/authenticate/ionic/authorize',
+        token: token,
+        state: 'test_state',
+        redirect_uri: redirect_uri
+    expect(response.status).to eq(302)
+    expected_token = JWT.encode({ user_id: user.uuid }, 'secret', 'HS256')
+    expected_location = "#{redirect_uri}?state=test_state&token=#{expected_token}"
+    expect(response.location).to eq(expected_location)
+  end
+
+  it 'does not authenticates with jwt token from ionic when password is invalid' do
+    Rails.application.secrets.ionic_jwt_secret = 'secret'
+    payload = { data: { username: user.email, password: 'invalid' } }
+    token = JWT.encode(payload, 'secret', 'HS256')
+    redirect_uri = 'http://dummy.com/ionic/success'
+    get '/v1/authenticate/ionic/authorize',
+        token: token,
+        state: 'test_state',
+        redirect_uri: redirect_uri
+    expect(response.status).to eq(401)
+  end
+
+  it 'does not authenticates with jwt token from ionic when signature is invalid' do
+    Rails.application.secrets.ionic_jwt_secret = 'secret'
+    payload = { data: { username: user.email, password: '123456' } }
+    token = JWT.encode(payload, 'secret2', 'HS256')
+    redirect_uri = 'http://dummy.com/ionic/success'
+    get '/v1/authenticate/ionic/authorize',
+        token: token,
+        state: 'test_state',
+        redirect_uri: redirect_uri
+    expect(response.status).to eq(401)
+  end
 end

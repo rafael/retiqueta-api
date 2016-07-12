@@ -258,6 +258,7 @@ GEM
     inflecto (0.0.2)
     ipaddress (0.8.3)
     json (1.8.3)
+    jwt (1.5.4)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -419,6 +420,7 @@ DEPENDENCIES
   fakeredis
   faraday (= 0.9.2)
   fog (= 1.38.0)
+  jwt
   kaminari (= 0.16.3)
   koala (~> 2.3.0)
   librato-rails
