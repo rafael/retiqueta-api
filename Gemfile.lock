@@ -289,6 +289,7 @@ GEM
     mimemagic (0.3.1)
     mini_portile (0.6.2)
     minitest (5.8.2)
+    mixpanel-ruby (2.2.0)
     multi_json (1.11.2)
     multipart-post (2.0.0)
     newrelic_rpm (3.16.0.318)
@@ -425,6 +426,7 @@ DEPENDENCIES
   koala (~> 2.3.0)
   librato-rails
   mercadopago-sdk (~> 0.3.4)
+  mixpanel-ruby
   newrelic_rpm (= 3.16.0.318)
   paperclip (= 5.0.0)
   pg (= 0.18.4)
