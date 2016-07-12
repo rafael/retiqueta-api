@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     resource :authenticate, only: :create do
       post 'token' => 'authenticates#refreh_token'
       post 'fb/connect' => 'authenticates#fb_connect'
+      get 'ionic/authorize' => 'authenticates#ionic_authorize'
     end
 
     post 'send_password_reset' => 'password_actions#send_reset'
