@@ -1,4 +1,26 @@
 class V1::ProductsController < ApplicationController
+  # For now only track this controller, tracking all the others is too
+  # expensive
+  before_action do |controller|
+    if user_id
+      begin
+        action = controller.request.params['action']
+        controller_name = controller.request.params['controller']
+        method_name = controller.request.method
+        params_to_mixpanel = { action: action,
+                               controller: controller_name,
+                               method: method_name
+                             }
+
+        mixpanel_event = 'api_request'
+        MixpanelDelayedTracker.perform_later(user_id,
+                                             mixpanel_event,
+                                             params_to_mixpanel)
+      rescue
+        Librato.increment 'system.mixpanel.failure'
+      end
+    end
+  end
 
   def search
     outcome = ::Products::Search.call(params.merge(user_id: user_id))
