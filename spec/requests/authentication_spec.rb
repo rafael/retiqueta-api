@@ -87,7 +87,7 @@ RSpec.describe 'User authentication', type: :request do
         redirect_uri: redirect_uri
     expect(response.status).to eq(302)
     expected_token = JWT.encode({ user_id: user.uuid }, 'secret', 'HS256')
-    expected_location = "#{redirect_uri}?state=test_state&token=#{expected_token}"
+    expected_location = "#{redirect_uri}&state=test_state&token=#{expected_token}"
     expect(response.location).to eq(expected_location)
   end
 

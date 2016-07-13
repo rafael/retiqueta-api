@@ -56,7 +56,7 @@ module Authenticate
       payload = { user_id: user.uuid }
       response_token = JWT.encode(payload, hmac_secret, 'HS256')
       response_query = { token: response_token, state: state }.to_query
-      self.success_result = "#{redirect_uri}?#{response_query}"
+      self.success_result = "#{redirect_uri}&#{response_query}"
     rescue JWT::VerificationError
       raise ApiError::Unauthorized, 'Invalid JWT token'
     end
