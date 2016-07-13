@@ -1,7 +1,7 @@
 class V1::ProductsController < ApplicationController
 
   def search
-    outcome = ::Products::Search.call(params)
+    outcome = ::Products::Search.call(params.merge(user_id: user_id))
     render json: outcome.success_result,
            each_serializer: ProductSerializer,
            include: filtered_include,

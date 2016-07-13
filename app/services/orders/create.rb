@@ -84,7 +84,7 @@ module Orders
       create_fulfillment!(order)
       UserMailer.order_created(order).deliver_later
       send_sales_notfications(sales)
-      Librato.increment 'order.create.success'
+      track_metrics
       order
     rescue => e
       Librato.increment 'order.create.failure'
@@ -94,6 +94,15 @@ module Orders
     def send_sales_notfications(sales)
       send_push_to_sellers(sales)
       send_email_to_sellers(sales)
+    end
+
+    def track_metrics
+      Librato.increment 'order.create.success'
+      MixpanelDelayedTracker.perform_later(user_id,
+                                           'order_created',
+                                           {})
+    rescue
+      # NOOP
     end
 
     def send_email_to_sellers(sales)

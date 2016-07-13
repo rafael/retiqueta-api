@@ -38,6 +38,9 @@ module Products
 
     def generate_result!
       result = product.liked_by(user)
+      MixpanelDelayedTracker.perform_later(user_id,
+                                           'product_like_created',
+                                           {})
       send_push_notification
       result
     end

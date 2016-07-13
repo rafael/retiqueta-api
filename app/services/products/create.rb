@@ -72,6 +72,10 @@ module Products
           product.save!
         end
         Librato.increment 'product.create.success'
+        MixpanelDelayedTracker.perform_later(user_id,
+                                             'product_created',
+                                             {})
+
         self.success_result = product
       else
         Librato.increment 'product.create.failure'

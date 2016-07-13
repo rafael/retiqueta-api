@@ -15,17 +15,24 @@ module Products
     ## Instance Methods ##
     ######################
 
-    attr_accessor :success_result, :query, :per_page, :page
+    attr_accessor :success_result, :query, :per_page, :page, :user_id
 
     def initialize(params = {})
       @query = params[:q]
       page = params.fetch(:page) { {} }
       @per_page = page[:size] || 25
       @page = page[:number] || 1
+      @user_id = params[:user_id]
     end
 
     def generate_result!
       products = Product.search(query: query).page(page).per(per_page).records
+      if  user_id
+        MixpanelDelayedTracker.perform_later(user_id,
+                                             'search',
+                                             term: query,
+                                             result_count: products.count)
+      end
       # products_search_result = Product.search(query: query, per_page: per_page, page: page)
       # products = products_search_result.map do |result|
       #   # Let's fake an AR product.

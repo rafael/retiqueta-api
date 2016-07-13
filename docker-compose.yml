@@ -48,6 +48,7 @@ worker:
     SMTP_USER_NAME: dextrin.diorman@gmail.com
     SMTP_PASSWORD: u7uu24nmtB47K9YigTyThg
     SECRET_PATHS: "/etc/secrets"
+    MIXPANEL_TOKEN: "5c8d640c06abde316d620efc36cdadc2"
 redis:
  image: library/redis:2.6.17
  ports:

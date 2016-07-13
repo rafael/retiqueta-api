@@ -40,6 +40,9 @@ module Users
     def generate_result!
       result = follower.active_relationships.create!(followed_id: followed.uuid)
       send_push_notification
+      MixpanelDelayedTracker.perform_later(follower_id,
+                                           'user_follow',
+                                           {})
       result
     rescue ActiveRecord::RecordNotUnique
       raise ApiError::FailedValidation.new(I18n.t("user.errors.already_following"))
