@@ -54,7 +54,11 @@ module Users
     end
 
     def generate_result!
-      user.push_tokens.create!(attributes)
+      created_at = Time.now
+      sql_parts = ["INSERT INTO push_tokens (user_id, uuid, platform, token, device_id, environment, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?) ON CONFLICT (token, platform) DO UPDATE SET user_id = ?, environment = ?, device_id = ?, updated_at = ?", user_id, SecureRandom.uuid, platform, token, device_id, environment, created_at, created_at, user_id, environment, device_id, created_at]
+      sql = PushToken.send(:sanitize_sql_array, sql_parts)
+      ActiveRecord::Base.connection.execute(sql)
+      #user.push_tokens.create!(attributes)
     end
 
     private

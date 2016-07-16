@@ -1,3 +1,5 @@
+require 'rack/mime'
+
 module ProductPictures
   class Create
 
@@ -74,7 +76,7 @@ module ProductPictures
 
       uploaded_file = ActionDispatch::Http::UploadedFile.new(
         tempfile: @tempfile,
-        filename: filename
+        filename: "#{SecureRandom.uuid}#{Rack::Mime::MIME_TYPES.invert[content_type]}"
       )
       uploaded_file.content_type = content_type
       uploaded_file

@@ -82,8 +82,33 @@ module Orders
       create_line_items!(order)
       sales = create_sale!(order, order_amount, products)
       create_fulfillment!(order)
-      send_push_to_sellers(sales)
+      UserMailer.order_created(order).deliver_later
+      send_sales_notfications(sales)
+      track_metrics
       order
+    rescue => e
+      Librato.increment 'order.create.failure'
+      raise e
+    end
+
+    def send_sales_notfications(sales)
+      send_push_to_sellers(sales)
+      send_email_to_sellers(sales)
+    end
+
+    def track_metrics
+      Librato.increment 'order.create.success'
+      MixpanelDelayedTracker.perform_later(user_id,
+                                           'order_created',
+                                           {})
+    rescue
+      # NOOP
+    end
+
+    def send_email_to_sellers(sales)
+      sales.each do |sale|
+        UserMailer.product_sale(sale).deliver_later
+      end
     end
 
     def send_push_to_sellers(sales)
@@ -98,7 +123,7 @@ module Orders
         }
         SendPushNotification.perform_later([sale.user],
                                            'Retiqueta',
-                                           I18n.t('order.seller_notification'),
+                                           I18n.t('orders.seller_notification'),
                                            payload)
       end
     end
@@ -156,7 +181,7 @@ module Orders
       order_amount = order_amount(products)
       prepared_payment_data = {
         transaction_amount: order_amount,
-        description:  'Buy in retiqueta.com',
+        description:  I18n.t('orders.ml_description'),
         installments:  1,
         payer:  {
           email:  user.email

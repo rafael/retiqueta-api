@@ -12,7 +12,7 @@ module Registrations
     #################
 
     validate :type_is_users
-    validates :data, :attributes, :type, :email, :username, :password, presence: true, strict: ApiError::FailedValidation
+    validates :data, :attributes, :type, :email, :password, presence: true, strict: ApiError::FailedValidation
 
     RESOURCE_TYPE = "users"
 
@@ -44,13 +44,16 @@ module Registrations
 
     def generate_result!
       user = User.new(attributes.except(:password))
+      user.username = username_from_email unless user.username
       user.password = password
       user.build_profile.country = "VE"
       if user.valid? && user.save
         UserMailer.signup_email(user).deliver_later
         AccountBootstrap.perform_later(user)
+        Librato.increment 'user.signup.success'
         self.success_result = user
       else
+        Librato.increment 'user.signup.failure'
         user.errors.each do |k, v|
           self.errors.add(k, v)
         end
@@ -59,6 +62,10 @@ module Registrations
     end
 
     private
+
+    def username_from_email
+      "#{email.split('@').first.tr('^A-Za-z0-9', '')}#{rand(10_000)}"
+    end
 
     def type_is_users
       unless type == RESOURCE_TYPE

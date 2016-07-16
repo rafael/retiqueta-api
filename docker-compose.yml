@@ -26,6 +26,7 @@ api:
     FB_CLIENT_SECRET: 222c4b672075027ad2ba34ee81a4ce5e
     KONG_ADMIN_SERVICE_HOST: kong
     KONG_ADMIN_SERVICE_PORT: 8001
+    MIXPANEL_TOKEN: "5c8d640c06abde316d620efc36cdadc2"
     IONIC_ACCESS_TOKEN:
     UPSTREAM_SERVICE_HOST:
 worker:
@@ -47,6 +48,7 @@ worker:
     SMTP_USER_NAME: dextrin.diorman@gmail.com
     SMTP_PASSWORD: u7uu24nmtB47K9YigTyThg
     SECRET_PATHS: "/etc/secrets"
+    MIXPANEL_TOKEN: "5c8d640c06abde316d620efc36cdadc2"
 redis:
  image: library/redis:2.6.17
  ports:

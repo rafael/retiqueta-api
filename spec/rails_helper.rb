@@ -14,6 +14,8 @@ VCR.configure do |c|
   c.hook_into :webmock
 end
 
+I18n.locale = :en
+
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.use_transactional_fixtures = false

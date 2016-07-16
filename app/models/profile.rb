@@ -3,16 +3,17 @@ class Profile < ActiveRecord::Base
 
   has_attached_file :pic,
                     styles: {
-                      small:  '100x100>',
-                      large: '600x600>'
+                      small:  '100x100#',
+                      large: '350X350#'
                     },
                     url: ':s3_domain_url',
-                    path: "/system/:hash.:extension",
+                    path: '/system/:hash.:extension',
+                    keep_old_files: true,
                     hash_secret: Rails.application.secrets.secret_key_base
 
   process_in_background :pic
 
-  validates_attachment_content_type :pic, :content_type => /\Aimage\/.*\Z/
+  validates_attachment_content_type :pic, content_type: /\Aimage\/.*\Z/
 
   has_one :bank_account
 end

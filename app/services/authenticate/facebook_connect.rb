@@ -1,5 +1,6 @@
 module Authenticate
   class FacebookConnect
+    FB_FIELDS = 'email,first_name,last_name,picture.type(large),bio,website'
 
     #################
     ## Extensions  ##
@@ -38,11 +39,18 @@ module Authenticate
     def generate_result!
       user = find_user_with_fb_profile(fb_profile)
       if user
+        Librato.increment 'user.facebook_connect.success'
         create_facebook_account(user) unless user.facebook_account
         authorize_user_in_kong_and_set_response(user)
       else
         new_user = setup_new_user
         create_facebook_account(new_user)
+        PrefillUserDataFromFb.perform_later(new_user,
+                                            fb_profile['first_name'],
+                                            fb_profile['last_name'],
+                                            fb_profile['picture'],
+                                            fb_profile['bio'],
+                                            fb_profile['website'])
         authorize_user_in_kong_and_set_response(new_user)
       end
     end
@@ -51,22 +59,26 @@ module Authenticate
 
     def setup_new_user
       unless fb_profile['email']
-        Rollbar.error(
-          RuntimeError.new("Invalid data from facebook profile: #{fb_profile}")
-        )
+        Librato.increment 'user.facebook_connect.invalid_data'
         fail ApiError::FailedValidation, 'Facebook is not returning email information'
       end
 
-      Registrations::Create.call(data: {
-                                   type: "users",
-                                   attributes: {
-                                     password: SecureRandom.uuid,
-                                     email: fb_profile['email'],
-                                     username: "#{fb_profile['email'].split("@").first}#{rand(10000)}"
-                                   }
-                                 }).success_result
+      result = Registrations::Create.call(data: {
+                                            type: 'users',
+                                            attributes: {
+                                              password: SecureRandom.uuid,
+                                              email: fb_profile['email'],
+                                              username: "#{fb_profile['email'].split('@').first.tr('^A-Za-z0-9', '')}#{rand(10_000)}"
+                                            }
+                                          }).success_result
 
+      Librato.increment 'user.facebook_connect.success'
+      result
+    rescue => e
+      Librato.increment 'user.facebook_connect.account_creation_failure'
+      raise e
     end
+
     def create_facebook_account(user)
       FacebookAccount.create(user_id: user.uuid, token: token, expires_in: expires_in, uuid: fb_profile['id'])
     end
@@ -93,9 +105,10 @@ module Authenticate
 
     def fb_profile
       @fb_profile ||= graph_api.get_object('me',
-                                           { fields: 'email'},
+                                           { fields: FB_FIELDS },
                                            api_version: 'v2.6')
     rescue Koala::Facebook::AuthenticationError
+      Librato.increment 'user.facebook_connect.auth_error'
       raise ApiError::Unauthorized, I18n.t('user.errors.invalid_password')
     end
 

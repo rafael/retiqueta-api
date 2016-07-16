@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://graph.facebook.com/v2.6/me?access_token=EAACEdEose0cBAEn932kZAW9DZBVJRSpW3yN71YsNfZAL5uuekUUN9JAZC2lWCkv6bxfVq3SNXwPrmJKP5cudu0HmfRXow65RvXRmTTIOI9PhCOclvYTYt32hRe57bILfqwRsNPIMBVRBmxuqNMMwP9UEnN8VItUD2RQSSyOK4AZDZD&fields=email
+    uri: https://graph.facebook.com/v2.6/me?access_token=EAACEdEose0cBAOyptxp0nMIx2GVcD3KDzEZCZB4ZCiTpsB4XuKKWqZCeZBB9Ps4l3cIrt3bmPq0aXZCiWJhmtMmPlZBxmiUn7TmHXr8NeKh6NkhCc7aBqu4EMjZAonGaqd52o4KMZBmYkYNbBg12kSE6HXSo6vHZCv1CPJNYG2JAniIgZDZD&fields=email,first_name,last_name,picture.type(large),bio,website
     body:
       encoding: US-ASCII
       string: ''
@@ -19,15 +19,11 @@ http_interactions:
       message: OK
     headers:
       X-App-Usage:
-      - '{"call_count":5,"total_cputime":1,"total_time":2}'
-      Etag:
-      - '"43a11198efb2fe296b6c29bfd08c71a860c4ec7e"'
-      Access-Control-Allow-Credentials:
-      - 'true'
+      - '{"call_count":4,"total_cputime":3,"total_time":2}'
       X-Fb-Rev:
-      - '2425895'
+      - '2435736'
       X-Fb-Trace-Id:
-      - A27dojp67rl
+      - FJWbXPMh9s7
       Expires:
       - Sat, 01 Jan 2000 00:00:00 GMT
       Content-Type:
@@ -38,27 +34,32 @@ http_interactions:
       - private, no-cache, no-store, must-revalidate
       Pragma:
       - no-cache
+      Etag:
+      - '"38740ed065b43d4d2332d6a151640c4731ad8d65"'
       Access-Control-Allow-Origin:
       - "*"
+      Vary:
+      - Accept-Encoding
       X-Fb-Debug:
-      - icw+0au0qi2ORi2yOCjkoPpkyKpkH/UguVs+nbzFP8l8bkUrIetj/alxD5ikAXCYWJTP/rj1z8O/gSEOuJOY9g==
+      - 5Rs5JjGZNzBFAHw/+xm9PjRfQCp/3NXz4Ij4Hblra5X4VUlBLopGGvtMREPH9T9cnOTc870tjdMhJXqJCnBz8w==
       Date:
-      - Sun, 03 Jul 2016 01:20:43 GMT
+      - Sat, 09 Jul 2016 22:37:55 GMT
       Connection:
       - keep-alive
       Content-Length:
-      - '56'
+      - '267'
     body:
-      encoding: UTF-8
-      string: '{"email":"rafaelchacon\u0040gmail.com","id":"589160260"}'
+      encoding: ASCII-8BIT
+      string: '{"email":"rafaelchacon\u0040gmail.com","first_name":"Rafael","last_name":"Chac\u00f3n
+        Vivas","picture":{"data":{"is_silhouette":false,"url":"https:\/\/scontent.xx.fbcdn.net\/v\/t1.0-1\/p200x200\/1509000_10153823490520261_711811054_n.jpg?oh=1afce5475c6942bc25ed6dcb2e0728ca&oe=582BA0AB"}},"bio":"Yei!","id":"589160260"}'
     http_version: 
-  recorded_at: Sun, 03 Jul 2016 01:20:43 GMT
+  recorded_at: Sat, 09 Jul 2016 22:37:56 GMT
 - request:
     method: post
     uri: https://kong:8443/v1/users/oauth2/token
     body:
       encoding: US-ASCII
-      string: client_secret=7b8c99643062493abfa663df84670e7b&client_id=c7d40213f62c439c83ae930c604cb4a3&scope=app&provision_key=bb426da61b8d480499bdbabf6a70c68b&grant_type=password&authenticated_userid=cc0a4736-f245-48d1-86ed-b88508c01499
+      string: client_secret=80c68b9e1ee6481e919838b8ff844e8b&client_id=c3cd6be1d8ab440791c1483158c292bd&scope=app&provision_key=15630cd47d1e4f9d83f24820e7453616&grant_type=password&authenticated_userid=57d65b54-17d3-456b-b7e5-0e1113ce9c02
     headers:
       Content-Type:
       - application/x-www-form-urlencoded
@@ -74,7 +75,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 03 Jul 2016 01:20:43 GMT
+      - Sat, 09 Jul 2016 22:37:56 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -84,7 +85,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       Server:
-      - kong/0.7.0
+      - kong/0.8.0
       Pragma:
       - no-cache
       Cache-Control:
@@ -92,7 +93,7 @@ http_interactions:
     body:
       encoding: UTF-8
       string: |
-        {"refresh_token":"e9d90ea8c7954168b8cc25ccae5255bc","token_type":"bearer","access_token":"018c870b351b4b01b6edb0375ceaf5cb","expires_in":72000}
+        {"refresh_token":"efde6c7bb6fe4ab4998ab4809c7c74f5","token_type":"bearer","access_token":"51c79a4595774a77a34045e344948827","expires_in":72000}
     http_version: 
-  recorded_at: Sun, 03 Jul 2016 01:20:43 GMT
+  recorded_at: Sat, 09 Jul 2016 22:37:56 GMT
 recorded_with: VCR 2.9.3

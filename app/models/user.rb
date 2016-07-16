@@ -77,6 +77,11 @@ class User < ActiveRecord::Base
     FacebookAccount.find_by_uuid(uuid.to_s).try(:user)
   end
 
+  def name
+    return username if first_name.blank?
+    first_name.capitalize
+  end
+
   private
 
   def generate_uuid

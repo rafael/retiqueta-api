@@ -6,6 +6,8 @@ en:
     errors:
       not_found: "Fulfillment not found"
   orders:
+    seller_notification: "​Congrats, you just made  sale!"
+    ml_description: "Buy in retiqueta"
     errors:
       something_went_wrong: 'Sorry, something went wrong while processing your order'
       fail_to_charge_credit_card: "Sorry, we couldn't charge your card"
@@ -19,6 +21,7 @@ en:
         invalid_type: "Invalid account type. Valid ones: %{valid_types}"
         invalid_document_id_type: "Invalid document id type. Valid ones: %{valid_types}"
   user:
+    new_follower_push: "@%{username} is now following you"
     errors:
       not_found: "User not found"
       invalid_password: "Invalid password"
@@ -29,9 +32,8 @@ en:
     creation_push_notification: "@%{username} - \"%{comment}\""
     errors:
       not_found: "Comment not found"
-  order:
-    seller_notification: "Congratulations! You just made a sell!"
   product:
+    like_push: '@%{username} just liked your product!'
     errors:
       not_found: "Product not found"
       invalid_type: "Only published products can be deleted"
@@ -81,3 +83,5 @@ en:
       subject: "Welcome to Retiqueta"
     password_reset_email:
       subject: "Retiqueta password reset"
+    landing_welcome:
+      subject: "Download Retiqueta!"

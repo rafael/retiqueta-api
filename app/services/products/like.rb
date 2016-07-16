@@ -37,7 +37,29 @@ module Products
     end
 
     def generate_result!
-      product.liked_by(user)
+      result = product.liked_by(user)
+      MixpanelDelayedTracker.perform_later(user_id,
+                                           'product_like_created',
+                                           {})
+      send_push_notification
+      result
+    end
+
+    def send_push_notification
+      return if product.user == user
+      url = Rails
+            .application
+            .routes
+            .url_helpers.v1_product_url(product.uuid, host: 'https://api.retiqueta.com')
+      payload = {
+        type: 'url',
+        url:  url
+      }
+
+      SendPushNotification.perform_later([product.user],
+                                         'Retiqueta',
+                                         I18n.t('product.like_push', username: user.username),
+                                         payload)
     end
 
     private

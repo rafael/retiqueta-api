@@ -56,6 +56,9 @@ module Products
       comment = product.comments.build(user: user, data: data.to_json, user_pic: user.pic.url(:small))
       comment.save!
       send_push_notification(comment)
+      MixpanelDelayedTracker.perform_later(user_id,
+                                           'product_comment_created',
+                                           {})
       self.success_result = comment
     end
 
