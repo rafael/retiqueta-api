@@ -8,6 +8,7 @@ class Profile < ActiveRecord::Base
                     },
                     url: ':s3_domain_url',
                     path: '/system/:hash.:extension',
+                    default_url: 'https://s3-us-west-1.amazonaws.com/retiqueta-stage-img/guess_user_:style.png',
                     keep_old_files: true,
                     hash_secret: Rails.application.secrets.secret_key_base
 
