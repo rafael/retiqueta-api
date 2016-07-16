@@ -24,6 +24,15 @@ RSpec.describe Registrations::Create, type: :model do
         expect(service_result).to be_valid
       end
 
+      it 'saves the user when there is no username' do
+        params_without_password = params
+        params_without_password[:data][:attributes][:username] = nil
+        params_without_password[:data][:attributes][:email] = 'jose@test.com'
+        expect(service_result).to be_valid
+        user = User.last
+        expect(user.username).to include('jose')
+      end
+
       it 'updates service result to be newly created user' do
         expect(service_result.success_result).to eq(User.last)
       end
