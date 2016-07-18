@@ -3,8 +3,8 @@ class Profile < ActiveRecord::Base
 
   has_attached_file :pic,
                     styles: {
-                      small:  '100x100#',
-                      large: '350X350#'
+                      small:  '150x150#',
+                      large: '320X320#'
                     },
                     path: '/system/:hash.:extension',
                     default_url: 'https://s3-us-west-1.amazonaws.com/retiqueta-stage-img/guess_user_:style.png',

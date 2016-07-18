@@ -4,9 +4,9 @@ class ProductPicture < ActiveRecord::Base
 
   has_attached_file :pic,
                     styles: {
-                      small:  '100x100#',
-                      large: '600x600#',
-                      xlarge: '1080x1080#',
+                      small:  '320x320#',
+                      large: '720x720#',
+                      medium: '450x450#',
                     },
                     url: ':s3_domain_url',
                     path: "/product_pictures/:hash.:extension",
