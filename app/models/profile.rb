@@ -6,7 +6,6 @@ class Profile < ActiveRecord::Base
                       small:  '100x100#',
                       large: '350X350#'
                     },
-                    url: ':s3_domain_url',
                     path: '/system/:hash.:extension',
                     default_url: 'https://s3-us-west-1.amazonaws.com/retiqueta-stage-img/guess_user_:style.png',
                     keep_old_files: true,
