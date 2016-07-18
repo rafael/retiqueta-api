@@ -7,7 +7,7 @@ class ProductPictureSerializer < ActiveModel::Serializer
   end
 
   def medium_url
-    object.pic(:small)
+    object.pic(:medium)
   end
 
   def small_url
