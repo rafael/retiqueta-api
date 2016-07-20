@@ -43,7 +43,7 @@ RSpec.describe Registrations::Create, type: :model do
 
         expect do
           service_result = Registrations::Create.call(params)
-        end.to change(enqueued_jobs, :size).by(2)
+        end.to change(enqueued_jobs, :size).by(3)
 
         expect(AccountBootstrap)
           .to have_received(:perform_later)
@@ -56,7 +56,7 @@ RSpec.describe Registrations::Create, type: :model do
 
         expect do
           service_result = Registrations::Create.call(params)
-        end.to change(enqueued_jobs, :size).by(2)
+        end.to change(enqueued_jobs, :size).by(3)
 
         expect(UserMailer)
           .to have_received(:signup_email)
