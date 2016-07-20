@@ -51,6 +51,9 @@ module Registrations
         UserMailer.signup_email(user).deliver_later
         AccountBootstrap.perform_later(user)
         Librato.increment 'user.signup.success'
+        MixpanelDelayedTracker.perform_later(user.uuid,
+                                             'user_created',
+                                             {})
         self.success_result = user
       else
         Librato.increment 'user.signup.failure'
