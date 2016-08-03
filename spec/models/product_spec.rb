@@ -24,9 +24,10 @@ RSpec.describe Product, type: :model do
     before(:all) do
       VCR.use_cassette('product_search/before_all') do
         create(:product, title: 'Vendo #nike', description: 'como nuevos', category: 'zapatos', status: 'published')
-        described_class.import(force: true)
+        described_class.__elasticsearch__.create_index!
+        described_class.reindex_elastict_search
       end
-      sleep 1 # Let elastic search finish the indexing, only run this when saving the cassettes.
+      #sleep 1 # Let elastic search finish the indexing, only run this when saving the cassettes.
     end
 
     after(:all) do
@@ -73,6 +74,11 @@ RSpec.describe Product, type: :model do
 
     it 'finds a product by attributes in the category' do
       search_result = Product.search(query: 'zapatos')
+      expect(search_result.count).to eq(1)
+    end
+
+    it 'finds products from an username' do
+      search_result = Product.search(query: Product.last.user.username)
       expect(search_result.count).to eq(1)
     end
   end

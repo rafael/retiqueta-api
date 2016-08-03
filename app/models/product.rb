@@ -80,8 +80,9 @@ class Product < ActiveRecord::Base
 
   settings(elastic_search_settings) do
     mappings dynamic: 'false' do
-      indexes :title, analyzer: 'spanish'
       indexes :description, analyzer: 'spanish'
+      indexes :username, analyzer: 'spanish'
+      indexes :title, analyzer: 'spanish'
       indexes :category, analyzer: 'spanish'
       indexes :status, type: 'string', index: 'not_analyzed'
     end
@@ -94,7 +95,7 @@ class Product < ActiveRecord::Base
           query: {
             multi_match: {
               query: options[:query],
-              fields: ['title^3', 'category', 'description', 'status']
+              fields: ['title', 'category', 'description^3', 'status', 'username^4']
             }
           },
           filter: {
@@ -106,7 +107,7 @@ class Product < ActiveRecord::Base
   end
 
   def as_indexed_json(options = {})
-    as_json(options.merge(include: :product_pictures, root: false))
+    as_json(options.merge(include: :product_pictures, root: false)).merge('username' => user.username)
   end
 
   def generate_converstation
