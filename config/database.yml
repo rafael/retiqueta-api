@@ -6,13 +6,31 @@ default: &default
   password: 123456
   host: db
 
+audit_development:
+  <<: *default
+  database: retiqueta_api_development
+
 development:
   <<: *default
   database: retiqueta_api_development
 
+audit_test:
+  <<: *default
+  database: retiqueta_api_test
+
+
 test:
   <<: *default
   database: retiqueta_api_test
+
+# This is a hack to have the audit trails in a indepedent connection. Don't want to have
+# the main db connection using the same one. This could cause rollbacks and we lose audits.
+audit_production:
+  <<: *default
+  database: retiqueta_api_production
+  username: <%= ENV['RETIQUETA_API_DATABASE_USER'] %>
+  password: <%= ENV['RETIQUETA_API_DATABASE_PASSWORD'] %>
+  host: <%= ENV['POSTGRES_SERVICE_HOST'] %>
 
 production:
   <<: *default
@@ -20,3 +38,5 @@ production:
   username: <%= ENV['RETIQUETA_API_DATABASE_USER'] %>
   password: <%= ENV['RETIQUETA_API_DATABASE_PASSWORD'] %>
   host: <%= ENV['POSTGRES_SERVICE_HOST'] %>
+
+
