@@ -215,10 +215,10 @@ RSpec.describe Orders::Create, type: :model do
       valid_payment_params = params
       valid_payment_params[:data][:attributes][:payment_data] =
         { token: '38873c6af69d32ba72b74c6ba3d7b628', payment_method_id: 'visa' }
-      expect do
-        described_class.call(params)
-      end.to raise_error(ApiError::FailedValidation,
-                         "Sorry, we couldn't charge your card")
+      service_result = described_class.call(params)
+      order = service_result.success_result
+      expect(service_result).to_not be_nil
+      expect(order).to eq(Order.last)
     end
 
     it 'handles call for authorize response' do

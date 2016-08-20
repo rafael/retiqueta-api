@@ -201,7 +201,7 @@ module Orders
       # Mercado libre returns 201 for failed payments and then has the error
       # in the status key in the response :/
       if payment_response['status'] != '201' ||
-         payment_response['response']['status'] != 'approved'
+         !%w(approved in_process).include?(payment_response['response']['status'])
         create_audit(payment_transaction_id,
                      'fail_to_collect_payment_from_credit_card',
                      payment_provider_response: payment_response)
@@ -222,10 +222,12 @@ module Orders
     end
 
     def create_audit(payment_transaction_id, action, metadata)
-      PaymentAuditTrail.create!(user_id: user.uuid,
-                                payment_transaction_id: payment_transaction_id,
-                                action: action,
-                                metadata: metadata)
+      product_ar_interface.transaction do
+        PaymentAuditTrail.create!(user_id: user.uuid,
+                                  payment_transaction_id: payment_transaction_id,
+                                  action: action,
+                                  metadata: metadata)
+      end
     end
 
     def product_types
