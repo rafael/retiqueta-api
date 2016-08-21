@@ -4,6 +4,7 @@ require 'ar_uuid_generator'
 class Fulfillment < ActiveRecord::Base
 
   PENDING_STATUS = 'pending'
+  DELIVERED_STATUS = 'delivered'
 
   belongs_to :order, primary_key: :uuid
   has_one :conversation, as: :commentable
