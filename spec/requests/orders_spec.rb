@@ -20,7 +20,7 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
         type: 'orders',
         attributes: {
           payment_data: {
-            token: '6ecea994186748ba94649878637af8fc',
+            token: '4dd8feed647c7ec0c71bf1e95eaaa27b',
             payment_method_id: 'visa'
           },
           line_items: [valid_line_item]
@@ -35,7 +35,9 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
   end
 
   it 'show index of orders' do
-    post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
+    params_new_token = params
+    params_new_token[:data][:attributes][:payment_data][:token] = '6f672e551d53cb5db6d29c8b5e9f0bc3'
+    post '/v1/orders', params_new_token, 'X-Authenticated-Userid' => buyer.uuid
     expect(response.status).to eq(201)
     get '/v1/orders', {}, 'X-Authenticated-Userid' => buyer.uuid
     expect(response.status).to eq(200)
@@ -46,7 +48,7 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
     expect(json['data'].first['attributes']['payment_info']['payment_method']).to eq('visa')
     expect(json['data'].first['attributes']['payment_info']['type']).to eq('credit_card')
     expect(json['data'].first['attributes']['payment_info']['last_four']).to eq(3704)
-    expect(json['data'].first['attributes']['payment_info']['expiration_year']).to eq(2016)
+    expect(json['data'].first['attributes']['payment_info']['expiration_year']).to eq(2017)
     expect(json['data'].first['attributes']['payment_info']['expiration_month']).to eq(12)
     expect(json['data'].first['attributes']['payment_info']['cardholder_name']).to eq('APRO Rafael')
   end
@@ -73,6 +75,8 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
   end
 
   it 'gets an order with included relationships' do
+    params_new_token = params
+    params_new_token[:data][:attributes][:payment_data][:token] = '8acce807606019c1414bd4da1989d096'
     post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
     expect(response.status).to eq(201)
     id = json['data']['id']
@@ -95,6 +99,8 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
   end
 
   it 'seller can get order' do
+    params_new_token = params
+    params_new_token[:data][:attributes][:payment_data][:token] = '226feae41c5e9fbe3fc163f948e2a501'
     post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
     expect(response.status).to eq(201)
     id = json['data']['id']
@@ -105,6 +111,8 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
   end
 
   it "can't get an order if it's not a buyer or seller" do
+    params_new_token = params
+    params_new_token[:data][:attributes][:payment_data][:token] = 'e7dc59e2aefbfdd8a1bfc40e0d407abc'
     post '/v1/orders', params, 'X-Authenticated-Userid' => buyer.uuid
     expect(response.status).to eq(201)
     id = json['data']['id']

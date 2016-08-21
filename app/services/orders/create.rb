@@ -179,16 +179,16 @@ module Orders
 
     def charge_credit_card!(products)
       order_amount = order_amount(products)
+      payment_transaction_id = SecureRandom.uuid
+
       prepared_payment_data = {
         transaction_amount: order_amount,
-        description:  I18n.t('orders.ml_description'),
+        description:  I18n.t('orders.ml_description', transaction_id: payment_transaction_id),
         installments:  1,
         payer:  {
           email:  user.email
         }
       }.merge(payment_data)
-
-      payment_transaction_id = SecureRandom.uuid
 
       create_audit(payment_transaction_id,
                    'attempting_to_charge_card',

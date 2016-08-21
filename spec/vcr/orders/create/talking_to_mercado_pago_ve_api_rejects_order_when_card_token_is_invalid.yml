@@ -5,7 +5,8 @@ http_interactions:
     uri: https://api.mercadopago.com/v1/payments?access_token=TEST-7996492241102187-020901-2125bf21d3eda6d5c1150a3ae949e743__LD_LB__-203200861
     body:
       encoding: UTF-8
-      string: '{"transaction_amount":30.0,"description":"Buy in retiqueta.com","installments":1,"payer":{"email":"john81@winterfell.com"},"token":"token","payment_method_id":"visa"}'
+      string: '{"transaction_amount":30.0,"description":"Buy in retiqueta - Transaction
+        eb6a42c4-18bc-410c-b3ae-a3295c71284d","installments":1,"payer":{"email":"john58@winterfell.com"},"token":"token","payment_method_id":"visa"}'
     headers:
       User-Agent:
       - MercadoPago Ruby SDK v0.3.4
@@ -21,7 +22,7 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Mon, 29 Feb 2016 04:06:02 GMT
+      - Sun, 21 Aug 2016 19:57:19 GMT
       Content-Type:
       - application/json;charset=UTF-8
       Transfer-Encoding:
@@ -32,16 +33,14 @@ http_interactions:
       - Accept,Accept-Encoding
       Cache-Control:
       - max-age=0
-      X-Content-Type-Option:
+      X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 8afb662e-290b-4397-94ff-4ec7d5ac726f
+      - e452f5f7-5433-4ea3-8af8-e06714e4038a
       X-Xss-Protection:
       - 1; mode=block
-      X-Content-Type-Options:
-      - nosniff
       Strict-Transport-Security:
       - max-age=15724800
       Access-Control-Allow-Origin:
@@ -52,12 +51,10 @@ http_interactions:
       - PUT, GET, POST, DELETE, OPTIONS
       Access-Control-Max-Age:
       - '86400'
-      X-Libra-Upstreamhost:
-      - 172.16.149.113
     body:
       encoding: UTF-8
       string: '{"message":"Card Token not found","error":"bad_request","status":400,"cause":[{"code":2006,"description":"Card
         Token not found","data":null}]}'
     http_version: 
-  recorded_at: Mon, 29 Feb 2016 04:06:02 GMT
+  recorded_at: Sun, 21 Aug 2016 19:57:19 GMT
 recorded_with: VCR 2.9.3

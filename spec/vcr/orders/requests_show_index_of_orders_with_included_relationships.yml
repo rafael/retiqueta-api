@@ -5,7 +5,8 @@ http_interactions:
     uri: https://api.mercadopago.com/v1/payments?access_token=TEST-7996492241102187-020901-2125bf21d3eda6d5c1150a3ae949e743__LD_LB__-203200861
     body:
       encoding: UTF-8
-      string: '{"transaction_amount":40.0,"description":"Buy in retiqueta.com","installments":1,"payer":{"email":"john3@winterfell.com"},"token":"6ecea994186748ba94649878637af8fc","payment_method_id":"visa"}'
+      string: '{"transaction_amount":40.0,"description":"Buy in retiqueta - Transaction
+        bf236be3-73bd-45b7-8367-ebfe410a880a","installments":1,"payer":{"email":"john3@winterfell.com"},"token":"b3f34c05ce0d96468a104be64b657453","payment_method_id":"visa"}'
     headers:
       User-Agent:
       - MercadoPago Ruby SDK v0.3.4
@@ -21,7 +22,7 @@ http_interactions:
       message: Created
     headers:
       Date:
-      - Sun, 20 Mar 2016 01:41:02 GMT
+      - Sun, 21 Aug 2016 20:09:42 GMT
       Content-Type:
       - application/json;charset=UTF-8
       Transfer-Encoding:
@@ -37,17 +38,15 @@ http_interactions:
       Cache-Control:
       - max-age=0
       Etag:
-      - e6d3a33f99ebb7cbd5d9895af8c72e78
-      X-Content-Type-Option:
+      - 4df98f19bf0bb56e62b87b2ebddd5212
+      X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - a3597b93-2657-4e58-bf3d-14bfb041d9cb
+      - 22a62c2b-b305-4995-9d27-3f9c1cf2cf34
       X-Xss-Protection:
       - 1; mode=block
-      X-Content-Type-Options:
-      - nosniff
       Strict-Transport-Security:
       - max-age=15724800
       Access-Control-Allow-Origin:
@@ -58,13 +57,11 @@ http_interactions:
       - PUT, GET, POST, DELETE, OPTIONS
       Access-Control-Max-Age:
       - '86400'
-      X-Libra-Upstreamhost:
-      - 172.16.157.134
     body:
       encoding: UTF-8
-      string: '{"id":459451,"date_created":"2016-03-19T21:41:01.000-04:00","date_approved":"2016-03-19T21:41:02.000-04:00","date_last_updated":"2016-03-19T21:41:02.000-04:00","money_release_date":null,"operation_type":"regular_payment","issuer_id":"212","payment_method_id":"visa","payment_type_id":"credit_card","status":"approved","status_detail":"accredited","currency_id":"VEF","description":"Buy
-        in retiqueta.com","live_mode":false,"sponsor_id":null,"authorization_code":null,"collector_id":203200861,"payer":{"type":"guest","id":null,"email":"john3@winterfell.com","identification":{"type":null,"number":null},"phone":{"area_code":null,"number":null,"extension":""},"first_name":"","last_name":"john3"},"metadata":{},"order":{},"external_reference":null,"transaction_amount":40,"transaction_amount_refunded":0,"coupon_amount":0,"differential_pricing_id":null,"transaction_details":{"net_received_amount":37.2,"total_paid_amount":40,"overpaid_amount":0,"external_resource_url":null,"installment_amount":40,"financial_institution":null,"payment_method_reference_id":null},"fee_details":[{"type":"mercadopago_fee","amount":2.8,"fee_payer":"collector"}],"captured":true,"binary_mode":false,"call_for_authorize_id":null,"statement_descriptor":"WWW.MERCADOPAGO.COM","installments":1,"card":{"id":null,"first_six_digits":"450995","last_four_digits":"3704","expiration_month":12,"expiration_year":2016,"date_created":"2016-03-19T21:41:01.000-04:00","date_last_updated":"2016-03-19T21:41:01.000-04:00","cardholder":{"name":"APRO
+      string: '{"id":1345526,"date_created":"2016-08-21T16:09:41.000-04:00","date_approved":"2016-08-21T16:09:41.000-04:00","date_last_updated":"2016-08-21T16:09:41.000-04:00","money_release_date":null,"operation_type":"regular_payment","issuer_id":"212","payment_method_id":"visa","payment_type_id":"credit_card","status":"approved","status_detail":"accredited","currency_id":"VEF","description":"Buy
+        in retiqueta - Transaction bf236be3-73bd-45b7-8367-ebfe410a880a","live_mode":false,"sponsor_id":null,"authorization_code":null,"collector_id":203200861,"payer":{"type":"guest","id":null,"email":"john3@winterfell.com","identification":{"type":null,"number":null},"phone":{"area_code":null,"number":null,"extension":""},"first_name":"","last_name":"john3"},"metadata":{},"order":{},"external_reference":null,"transaction_amount":40,"transaction_amount_refunded":0,"coupon_amount":0,"differential_pricing_id":null,"deduction_schema":null,"transaction_details":{"net_received_amount":37.2,"total_paid_amount":40,"overpaid_amount":0,"external_resource_url":null,"installment_amount":40,"financial_institution":null,"payment_method_reference_id":null},"fee_details":[{"type":"mercadopago_fee","amount":2.8,"fee_payer":"collector"}],"captured":true,"binary_mode":false,"call_for_authorize_id":null,"statement_descriptor":"WWW.MERCADOPAGO.COM","installments":1,"card":{"id":null,"first_six_digits":"450995","last_four_digits":"3704","expiration_month":12,"expiration_year":2016,"date_created":"2016-08-21T16:09:41.000-04:00","date_last_updated":"2016-08-21T16:09:41.000-04:00","cardholder":{"name":"APRO
         Rafael","identification":{"number":"12345678","type":"CI-V"}}},"notification_url":null,"refunds":[]}'
     http_version: 
-  recorded_at: Sun, 20 Mar 2016 01:25:57 GMT
+  recorded_at: Sun, 21 Aug 2016 20:09:42 GMT
 recorded_with: VCR 2.9.3

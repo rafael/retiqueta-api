@@ -192,7 +192,7 @@ RSpec.describe Orders::Create, type: :model do
       # Token obtained from test js with APRO name
       valid_payment_params = params
       valid_payment_params[:data][:attributes][:payment_data] =
-        { token: 'ce9e407e91bef10776c06de76656288b', payment_method_id: 'visa' }
+        { token: 'a5c098b3fa9bfe097fadf536f7478297', payment_method_id: 'visa' }
       service_result = described_class.call(valid_payment_params)
       order = service_result.success_result
       expect(service_result).to_not be_nil
@@ -203,7 +203,7 @@ RSpec.describe Orders::Create, type: :model do
       # Token obtained from test js with FUND
       valid_payment_params = params
       valid_payment_params[:data][:attributes][:payment_data] =
-        { token: 'add90cf5004850c483a8341727ada0ae', payment_method_id: 'visa' }
+        { token: '695a34a9ef226eda2623c982492f55e2', payment_method_id: 'visa' }
       expect do
         described_class.call(params)
       end.to raise_error(ApiError::FailedValidation,
@@ -214,7 +214,7 @@ RSpec.describe Orders::Create, type: :model do
       # Token obtained from test js with CONT
       valid_payment_params = params
       valid_payment_params[:data][:attributes][:payment_data] =
-        { token: '38873c6af69d32ba72b74c6ba3d7b628', payment_method_id: 'visa' }
+        { token: '6c090c6301357cc7a32eb0d8f10bfdde', payment_method_id: 'visa' }
       service_result = described_class.call(params)
       order = service_result.success_result
       expect(service_result).to_not be_nil
@@ -225,18 +225,18 @@ RSpec.describe Orders::Create, type: :model do
       # Token obtained from test js with CALL
       valid_payment_params = params
       valid_payment_params[:data][:attributes][:payment_data] =
-        { token: '0bbc64b41cbb461a2d89c06a2138b545', payment_method_id: 'visa' }
-      expect do
-        described_class.call(params)
-      end.to raise_error(ApiError::FailedValidation,
-                         "Sorry, we couldn't charge your card")
+        { token: '624fb3be04aaf59eee7e4b45d1372521', payment_method_id: 'visa' }
+      service_result = described_class.call(params)
+      order = service_result.success_result
+      expect(service_result).to_not be_nil
+      expect(order).to eq(Order.last)
     end
 
     it 'handles rejected by expiration date' do
       # Token obtained from test js with EXPI
       valid_payment_params = params
       valid_payment_params[:data][:attributes][:payment_data] =
-        { token: '3abd68b74f9c17c8940a36ebfa756c29', payment_method_id: 'visa' }
+        { token: 'b444290109bcc4ac6b21b827f50cf7dd', payment_method_id: 'visa' }
       expect do
         described_class.call(params)
       end.to raise_error(ApiError::FailedValidation,
@@ -247,7 +247,7 @@ RSpec.describe Orders::Create, type: :model do
       # Token obtained from test js with FORM
       valid_payment_params = params
       valid_payment_params[:data][:attributes][:payment_data] =
-        { token: 'b59de2f6e0cf9e13ccbcf23927abb247', payment_method_id: 'visa' }
+        { token: '25e48b7df721a4a98fc9e87c394c0a4f', payment_method_id: 'visa' }
       expect do
         described_class.call(params)
       end.to raise_error(ApiError::FailedValidation,
@@ -258,7 +258,7 @@ RSpec.describe Orders::Create, type: :model do
       # Token obtained from test js with OTHE
       valid_payment_params = params
       valid_payment_params[:data][:attributes][:payment_data] =
-        { token: '2a7904d8ac66e2170c8f0277ddba9528', payment_method_id: 'visa' }
+        { token: 'b02ddecc4c23f87632dbe5e13102a1e1', payment_method_id: 'visa' }
       expect do
         described_class.call(params)
       end.to raise_error(ApiError::FailedValidation,

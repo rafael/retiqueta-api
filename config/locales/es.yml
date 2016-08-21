@@ -7,7 +7,7 @@ es:
       not_found: "Ordern de entrega no encontrada"
   orders:
     seller_notification: "​¡​Felicidades! - Acabas de hacer una venta"
-    ml_description: "Compra en Retiqueta.com"
+    ml_description: "Compra en Retiqueta.com - Transaccion Nº: %{transaction_id}"
     errors:
       something_went_wrong: 'Discuple, hubo un error mientras procesabamos su orden'
       fail_to_charge_credit_card: "Disculpe, no pudimos hacer el cargo a su tarjeta"
