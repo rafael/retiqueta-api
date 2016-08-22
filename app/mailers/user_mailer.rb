@@ -15,6 +15,22 @@ class UserMailer < ApplicationMailer
     mail(to: @user.email)
   end
 
+  def fulfillment_comment_created_for_seller(buyer, seller, comment, product)
+    @buyer = buyer
+    @seller = seller
+    @comment = comment
+    @product = product
+    mail(to: @seller.email)
+  end
+
+  def fulfillment_comment_created_for_buyer(buyer, seller, comment, product)
+    @buyer = buyer
+    @seller = seller
+    @comment = comment
+    @product = product
+    mail(to: @buyer.email)
+  end
+
   def order_created(order)
     @user = order.user
     mail(to: @user.email)

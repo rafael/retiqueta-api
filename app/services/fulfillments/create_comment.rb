@@ -71,12 +71,24 @@ module Fulfillments
         order_id: fulfillment.order.uuid
       }
 
-      SendPushNotification.perform_later([user_for_notification(fulfillment.order)],
+      order = fulfillment_order(fulfillment)
+      SendPushNotification.perform_later([user_for_notification(order)],
                                          'Retiqueta',
                                          I18n.t('comment.creation_push_notification',
                                                 username: user.username,
                                                 comment: text),
                                          payload)
+      buyer = buyer(order)
+      seller = seller(order)
+      if user_for_notification(order) == buyer
+        UserMailer
+          .fulfillment_comment_created_for_buyer(buyer, seller, text, product_order(order))
+          .deliver_later
+      else
+        UserMailer
+          .fulfillment_comment_created_for_seller(buyer, seller, text, product_order(order))
+          .deliver_later
+      end
     end
 
     def user_for_notification(order)
@@ -84,14 +96,28 @@ module Fulfillments
       # But basically the rule will be: It's either the seller (at the moment we only have
       # one seller per order) or the order owner
       @user_for_notification ||= begin
-                                   seller = order.line_items.first.product.user
-                                   buyer = order.user
-                                   if seller == user
-                                     buyer
+                                   if seller(order) == user
+                                     buyer(order)
                                    else
-                                     seller
+                                     seller(order)
                                    end
                                  end
+    end
+
+    def fulfillment_order(fulfillment)
+      @fulfillment_order ||= fulfillment.order
+    end
+
+    def buyer(order)
+      @buyer ||= order.user
+    end
+
+    def seller(order)
+      @seller ||= product_order(order).user
+    end
+
+    def product_order(order)
+      @product_order ||= order.line_items.first.product
     end
 
     def valid_type
