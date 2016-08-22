@@ -5,5 +5,5 @@ class Conversation < ActiveRecord::Base
   ##################
 
   belongs_to :commentable, polymorphic: true, dependent: :delete
-  has_many :comments
+  has_many :comments, -> { order(created_at: :asc) }
 end
