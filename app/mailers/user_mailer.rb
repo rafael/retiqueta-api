@@ -40,10 +40,11 @@ class UserMailer < ApplicationMailer
     mail(to: email)
   end
 
-  def comment_created(user, commenter, product)
+  def comment_created(user, commenter, product, text)
     @user = user
     @commenter = commenter
     @product = product
+    @text = text
     mail(to: user.email)
   end
 

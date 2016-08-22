@@ -82,7 +82,7 @@ module Products
                                          payload)
       if comment.user != product.user
         UserMailer
-          .comment_created(product.user, comment.user, product)
+          .comment_created(product.user, comment.user, product, text)
           .deliver_later
       end
     end
