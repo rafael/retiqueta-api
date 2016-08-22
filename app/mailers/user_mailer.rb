@@ -20,7 +20,9 @@ class UserMailer < ApplicationMailer
     @seller = seller
     @comment = comment
     @product = product
-    mail(to: @seller.email)
+    mail(to: @seller.email ,
+         subject: I18n.t('user_mailer.fulfillment_comment_created_for_seller.subject',
+                         text: comment.truncate_words(3)))
   end
 
   def fulfillment_comment_created_for_buyer(buyer, seller, comment, product)
@@ -28,7 +30,9 @@ class UserMailer < ApplicationMailer
     @seller = seller
     @comment = comment
     @product = product
-    mail(to: @buyer.email)
+    mail(to: @buyer.email,
+         subject: I18n.t('user_mailer.fulfillment_comment_created_for_buyer.subject',
+                         text: comment.truncate_words(3)))
   end
 
   def order_created(order)
@@ -45,7 +49,9 @@ class UserMailer < ApplicationMailer
     @commenter = commenter
     @product = product
     @text = text
-    mail(to: user.email)
+    mail(to: user.email,
+         subject: I18n.t('user_mailer.comment_created.subject',
+                         text: text.truncate_words(3)))
   end
 
   private
