@@ -3,9 +3,10 @@ class AccountBootstrap < ActiveJob::Base
 
   DEFAULT_USER_TO_FOLLOW = %w(johanna
                               alelitamiguez
-                              camila
-                              jessicakai
+                              unatalluisa
+                              lizethandreina
                               mariheigl
+                              mariagabrielita07
                               viviana10102766
                               retiqueta)
 

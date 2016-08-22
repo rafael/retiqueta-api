@@ -80,6 +80,11 @@ module Products
                                                 username: user.username,
                                                 comment: text),
                                          payload)
+      if comment.user != product.user
+        UserMailer
+          .comment_created(product.user, comment.user, product)
+          .deliver_later
+      end
     end
 
     def valid_type
