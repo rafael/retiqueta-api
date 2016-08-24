@@ -10,7 +10,7 @@ module Webhooks
         next unless msg
         comment = msg['text']
         next unless comment
-        to = msg['email']
+        to, _ = msg['email'].split('@')
         from = msg['from_email']
         inbox, target_id = to.split('+')
         next unless inbox == 'producto'
@@ -18,10 +18,13 @@ module Webhooks
         next unless product
         user = User.find_by_email(from)
         next unless user
+        text = comment.split(/\n/).map(&:strip).first
+        next unless text
+        Rails.logger.info("Creating comment from email for product: #{product.uuid} from user: #{user.uuid}")
         data = {
           type: 'text_comments',
           attributes: {
-            text: comment.strip
+            text: text
           }
         }
         Products::CreateComment.call(product_id: product.uuid,

@@ -23,7 +23,7 @@ RSpec.describe 'OpsSpec', type: :request do
         {
           msg: {
             text: 'Test comment',
-            email: "producto+#{product.uuid}",
+            email: "producto+#{product.uuid}@m.retiqueta.com",
             from_email: user.email
           }
         }
