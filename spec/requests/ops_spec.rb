@@ -37,9 +37,7 @@ RSpec.describe 'OpsSpec', type: :request do
 
   it 'saves a comment via email' do
     post '/8e6fd49b-8d40-4741-88d0-0633e3568cac', mandrill_payload
-    debugger
     expect(response.status).to eq(200)
-
     comment = Comment.last
     expect(comment).to_not be_nil
     expect(comment.user).to eq(user)
