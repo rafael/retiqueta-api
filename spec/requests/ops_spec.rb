@@ -17,14 +17,17 @@ RSpec.describe 'OpsSpec', type: :request do
 
   let(:product) { create(:product) }
   let(:user) { create(:user) }
-
   let(:mandrill_payload) do
     {
-      msg: {
-        text: 'Test comment',
-        email: "producto+#{product.uuid}",
-        from_email: user.email
-      }
+      mandrill_events: [
+        {
+          msg: {
+            text: 'Test comment',
+            email: "producto+#{product.uuid}",
+            from_email: user.email
+          }
+        }
+      ].to_json
     }
   end
 
