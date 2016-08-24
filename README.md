@@ -31,3 +31,4 @@ $ docker exec retiquetaapi_api_1 bundle exec rspec
 
 ---
 
+
