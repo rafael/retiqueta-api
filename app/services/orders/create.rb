@@ -212,7 +212,7 @@ module Orders
       end
       create_audit(payment_transaction_id,
                    'credit_card_succesfully_charged',
-                   payment_provider_response: payment_response.to_json)
+                   {payment_provider_response: payment_response}.to_json)
       PaymentTransaction.create!(uuid: payment_transaction_id,
                                  user_id: user.uuid,
                                  status: PaymentTransaction::PROCESSED_STATE,
