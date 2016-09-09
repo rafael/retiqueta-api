@@ -2,12 +2,10 @@ class AccountBootstrap < ActiveJob::Base
   queue_as :default
 
   DEFAULT_USER_TO_FOLLOW = %w(johanna
-                              alelitamiguez
                               unatalluisa
-                              lizethandreina
-                              mariheigl
-                              mariagabrielita07
-                              viviana10102766
+                              letterstolucia
+                              anasalazarg
+                              camila
                               retiqueta)
 
   def perform(user)
