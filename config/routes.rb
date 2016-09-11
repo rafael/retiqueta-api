@@ -8,7 +8,6 @@ Rails.application.routes.draw do
     resources :registrations, only: :create
     get 'products/featured' => 'products#index'
     get 'products/timeline' => 'products#index'
-    #get 'products/timeline' => 'products#timeline'
     resources :products, except: [:new, :edit] do
       resources :comments, only: [:create, :index, :destroy, :show], path: 'relationships/comments', module: 'products'
       resources :likes, only: [:index], path: 'relationships/likes', module: 'products'
