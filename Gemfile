@@ -23,6 +23,7 @@ gem 'rollbar', '2.12.0'
 gem 'librato-rails'
 gem 'jwt', '1.5.4'
 gem 'mixpanel-ruby'
+gem 'redis', '~>3.2'
 
 group :development, :test do
   gem 'pry-byebug'

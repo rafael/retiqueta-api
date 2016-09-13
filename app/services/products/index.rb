@@ -24,8 +24,9 @@ module Products
     end
 
     def generate_result!
+      merched_ids = AppClients.redis.lrange("merched_ids", 0, -1)
       products = Product
-                 .where(featured: true)
+                 .where('featured = ? or id in (?)', true, merched_ids)
                  .order(created_at: :desc)
                  .page(page)
                  .per(per_page)

@@ -7,6 +7,11 @@ outh2_application:
 
 apis:
   -
+    name: api-admin-resource
+    request_path: /admin
+    strip_request_path: true
+    upstream_url: http://<%= ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT",  3000) %>/admin
+  -
     name: products-resource
     request_path: /v1/products
     strip_request_path: true
@@ -106,6 +111,7 @@ plugins:
     config.enable_password_grant: true
     config.token_expiration: 72000
     apis:
+      - api-admin-resource
       - products-resource
       - users-resource
       - product-pictures-resource

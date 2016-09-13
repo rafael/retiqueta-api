@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   post 'e22e9a38-cd10-4132-b2d3-a845b0aa0539' => 'ops#ionic_webhook'
   post '8e6fd49b-8d40-4741-88d0-0633e3568cac' => 'ops#mandrill_inbound_webhook'
 
+  namespace :admin do
+    post 'products/merched_ids' => 'products#merched_ids'
+  end
+
   namespace :v1 do
     get 'products/search' => 'products#search'
     resources :registrations, only: :create
