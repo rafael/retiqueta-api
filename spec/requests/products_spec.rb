@@ -79,6 +79,20 @@ RSpec.describe 'Products', type: :request do
     expect(json['data'].first['id']).to eq(product.uuid)
   end
 
+  it 'product index returns merched products' do
+    product = create(:product, title: 'merched product')
+    create(:product, title: 'zapato super #nike', featured: true)
+    create(:product, title: 'zapato 2 super #nike', featured: true)
+    create(:product, title: 'zapato super #nike')
+    AppClients.redis.del("merched_ids")
+    AppClients.redis.lpush("merched_ids", product.id)
+    get '/v1/products', page: { number: 1, size: 1 }
+    expect(response.status).to eq(200)
+    expect(json['data'].count).to eq(2)
+    expect(json['data'].first['id']).to eq(product.uuid)
+    expect(json['links']).to_not be_empty
+  end
+
   it 'product index can be paginated' do
     4.times do |time|
       create(:product, title: "zapato super #{time} #nike", featured: true)
