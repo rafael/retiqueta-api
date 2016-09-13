@@ -50,7 +50,7 @@ class UserMailer < ApplicationMailer
     @product = product
     @text = text
     mail(to: user.email,
-         from: "producto+#{product.uuid}@retiqueta.com",
+         #from: "producto+#{product.uuid}@retiqueta.com",
          subject: I18n.t('user_mailer.comment_created.subject',
                          text: text.truncate_words(3)))
   end
