@@ -3,8 +3,10 @@ class Admin::ProductsController < ApplicationController
 
   def merched_ids
     merched_ids = params[:merched_ids]
-    AppClients.redis.del("merched_ids")
-    AppClients.redis.lpush("merched_ids", *merched_ids)
+    if merched_ids.kind_of?(Array)
+      AppClients.redis.del("merched_ids")
+      AppClients.redis.lpush("merched_ids", merched_ids)
+    end
     render json: {}, status: 200
   end
 

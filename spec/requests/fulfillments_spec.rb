@@ -31,7 +31,6 @@ RSpec.describe 'Fulfillments Requests', vcr: true, type: :request do
 
   let(:comment_params) do
     {
-      product_id: product.uuid,
       data: {
         type: 'text_comments',
         attributes: {
