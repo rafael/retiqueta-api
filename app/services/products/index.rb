@@ -34,7 +34,7 @@ module Products
       self.success_result = Kaminari
                             .paginate_array((merched_products.to_a[left_offset..right_offset] || []) + products.to_a,
                                             total_count: Product.count + merched_ids.count)
-                            .page(page).per(per_page + merched_ids)
+                            .page(page).per(per_page + merched_ids.count)
     end
 
     private
