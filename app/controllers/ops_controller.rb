@@ -1,6 +1,6 @@
 class OpsController < ApplicationController
   def status
-    render json: { status: "testing" }, status: :ok
+    render json: { status: "ok" }, status: :ok
   end
 
   def ionic_webhook
