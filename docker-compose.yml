@@ -61,19 +61,20 @@ db:
     POSTGRES_PASSWORD: 123456
     POSTGRES_USER: root
 kong:
-  image: rafael/kong:0.8.0
+  image: rafael/kong:0.9.3
   ports:
     - "80:8000"
     - "443:8443"
     - "8001:8001"
+  environment:
+    KONG_PG_HOST: db
+    KONG_PG_PASSWORD: 123456
+    KONG_PG_USER: root
+    KONG_PG_PORT: 5432
+    KONG_PG_DATABASE: postgres
+    KONG_DATABASE: postgres
   links:
-    - cassandra
-  volumes:
-    - ./config/container/dev/kong:/etc/kong
-cassandra:
-  image: mashape/cassandra
-  ports:
-    - "9042:9042"
+    - db
 elasticsearch:
   image: library/elasticsearch:1.7.1
   ports:
