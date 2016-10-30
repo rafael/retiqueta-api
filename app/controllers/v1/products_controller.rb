@@ -31,7 +31,7 @@ class V1::ProductsController < ApplicationController
   end
 
   def index
-    outcome = ::Products::Index.call(params)
+    outcome = ::Products::Timeline.call(params.merge(user_id: user_id))
     render json: outcome.success_result, each_serializer: ProductSerializer, include: filtered_include, status: 200
   end
 

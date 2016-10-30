@@ -24,17 +24,13 @@ module Products
     end
 
     def generate_result!
+      # This should be deprecated
       products = Product
                  .where(featured: true)
                  .order(created_at: :desc)
                  .page(page)
                  .per(per_page)
-      merched_ids = AppClients.redis.lrange("merched_ids", 0, -1)
-      merched_products = Product.where(id: merched_ids)
-      self.success_result = Kaminari
-                            .paginate_array((merched_products.to_a[left_offset..right_offset] || []) + products.to_a,
-                                            total_count: Product.count + merched_ids.count)
-                            .page(page).per(per_page + merched_ids.count)
+      self.success_result = products
     end
 
     private
