@@ -155,7 +155,12 @@ class Product < ActiveRecord::Base
   end
 
   def origin
-    factor = self.votes_for.size
+    f = 1
+    factor = 0.0
+    self.votes_for.each do |v|
+      factor = factor + f
+      f = f * 0.995
+    end
     if ( factor > 0 )
       origin_time = self.created_at + factor.day
       origin_time > Time.now ? Time.now : origin_time
