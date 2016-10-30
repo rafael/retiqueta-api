@@ -159,7 +159,7 @@ class Product < ActiveRecord::Base
     factor = 0.0
     self.votes_for.each do |v|
       factor = factor + f
-      f = f * .995
+      f = f * 0.995
     end
     if ( factor > 0 )
       origin_time = self.created_at + factor.day
