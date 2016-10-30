@@ -90,7 +90,7 @@ class Product < ActiveRecord::Base
       indexes :origin_time, type: 'date', index: 'not_analyzed'
     end
   end
-  
+
   def self.search(options = {})
     __elasticsearch__.search(
       query: {
@@ -102,6 +102,36 @@ class Product < ActiveRecord::Base
                   query: options[:query],
                   fields: ['category', 'description^3', 'status', 'username^4']
                 }
+              },
+              filter: {
+                term: { status: 'published' }
+              }
+            }
+          },
+          functions: [
+            {
+              gauss: {
+                origin_time: {
+                  origin: 'now',
+                  scale: '24h',
+                  decay: '.07'
+                }
+              }
+            }
+          ]
+        }
+      }
+    ) # .page(options.fetch(:page, 1)).per(options.fetch(:per_page, 25))
+  end
+
+  def self.match_all
+    __elasticsearch__.search(
+      query: {
+        function_score: {
+          query: {
+            filtered: {
+              query: {
+                 match_all: {}
               },
               filter: {
                 term: { status: 'published' }
