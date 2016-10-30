@@ -76,7 +76,7 @@ kong:
   links:
     - db
 elasticsearch:
-  image: library/elasticsearch:1.7.1
+  build: ./docker/elasticsearch
   ports:
     - "9200:9200"
     - "9300:9300"

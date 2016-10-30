@@ -37,10 +37,10 @@ module Products
 
     def generate_result!
       products = Product
-                 .where(user_id: user.following_ids)
-                 .order(created_at: :desc)
+                 .match_all
                  .page(page)
                  .per(per_page)
+                 .records
       self.success_result = products
     end
 
