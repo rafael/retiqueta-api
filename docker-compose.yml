@@ -61,18 +61,18 @@ db:
     POSTGRES_PASSWORD: 123456
     POSTGRES_USER: root
 kong:
-  image: rafael/kong:0.9.3
+  image: rafael/kong:0.8.3postgres
   ports:
     - "80:8000"
     - "443:8443"
     - "8001:8001"
   environment:
-    KONG_PG_HOST: db
-    KONG_PG_PASSWORD: 123456
-    KONG_PG_USER: root
-    KONG_PG_PORT: 5432
-    KONG_PG_DATABASE: postgres
-    KONG_DATABASE: postgres
+    PG_HOST: db
+    PG_PASSWORD: 123456
+    PG_USER: root
+    PG_PORT: 5432
+    PG_DATABASE: postgres
+    DATABASE: postgres
   links:
     - db
 elasticsearch:
