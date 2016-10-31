@@ -19,8 +19,8 @@ class Product < ActiveRecord::Base
 
   before_create :generate_converstation
 
-  after_commit on: [:create, :update] { ProductsIndexer.perform_later(self, 'index') }
-  after_destroy on: [:destroy] { ProductsIndexer.perform_later(self, 'delete') }
+  after_commit on: [:create, :update] { ProductsIndexer.perform_later(self.id, 'index') }
+  after_destroy on: [:destroy] { ProductsIndexer.perform_later(self.id, 'delete') }
 
   ################
   ## Extensions ##
