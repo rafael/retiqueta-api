@@ -15,5 +15,7 @@ class Profile < ActiveRecord::Base
 
   validates_attachment_content_type :pic, content_type: /\Aimage\/.*\Z/
 
+  validates :bio, format: { with: /\A[^0-9]+\z/ }, allow_blank: true
+
   has_one :bank_account
 end
