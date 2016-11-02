@@ -92,6 +92,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.search(options = {})
+    return self.match_all if options[:query].blank?
     __elasticsearch__.search(
       query: {
         function_score: {
