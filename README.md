@@ -11,8 +11,16 @@ You must have docker and docker-compose installed. If you use OSX you also need 
 In order to configure Kong you need to set the variable `DOCKER_HOST_IP` to the IP of the docker host machine
 
 If you're using docker-machine, this example shows you how to run all services.
+
 ```
 $ UPSTREAM_SERVICE_HOST=$(docker-machine ip DOCKER_MACHINE_NAME) docker-compose up
+```
+
+If you're using docker for mac, this example shows you how to run all services
+
+```
+$ ifconfig | grep netmask | grep -e 'broadcast'
+$ UPSTREAM_SERVICE_HOST=[inet address] docker-compose up
 ```
 
 #### Testing

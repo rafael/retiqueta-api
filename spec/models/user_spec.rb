@@ -48,6 +48,17 @@ RSpec.describe User, type: :model do
       expect(user.errors.full_messages).to eq(['Username is invalid'])
     end
 
+    it "doesn't save user when profile bio contains numbers" do
+      user = User.new(email: 'rafaelchacon@gmail.com',
+                      password: '123456',
+                      username: 'rafael')
+      user.save!
+      user.profile.first_name = 'jose'
+      user.profile.bio = '123'
+      expect(user.profile).to_not be_valid
+      expect(user.profile.errors.full_messages).to eq(['Bio is invalid'])
+    end
+
     it 'name returns username when first_name is not present' do
       user = User.new(email: 'rafaelchacon@gmail.com',
                       password: '123456',
@@ -65,5 +76,6 @@ RSpec.describe User, type: :model do
       user.profile.save!
       expect(user.name).to eq('Jose')
     end
+
   end
 end
