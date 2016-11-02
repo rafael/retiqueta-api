@@ -92,36 +92,40 @@ class Product < ActiveRecord::Base
   end
 
   def self.search(options = {})
-    __elasticsearch__.search(
-      query: {
-        function_score: {
-          query: {
-            filtered: {
-              query: {
-                multi_match: {
-                  query: options[:query],
-                  fields: ['category', 'description^3', 'status', 'username^4']
-                }
-              },
-              filter: {
-                term: { status: 'published' }
-              }
-            }
-          },
-          functions: [
-            {
-              gauss: {
-                origin_time: {
-                  origin: 'now',
-                  scale: '24h',
-                  decay: '.07'
+    if(options[:query].blank?) {
+      self.match_all
+    } else {
+      __elasticsearch__.search(
+        query: {
+          function_score: {
+            query: {
+              filtered: {
+                query: {
+                  multi_match: {
+                    query: options[:query],
+                    fields: ['category', 'description^3', 'status', 'username^4']
+                  }
+                },
+                filter: {
+                  term: { status: 'published' }
                 }
               }
-            }
-          ]
+            },
+            functions: [
+              {
+                gauss: {
+                  origin_time: {
+                    origin: 'now',
+                    scale: '24h',
+                    decay: '.07'
+                  }
+                }
+              }
+            ]
+          }
         }
-      }
-    ) # .page(options.fetch(:page, 1)).per(options.fetch(:per_page, 25))
+      ) # .page(options.fetch(:page, 1)).per(options.fetch(:per_page, 25))
+    }
   end
 
   def self.match_all
