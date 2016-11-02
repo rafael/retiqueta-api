@@ -5,7 +5,7 @@ http_interactions:
     uri: http://elasticsearch:9200/products-test/product/_search
     body:
       encoding: UTF-8
-      string: '{"query":{"filtered":{"query":{"multi_match":{"query":"NIKE","fields":["title","category","description^3","status","username^4"]}},"filter":{"term":{"status":"published"}}}}}'
+      string: '{"query":{"function_score":{"query":{"filtered":{"query":{"multi_match":{"query":"NIKE","fields":["category","description^3","status","username^4"]}},"filter":{"term":{"status":"published"}}}},"functions":[{"gauss":{"origin_time":{"origin":"now","scale":"24h","decay":".07"}}}]}}}'
     headers:
       User-Agent:
       - Faraday v0.9.2
@@ -21,11 +21,11 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '1105'
+      - '1176'
     body:
       encoding: UTF-8
-      string: '{"took":3,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1,"max_score":0.014712289,"hits":[{"_index":"products-test","_type":"product","_id":"3","_score":0.014712289,"_source":{"id":3,"uuid":"4df3fdc0-ff67-48b6-b391-12e03a030000","title":"Vendo
-        #nike","description":"como nuevos","category":"zapatos","user_id":"4a6983d2-d5c5-47fc-8a2f-63d5f029d067","price":40.0,"original_price":80.0,"currency":null,"status":"published","location":null,"lat_lon":null,"created_at":"2016-08-03T05:17:02.713Z","updated_at":"2016-08-03T05:17:02.713Z","featured":null,"cached_votes_total":0,"cached_votes_score":0,"cached_votes_up":0,"cached_votes_down":0,"cached_weighted_score":0,"cached_weighted_total":0,"cached_weighted_average":0.0,"size":null,"product_pictures":[{"id":1,"user_id":"f97e5332-98ea-4d55-8806-eae22e7344b8","product_id":"4df3fdc0-ff67-48b6-b391-12e03a030000","position":0,"created_at":"2016-08-03T05:17:02.863Z","updated_at":"2016-08-03T05:17:02.863Z","pic_file_name":null,"pic_content_type":null,"pic_file_size":null,"pic_updated_at":null}],"username":"johnsnow3"}}]}}'
+      string: '{"took":3,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1,"max_score":0.035309494,"hits":[{"_index":"products-test","_type":"product","_id":"3","_score":0.035309494,"_source":{"id":3,"uuid":"257f434a-d0f6-4e03-a9e3-4a9081df1a3c","title":"Mis
+        mejores zapatos","description":"Vendo #nike como nuevos","category":"zapatos","user_id":"e1073211-86e8-4983-85ff-3853deb00572","price":40.0,"original_price":80.0,"currency":null,"status":"published","location":null,"lat_lon":null,"created_at":"2016-11-02T01:32:12.154Z","updated_at":"2016-11-02T01:32:12.154Z","featured":null,"cached_votes_total":0,"cached_votes_score":0,"cached_votes_up":0,"cached_votes_down":0,"cached_weighted_score":0,"cached_weighted_total":0,"cached_weighted_average":0.0,"size":null,"product_pictures":[{"id":1,"user_id":"32dc079b-e1e9-45e3-b148-7c0151ec3f1a","product_id":"257f434a-d0f6-4e03-a9e3-4a9081df1a3c","position":0,"created_at":"2016-11-02T01:32:12.379Z","updated_at":"2016-11-02T01:32:12.379Z","pic_file_name":null,"pic_content_type":null,"pic_file_size":null,"pic_updated_at":null}],"username":"johnsnow3","likes":0,"origin_time":"2016-11-02T01:32:12.154Z"}}]}}'
     http_version: 
-  recorded_at: Wed, 03 Aug 2016 05:17:04 GMT
+  recorded_at: Wed, 02 Nov 2016 01:32:15 GMT
 recorded_with: VCR 2.9.3

@@ -24,7 +24,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sun, 30 Oct 2016 01:10:49 GMT
+  recorded_at: Wed, 02 Nov 2016 01:32:12 GMT
 - request:
     method: put
     uri: http://elasticsearch:9200/products-test
@@ -51,7 +51,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"acknowledged":true}'
     http_version: 
-  recorded_at: Sun, 30 Oct 2016 01:10:49 GMT
+  recorded_at: Wed, 02 Nov 2016 01:32:12 GMT
 - request:
     method: delete
     uri: http://elasticsearch:9200/products-test
@@ -78,7 +78,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"acknowledged":true}'
     http_version: 
-  recorded_at: Sun, 30 Oct 2016 01:10:49 GMT
+  recorded_at: Wed, 02 Nov 2016 01:32:12 GMT
 - request:
     method: head
     uri: http://elasticsearch:9200/products-test
@@ -103,7 +103,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sun, 30 Oct 2016 01:10:49 GMT
+  recorded_at: Wed, 02 Nov 2016 01:32:12 GMT
 - request:
     method: put
     uri: http://elasticsearch:9200/products-test
@@ -130,7 +130,7 @@ http_interactions:
       encoding: UTF-8
       string: '{"acknowledged":true}'
     http_version: 
-  recorded_at: Sun, 30 Oct 2016 01:10:50 GMT
+  recorded_at: Wed, 02 Nov 2016 01:32:13 GMT
 - request:
     method: head
     uri: http://elasticsearch:9200/products-test
@@ -155,15 +155,17 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sun, 30 Oct 2016 01:10:50 GMT
+  recorded_at: Wed, 02 Nov 2016 01:32:13 GMT
 - request:
     method: post
     uri: http://elasticsearch:9200/products-test/product/_bulk
     body:
       encoding: UTF-8
       string: |
-        {"index":{"_id":1}}
-        {"id":1,"uuid":"adb4671b-fbf8-4af7-be33-2dcb9a4280cc","title":"Vendo #nike","description":"como nuevos","category":"zapatos","user_id":"cee0e139-8509-4585-aaf3-2b575975f470","price":40.0,"original_price":80.0,"currency":null,"status":"published","location":null,"lat_lon":null,"created_at":"2016-10-30T01:10:49.391Z","updated_at":"2016-10-30T01:10:49.391Z","featured":null,"cached_votes_total":0,"cached_votes_score":0,"cached_votes_up":0,"cached_votes_down":0,"cached_weighted_score":0,"cached_weighted_total":0,"cached_weighted_average":0.0,"size":null,"product_pictures":[{"id":1,"user_id":"2f0f2f91-60a7-4e82-aca2-aa777028bf23","product_id":"adb4671b-fbf8-4af7-be33-2dcb9a4280cc","position":0,"created_at":"2016-10-30T01:10:49.668Z","updated_at":"2016-10-30T01:10:49.668Z","pic_file_name":null,"pic_content_type":null,"pic_file_size":null,"pic_updated_at":null}],"username":"johnsnow1","likes":0,"origin_time":"2016-10-30T01:10:49.391Z"}
+        {"index":{"_id":3}}
+        {"id":3,"uuid":"257f434a-d0f6-4e03-a9e3-4a9081df1a3c","title":"Mis mejores zapatos","description":"Vendo #nike como nuevos","category":"zapatos","user_id":"e1073211-86e8-4983-85ff-3853deb00572","price":40.0,"original_price":80.0,"currency":null,"status":"published","location":null,"lat_lon":null,"created_at":"2016-11-02T01:32:12.154Z","updated_at":"2016-11-02T01:32:12.154Z","featured":null,"cached_votes_total":0,"cached_votes_score":0,"cached_votes_up":0,"cached_votes_down":0,"cached_weighted_score":0,"cached_weighted_total":0,"cached_weighted_average":0.0,"size":null,"product_pictures":[{"id":1,"user_id":"32dc079b-e1e9-45e3-b148-7c0151ec3f1a","product_id":"257f434a-d0f6-4e03-a9e3-4a9081df1a3c","position":0,"created_at":"2016-11-02T01:32:12.379Z","updated_at":"2016-11-02T01:32:12.379Z","pic_file_name":null,"pic_content_type":null,"pic_file_size":null,"pic_updated_at":null}],"username":"johnsnow3","likes":0,"origin_time":"2016-11-02T01:32:12.154Z"}
+        {"index":{"_id":4}}
+        {"id":4,"uuid":"cf010ef5-cb3a-4b18-a13f-ab890e31d18f","title":"Mis mejores zapatos","description":"shoes","category":"coat","user_id":"a7e74e11-f2c4-49bc-acaa-0acc5f34acef","price":40.0,"original_price":80.0,"currency":null,"status":"published","location":null,"lat_lon":null,"created_at":"2016-11-02T01:32:12.517Z","updated_at":"2016-11-02T01:32:12.517Z","featured":null,"cached_votes_total":0,"cached_votes_score":0,"cached_votes_up":0,"cached_votes_down":0,"cached_weighted_score":0,"cached_weighted_total":0,"cached_weighted_average":0.0,"size":null,"product_pictures":[{"id":2,"user_id":"7217eee9-f553-4ca6-b2af-2c7fc9993436","product_id":"cf010ef5-cb3a-4b18-a13f-ab890e31d18f","position":0,"created_at":"2016-11-02T01:32:12.664Z","updated_at":"2016-11-02T01:32:12.664Z","pic_file_name":null,"pic_content_type":null,"pic_file_size":null,"pic_updated_at":null}],"username":"johnsnow5","likes":0,"origin_time":"2016-11-02T01:32:12.517Z"}
     headers:
       User-Agent:
       - Faraday v0.9.2
@@ -179,10 +181,10 @@ http_interactions:
       Content-Type:
       - application/json; charset=UTF-8
       Content-Length:
-      - '176'
+      - '315'
     body:
       encoding: UTF-8
-      string: '{"took":487,"errors":false,"items":[{"index":{"_index":"products-test","_type":"product","_id":"1","_version":1,"_shards":{"total":1,"successful":1,"failed":0},"status":201}}]}'
+      string: '{"took":496,"errors":false,"items":[{"index":{"_index":"products-test","_type":"product","_id":"3","_version":1,"_shards":{"total":1,"successful":1,"failed":0},"status":201}},{"index":{"_index":"products-test","_type":"product","_id":"4","_version":1,"_shards":{"total":1,"successful":1,"failed":0},"status":201}}]}'
     http_version: 
-  recorded_at: Sun, 30 Oct 2016 01:10:50 GMT
+  recorded_at: Wed, 02 Nov 2016 01:32:13 GMT
 recorded_with: VCR 2.9.3
