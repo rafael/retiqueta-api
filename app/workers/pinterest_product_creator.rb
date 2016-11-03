@@ -5,11 +5,12 @@ class PinterestProductCreator < ActiveJob::Base
 
   def perform(product)
     web_contents  = open( product.product_pictures.first.pic.url) {|f| f.read }
-    client.create_pin(board: "#{Rails.configuration.x.pinterest_user}/picks",
-                       note: product.description,
-                       link: 'https://www.retiqueta.com',
-                       image_base64: Base64.strict_encode64(web_contents)
-                      )
+    response = client.create_pin(board: "#{Rails.configuration.x.pinterest_user}/picks",
+                                 note: product.description,
+                                 link: 'https://www.retiqueta.com',
+                                 image_base64: Base64.strict_encode64(web_contents)
+                                )
+    Rails.logger.info(response)
   end
 
   def client
