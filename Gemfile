@@ -24,6 +24,7 @@ gem 'librato-rails'
 gem 'jwt', '1.5.4'
 gem 'mixpanel-ruby'
 gem 'redis', '~>3.2'
+gem 'pinterest-api'
 
 group :development, :test do
   gem 'pry-byebug'
