@@ -28,6 +28,7 @@ Rails.application.configure do
   config.x.elastictsearch.host = 'elasticsearch'
   config.x.elastictsearch.log = true
   config.x.reset_password_url = 'https://www.retiqueta.com/#/update-password/{{token}}'
+  config.x.pinterest_user = ENV['PINTEREST_USER']
 
   config.paperclip_defaults = {
     storage: :fog,

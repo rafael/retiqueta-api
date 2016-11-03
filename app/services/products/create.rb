@@ -76,7 +76,7 @@ module Products
         MixpanelDelayedTracker.perform_later(user_id,
                                              'product_created',
                                              {})
-
+        PinterestProductCreator.set(wait: 20.seconds).perform_later(product)
         self.success_result = product
       else
         Librato.increment 'product.create.failure'

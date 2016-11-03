@@ -29,6 +29,8 @@ api:
     MIXPANEL_TOKEN: "5c8d640c06abde316d620efc36cdadc2"
     IONIC_ACCESS_TOKEN:
     UPSTREAM_SERVICE_HOST:
+    PINTEREST_USER: "rafaelchaconv"
+    PINTEREST_ACCESS_TOKEN: "AaqOBv7WRkbwOpT7O-rZ9k-w3sgQFIN0mgWT_BBDhqufhMAo4gAAAAA"
 worker:
   build: .
   command: "config/container/start-workers.sh -bash"
@@ -49,6 +51,8 @@ worker:
     SMTP_PASSWORD: u7uu24nmtB47K9YigTyThg
     SECRET_PATHS: "/etc/secrets"
     MIXPANEL_TOKEN: "5c8d640c06abde316d620efc36cdadc2"
+    PINTEREST_USER: "rafaelchaconv"
+    PINTEREST_ACCESS_TOKEN: "AaqOBv7WRkbwOpT7O-rZ9k-w3sgQFIN0mgWT_BBDhqufhMAo4gAAAAA"
 redis:
  image: library/redis:2.6.17
  ports:
