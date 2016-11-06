@@ -27,6 +27,6 @@ class Timeline::Card < ActiveRecord::Base
   end
 
   def serializer
-    "#{card_type.classify.pluralize}CardSerializer".constantize
+    "#{card_type.camelize}CardSerializer".constantize
   end
 end
