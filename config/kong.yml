@@ -85,6 +85,12 @@ apis:
     request_path:  /8e6fd49b-8d40-4741-88d0-0633e3568cac
     strip_request_path: true
     upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/8e6fd49b-8d40-4741-88d0-0633e3568cac
+  -
+    name: timeline-resources
+    request_path: /v1/timeline
+    strip_request_path: true
+    upstream_url: http://<%=  ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT", 3000) %>/v1/timeline
+
 plugins:
   -
     name: request-transformer
