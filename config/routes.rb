@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   namespace :v1 do
+    resources :timeline, only: :index
     get 'products/search' => 'products#search'
     resources :registrations, only: :create
     get 'products/featured' => 'products#timeline'
