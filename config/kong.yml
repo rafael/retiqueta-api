@@ -7,6 +7,11 @@ outh2_application:
 
 apis:
   -
+    name: public-endpoints
+    request_path: /v1/public
+    preserve_host: true
+    upstream_url: http://<%= ENV.fetch("UPSTREAM_SERVICE_HOST", "retiqueta.default.svc.cluster.local") %>:<%= ENV.fetch("UPSTREAM_SERVICE_PORT",  3000) %>
+  -
     name: api-admin-resource
     request_path: /admin
     strip_request_path: true

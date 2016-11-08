@@ -11,11 +11,9 @@ module Products
     ## Validations ##
     #################
 
-    validates :user_id,
-              :product_id,
+    validates :product_id,
               presence: true, strict: ApiError::FailedValidation
 
-    validate :valid_user
     validate :valid_product
 
     ###################
@@ -32,11 +30,10 @@ module Products
     ## Instance Methods ##
     ######################
 
-    attr_accessor :success_result, :type, :user_id, :product_id
+    attr_accessor :success_result, :type, :product_id
 
     def initialize(params = {})
       @product_id = params[:id]
-      @user_id = params[:user_id]
       valid?
     end
 
@@ -46,10 +43,6 @@ module Products
 
     private
 
-    def user
-      @user ||= User.find_by_uuid(user_id)
-    end
-
     def product
       @product ||= Product.find_by_uuid(product_id)
     end
@@ -57,12 +50,6 @@ module Products
     def valid_product
       unless product
         raise ApiError::NotFound.new(I18n.t("product.errors.not_found"))
-      end
-    end
-
-    def valid_user
-      unless user
-        raise ApiError::NotFound.new(I18n.t("user.errors.not_found"))
       end
     end
   end
