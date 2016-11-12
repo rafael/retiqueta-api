@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Products::Create, type: :model do
+
+  include ActiveJob::TestHelper
+
   describe ".call" do
     let(:user) { create(:user) }
     let(:hacker) { create(:user) }
@@ -11,6 +14,15 @@ RSpec.describe Products::Create, type: :model do
       uuid = product.uuid
       Products::Destroy.call(user_id: user.uuid, id: uuid)
       expect(Product.find_by_uuid(uuid)).to be_nil
+    end
+
+    it 'enqueue jobs related to destroy product' do
+      uuid = product.uuid
+      # One for elastic search
+      # One for timeline card cleaner
+      expect do
+        Products::Destroy.call(user_id: user.uuid, id: uuid)
+      end.to change(enqueued_jobs, :size).by(2)
     end
 
     it "only the product owner can destroy product" do
