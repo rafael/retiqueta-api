@@ -45,6 +45,7 @@ module Products
 
     def generate_result!
       product.destroy!
+      TimelineProductCleaner.perform_later(product.uuid)
     end
 
     private

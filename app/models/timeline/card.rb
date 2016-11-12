@@ -11,7 +11,7 @@ class Timeline::Card < ActiveRecord::Base
          image_small_url:   p.product_pictures.first.pic(:small)
        }
      end
-     payload = { products: json_products }
+     payload = { products: json_products, product_ids: json_products.map { |p| p[:id] } }
      self.create(title: title, payload: payload, card_type: FEATURED_PICKS_TYPE)
    end
 
