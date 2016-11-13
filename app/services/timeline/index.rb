@@ -19,8 +19,8 @@ module Timeline
 
     def initialize(params = {})
       page = params.fetch(:page) { {} }
-      @per_page = page[:size].to_i || 25
-      @page = page[:number].to_i || 1
+      @per_page = (page[:size] || 25).to_i
+      @page = (page[:number] || 1).to_i
       @user_id = params[:user_id]
     end
 
