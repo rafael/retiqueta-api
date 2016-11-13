@@ -5,7 +5,9 @@ RSpec.describe TimelineProductCleaner, type: :job do
 
   before do
     (1..2).each { create(:product) }
-    Timeline::Card.create_featured_picks_card('Test', Product.last(3))
+    Timeline::Card.create_products_card(
+      title: 'Test',
+      products: Product.last(3))
   end
 
   it 'does nothing when no timeline cards match the id' do
