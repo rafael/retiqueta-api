@@ -2,11 +2,9 @@ require 'ostruct'
 
 class V1::TimelineController < ApplicationController
   def index
-    page = params.fetch(:page) { {} }
-    per_page = page[:size] || 25
-    page_num = page[:number] || 1
-    outcome = Timeline::Card.all.order(created_at: :desc).page(page_num).per(per_page)
-    render json: outcome,
+    outcome = Timeline::Index.call(params.merge(user_id: current_user.uuid))
+    render json: outcome.success_result,
+           each_serializer: CardSerializer,
            status: 200
   end
 end

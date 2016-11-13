@@ -1,4 +1,6 @@
 en:
+  timeline_cards:
+    users_like: 'Your likes'
   sales:
     errors:
       not_found: "Sale not found"
