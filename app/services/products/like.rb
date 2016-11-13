@@ -41,6 +41,7 @@ module Products
       MixpanelDelayedTracker.perform_later(user_id,
                                            'product_like_created',
                                            {})
+      CreateUsersLikeCard.perform_later(user)
       send_push_notification
       result
     end
