@@ -24,6 +24,7 @@ class CreateUsersLikeCard < ActiveJob::Base
     total_cards = Timeline::Card
                   .where(user_id: user.uuid)
                   .where(card_type: Timeline::Card::USER_LIKES_TYPE)
+                  .order(created_at: :desc)
                   .last(4)
     return if total_cards.size <= MAX_NUMBER_OF_CARDS
     total_cards[MAX_NUMBER_OF_CARDS..-1].map(&:destroy)
