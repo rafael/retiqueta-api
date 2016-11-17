@@ -44,6 +44,10 @@ class UserMailer < ApplicationMailer
     mail(to: email)
   end
 
+  def welcome_2_0(email)
+    mail(to: email)
+  end
+
   def comment_created(user, commenter, product, text)
     @user = user
     @commenter = commenter
