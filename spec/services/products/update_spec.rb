@@ -44,7 +44,7 @@ RSpec.describe Products::Create, type: :model do
 
     it "updates images unless they are empty or not provided" do
       result_product = Products::Update.call(params).success_result
-      expect(result_product.product_pictures.map(&:id)).to eq(product_picture_ids)
+      expect(result_product.product_pictures.map(&:id).to_set).to eq(product_picture_ids.to_set)
     end
 
     context "when pictures are not empty" do
