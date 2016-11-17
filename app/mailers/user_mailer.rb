@@ -1,3 +1,4 @@
+# coding: utf-8
 class UserMailer < ApplicationMailer
   def signup_email(user)
     @user = user
@@ -42,6 +43,10 @@ class UserMailer < ApplicationMailer
 
   def landing_welcome(email)
     mail(to: email)
+  end
+
+  def welcome_2_0(email)
+    mail(to: email, subject: '¡Tienes un regalo de Retiqueta!')
   end
 
   def comment_created(user, commenter, product, text)
