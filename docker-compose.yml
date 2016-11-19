@@ -49,17 +49,6 @@ worker:
     SMTP_PASSWORD: u7uu24nmtB47K9YigTyThg
     SECRET_PATHS: "/etc/secrets"
     MIXPANEL_TOKEN: "5c8d640c06abde316d620efc36cdadc2"
-redis:
- image: library/redis:2.6.17
- ports:
-   - "6379:6379"
-db:
-  image: library/postgres:9.5.3
-  ports:
-    - "5432:5432"
-  environment:
-    POSTGRES_PASSWORD: 123456
-    POSTGRES_USER: root
 kong:
   image: rafael/kong:0.8.3postgres
   ports:
@@ -75,6 +64,17 @@ kong:
     DATABASE: postgres
   links:
     - db
+redis:
+ image: library/redis:2.6.17
+ ports:
+   - "6379:6379"
+db:
+  image: library/postgres:9.5.3
+  ports:
+    - "5432:5432"
+  environment:
+    POSTGRES_PASSWORD: 123456
+    POSTGRES_USER: root
 elasticsearch:
   build: ./docker/elasticsearch
   ports:
