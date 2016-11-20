@@ -26,30 +26,10 @@ module Timeline
 
     def generate_result!
       cards = Timeline::Card
-              .where(user_id: nil)
+              .where("user_id = ? or user_id IS NULL", user_id)
               .order(created_at: :desc)
               .page(page).per(per_page)
-      if page == 1
-        self.success_result = [user_likes_cards[0],
-                               cards[0..1],
-                               user_likes_cards[1],
-                               cards[2..3],
-                               user_likes_cards[2],
-                               cards[4..-1]].compact.flatten
-      else
-        self.success_result = cards
-      end
-
-    end
-
-    private
-
-    def user_likes_cards
-      @user_likes_cards ||=
-        Timeline::Card
-        .where(user_id: user_id)
-        .where(card_type: Timeline::Card::USER_LIKES_TYPE)
-        .order(created_at: :desc)
+      self.success_result = cards
     end
   end
 end

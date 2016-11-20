@@ -31,4 +31,5 @@ RSpec.describe TimelineProductCleaner, type: :job do
     TimelineProductCleaner.perform_now(Product.last.uuid)
     expect(Timeline::Card.count).to eq(0)
   end
+  
 end

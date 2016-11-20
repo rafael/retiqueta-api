@@ -1,6 +1,7 @@
 es:
   timeline_cards:
     users_like: 'Tus favoritos'
+    users_product_card_title: 'Productos recientes de @%{username}'
   sales:
     errors:
       not_found: "Venta no encontrada"
