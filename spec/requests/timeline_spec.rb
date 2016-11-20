@@ -15,9 +15,9 @@ RSpec.describe 'Timeline request', type: :request do
         products: Product.last(3))
     end
 
-    (1..3).each do
+    (1..3).each do |card|
       Timeline::Card.create_products_card(
-        title: 'user_like test',
+        title: "user_like test #{card}",
         user_id: user.uuid,
         card_type: Timeline::Card::USER_LIKES_TYPE,
         products: Product.last(2))
@@ -39,17 +39,17 @@ RSpec.describe 'Timeline request', type: :request do
     create(:product, title: 'zapato super #nike')
     create(:product, title: 'zapato super #nike')
 
-    (1..3).each do
+    (1..3).each do |card|
       Timeline::Card.create_products_card(
-        title: 'user_like test',
+        title: "user_like test #{card}",
         user_id: user.uuid,
         card_type: Timeline::Card::USER_LIKES_TYPE,
         products: Product.last(2))
     end
 
-    (1..5).each do
+    (1..5).each do |card|
       Timeline::Card.create_products_card(
-        title: 'retiqueta_picks',
+        title: "retiqueta_picks #{card}",
         products: Product.last(3))
     end
 
