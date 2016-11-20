@@ -25,12 +25,11 @@ module Timeline
     end
 
     def generate_result!
-      followed = Relationship.where(follower_id: user_id).map do |r| r.followed_id end
       cards = Timeline::Card
-              .where("(user_id IN (?) and card_type = ?) OR (user_id = ? and card_type = ?) OR user_id IS NULL", followed, Timeline::Card::USER_PRODUCT_TYPE, user_id, Timeline::Card::USER_LIKES_TYPE)
+              .where("(user_id = ? or user_id IS NULL", user_id)
               .order(created_at: :desc)
               .page(page).per(per_page)
-        self.success_result = cards
+      self.success_result = cards
     end
   end
 end
