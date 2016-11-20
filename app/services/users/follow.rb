@@ -40,7 +40,7 @@ module Users
     def generate_result!
       result = follower.active_relationships.create!(followed_id: followed.uuid)
       send_push_notification
-      BackfillFollowerProductCards.perform_later(follower, followed)
+      BackfillFollowerProductsCard.perform_later(follower, followed)
       MixpanelDelayedTracker.perform_later(follower_id,
                                            'user_follow',
                                            {})
