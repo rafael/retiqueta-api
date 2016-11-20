@@ -76,7 +76,7 @@ module Products
         MixpanelDelayedTracker.perform_later(user_id,
                                              'product_created',
                                              {})
-        CreateUsersProductCard.perform_later(user)
+        TimelineFollowerProductCard.perform_later(user)
         self.success_result = product
       else
         Librato.increment 'product.create.failure'

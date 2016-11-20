@@ -26,7 +26,7 @@ module Timeline
 
     def generate_result!
       cards = Timeline::Card
-              .where("(user_id = ? or user_id IS NULL", user_id)
+              .where("user_id = ? or user_id IS NULL", user_id)
               .order(created_at: :desc)
               .page(page).per(per_page)
       self.success_result = cards
