@@ -9,9 +9,9 @@ RSpec.describe 'Timeline request', type: :request do
     create(:product, title: 'zapato super #nike')
     create(:product, title: 'zapato super #nike')
 
-    (1..5).each do
+    (1..5).each do |card|
       Timeline::Card.create_products_card(
-        title: 'retiqueta_pick test',
+        title: "retiqueta_pick test #{card}",
         products: Product.last(3))
     end
 
