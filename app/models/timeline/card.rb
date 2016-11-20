@@ -4,7 +4,6 @@ class Timeline::Card < ActiveRecord::Base
 
   FEATURED_PICKS_TYPE = 'featured_picks'
   USER_LIKES_TYPE = 'user_likes'
-  USER_PRODUCT_TYPE = 'user_products'
 
   def self.create_products_card(args = {})
     title = args.fetch(:title)

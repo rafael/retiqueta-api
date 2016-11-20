@@ -13,7 +13,7 @@ class BackfillFollowerProductsCard < ActiveJob::Base
                       username: followed.username),
         products: batch,
         created_at: batch.first.created_at,
-        card_type: Timeline::Card::USER_PRODUCT_TYPE,
+        card_type: Timeline::Card::USER_LIKES_TYPE,
         user_id: follower.uuid)
     end
   rescue ActiveRecord::RecordNotUnique => e

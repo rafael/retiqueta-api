@@ -14,7 +14,7 @@ class TimelineFollowerProductCard < ActiveJob::Base
       Timeline::Card.create_products_card(
         title: I18n.t('timeline_cards.users_product_card_title', username: user.username),
         products: products(user),
-        card_type: Timeline::Card::USER_PRODUCT_TYPE,
+        card_type: Timeline::Card::USER_LIKES_TYPE,
         user_id: follower.uuid)
     end
   end
