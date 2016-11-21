@@ -108,6 +108,19 @@ RSpec.describe 'Orders Requests', vcr: true, type: :request do
         {},
         'X-Authenticated-Userid' => seller.uuid
     expect(response.status).to eq(200)
+
+    # seller can update fulfillment status
+
+    fulfillment_params = {
+      data: {
+        type: 'fulfillments',
+        attributes: {
+          status: Fulfillment::SENT_STATUS
+        }
+      }
+    }
+    patch "/v1/fulfillments/#{Fulfillment.last.uuid}", fulfillment_params, 'X-Authenticated-Userid' => seller.uuid
+    expect(response.status).to eq(204)
   end
 
   it "can't get an order if it's not a buyer or seller" do
