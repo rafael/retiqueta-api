@@ -20,7 +20,7 @@ class TimelineFollowerProductCard < ActiveJob::Base
   end
 
   def products(user)
-    @products ||= Product.where(user_id: user.id).last(2)
+    @products ||= Product.where(user_id: user.id).order(created_at: :desc)[0..1]
   end
 
 end
