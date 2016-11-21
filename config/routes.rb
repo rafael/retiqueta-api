@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
     resources :payouts, only: [:create, :index]
 
-    resources :fulfillments, only: :show do
+    resources :fulfillments, only: [:show, :update] do
       resources :comments,
                 only: [:create, :index, :destroy, :show],
                 path: 'relationships/comments', module: 'fulfillments'

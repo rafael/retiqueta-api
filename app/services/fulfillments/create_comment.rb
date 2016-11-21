@@ -1,3 +1,5 @@
+require 'fulfillment_helpers'
+
 module Fulfillments
   class CreateComment
     #################
@@ -5,6 +7,7 @@ module Fulfillments
     #################
 
     include ActiveModel::Validations
+    include FulfillmentHelpers
 
     #################
     ## Validations ##
@@ -102,22 +105,6 @@ module Fulfillments
                                      seller(order)
                                    end
                                  end
-    end
-
-    def fulfillment_order(fulfillment)
-      @fulfillment_order ||= fulfillment.order
-    end
-
-    def buyer(order)
-      @buyer ||= order.user
-    end
-
-    def seller(order)
-      @seller ||= product_order(order).user
-    end
-
-    def product_order(order)
-      @product_order ||= order.line_items.first.product
     end
 
     def valid_type
