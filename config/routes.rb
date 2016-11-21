@@ -36,6 +36,8 @@ Rails.application.routes.draw do
 
     resources :payouts, only: [:create, :index]
 
+    resources :billing_profiles, only: [:index, :destroy]
+
     resources :fulfillments, only: [:show, :update] do
       resources :comments,
                 only: [:create, :index, :destroy, :show],
