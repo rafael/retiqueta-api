@@ -46,7 +46,7 @@ class UserMailer < ApplicationMailer
   end
 
   def welcome_2_0(email)
-    mail(to: email, subject: '¡Tienes un regalo de Retiqueta!')
+    mail(to: email, subject: 'Retiqueta cobrará comisión desde…')
   end
 
   def comment_created(user, commenter, product, text)
