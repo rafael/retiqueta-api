@@ -110,6 +110,12 @@ plugins:
     name: cors
     apis: all
   -
+    name: ssl
+    apis: all
+    config.cert: "<%= IO.read('/etc/secrets/retiqueta-ssl-api-pem') %>" # Have to find a way to do this with faraday :/
+    config.key: "<%=  IO.read('/etc/secrets/retiqueta-ssl-api-key') %>"
+    config.only_https: "true"
+  -
     name: oauth2
     config.scopes: app
     config.mandatory_scope: true
