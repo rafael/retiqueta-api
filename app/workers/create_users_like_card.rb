@@ -8,6 +8,8 @@ class CreateUsersLikeCard < ActiveJob::Base
     return unless likes_count.even? || likes_count == 0
     create_card(user)
     clean_cards(user)
+  rescue ActiveRecord::RecordNotUnique => e
+    Rails.logger.warn("Trying to create duplicate card: #{e.message}")
   end
 
   private
