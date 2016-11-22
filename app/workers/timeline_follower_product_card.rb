@@ -2,8 +2,8 @@ class TimelineFollowerProductCard < ActiveJob::Base
   queue_as :default
 
   def perform(user)
-    pCount = products(user).count
-    return unless pCount.even?
+    product_count = products(user).count
+    return unless product_count.even?
     create_card(user)
   end
 
@@ -17,6 +17,8 @@ class TimelineFollowerProductCard < ActiveJob::Base
         card_type: Timeline::Card::USER_LIKES_TYPE,
         user_id: follower.uuid)
     end
+  rescue ActiveRecord::RecordNotUnique => e
+    Rails.logger.warn("Trying to create duplicate card: #{e.message}")
   end
 
   def products(user)
