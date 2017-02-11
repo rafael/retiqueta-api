@@ -47,6 +47,7 @@ module Registrations
       user.username = username_from_email unless user.username
       user.password = password
       user.build_profile.country = "VE"
+      user.store_fee = 0.2
       if user.valid? && user.save
         UserMailer.signup_email(user).deliver_later
         AccountBootstrap.perform_later(user)

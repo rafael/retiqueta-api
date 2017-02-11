@@ -30,6 +30,7 @@ RSpec.describe Registrations::Create, type: :model do
         params_without_password[:data][:attributes][:email] = 'jose@test.com'
         expect(service_result).to be_valid
         user = User.last
+        expect(user.store_fee).to eq(0.2)
         expect(user.username).to include('jose')
       end
 
