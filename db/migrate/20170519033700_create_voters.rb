@@ -28,6 +28,10 @@ class CreateVoters < ActiveRecord::Migration
         t.string :voting_center_code
         t.timestamps null: false
       end
+      add_index :voters, :mun
+      add_index :voters, :parr
+      add_index :voters, :voting_center
+      add_index :voters, [:mun, :parr]
     end
   end
 end
