@@ -18,6 +18,9 @@ audit_test:
   <<: *default
   database: retiqueta_api_test
 
+moviento_sexta_development:
+  <<: *default
+  database: moviento_sexta_development
 
 test:
   <<: *default
@@ -28,6 +31,13 @@ test:
 audit_production:
   <<: *default
   database: retiqueta_api_production
+  username: <%= ENV['RETIQUETA_API_DATABASE_USER'] %>
+  password: <%= ENV['RETIQUETA_API_DATABASE_PASSWORD'] %>
+  host: <%= ENV['POSTGRES_SERVICE_HOST'] %>
+
+moviento_sexta_production:
+  <<: *default
+  database: moviento_sexta
   username: <%= ENV['RETIQUETA_API_DATABASE_USER'] %>
   password: <%= ENV['RETIQUETA_API_DATABASE_PASSWORD'] %>
   host: <%= ENV['POSTGRES_SERVICE_HOST'] %>
