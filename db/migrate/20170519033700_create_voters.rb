@@ -13,20 +13,21 @@ class CreateVoters < ActiveRecord::Migration
 #    ActiveRecord::Base.connection.reconnect!
 
 
-    Voter.connection.create_table :voters do |t|
-      t.string :cit
-      t.string :ci
-      t.string :name
-      t.string :last_name
-      t.string :mobile
-      t.string :landline
-      t.string :email
-      t.string :mun
-      t.string :parr
-      t.string :voting_center
-      t.string :voting_center_code
-      t.timestamps null: false
+    if ENV['SEXTA']
+      Voter.connection.create_table :voters do |t|
+        t.string :cit
+        t.string :ci
+        t.string :name
+        t.string :last_name
+        t.string :mobile
+        t.string :landline
+        t.string :email
+        t.string :mun
+        t.string :parr
+        t.string :voting_center
+        t.string :voting_center_code
+        t.timestamps null: false
+      end
     end
-#    ActiveRecord::Base.establish_connection(Rails.env)
   end
 end
