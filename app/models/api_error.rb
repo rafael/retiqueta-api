@@ -1,20 +1,19 @@
 module ApiError
   class BaseError < StandardError
-
     def status
-      raise NotImplementedError "Each error needs to provide it's status"
+      fail NotImplementedError "Each error needs to provide it's status"
     end
 
     def title
-      raise NotImplementedError "Each error needs to provide it's title"
+      fail NotImplementedError "Each error needs to provide it's title"
     end
 
     def code
-      raise NotImplementedError "Each error needs to provide it's code"
+      fail NotImplementedError "Each error needs to provide it's code"
     end
 
     def to_json(*)
-      { code: code, detail: message , title: title, status: status }.to_json
+      { code: code, detail: message, title: title, status: status }.to_json
     end
   end
 
@@ -28,7 +27,7 @@ module ApiError
     end
 
     def title
-      "failed-validation"
+      'failed-validation'
     end
   end
 
@@ -42,7 +41,7 @@ module ApiError
     end
 
     def title
-      "unauthorized"
+      'unauthorized'
     end
   end
 
@@ -56,7 +55,7 @@ module ApiError
     end
 
     def title
-      "not-found"
+      'not-found'
     end
   end
 
@@ -70,8 +69,7 @@ module ApiError
     end
 
     def title
-      "internal-error"
+      'internal-error'
     end
   end
-
 end
