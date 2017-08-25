@@ -49,6 +49,7 @@ module Products
       @attributes = data[:attributes] || {}
       @type = data[:type]
       @text = sanatize(attributes[:text])
+      @attributes[:text] = @text
       valid?
     end
 
