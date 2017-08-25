@@ -48,7 +48,7 @@ module Products
       @data = params[:data]
       @attributes = data[:attributes] || {}
       @type = data[:type]
-      @text = attributes[:text]
+      @text = sanatize(attributes[:text])
       valid?
     end
 
@@ -129,6 +129,20 @@ module Products
       return nil unless text
       usernames = text.scan(/@[a-zA-Z0-9]+/).map { |s| s.gsub('@', '') }
       User.where(username: usernames)
+    end
+
+    def sanatize(test)
+      test.gsub(/[0-9]*/, "").
+        gsub("uno", "").
+        gsub("dos", "").
+        gsub("tres", "").
+        gsub("cuatro", "").
+        gsub("cinco", "").
+        gsub("seis", "").
+        gsub("siete", "").
+        gsub("ocho", "").
+        gsub("nueve", "").
+        gsub("diez", "")
     end
   end
 end
