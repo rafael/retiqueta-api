@@ -45,6 +45,10 @@ class UserMailer < ApplicationMailer
     mail(to: email)
   end
 
+  def goodbye(email)
+    mail(to: email, subject: 'Hasta pronto retilovers <3')
+  end
+
   def welcome_2_0(email)
     mail(to: email, subject: 'Retiqueta cobrará comisión desde…')
   end
