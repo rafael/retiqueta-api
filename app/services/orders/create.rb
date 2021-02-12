@@ -83,11 +83,15 @@ module Orders
       sales = create_sale!(order, order_amount, products)
       create_fulfillment!(order)
       UserMailer.order_created(order).deliver_later
+      if payment_data[:save_customer]
+        SetupMpCustomerAndCard.perform_later(charge.user,
+                                             payment_data[:token],
+                                             JSON.parse(charge.metadata))
+      end
       send_sales_notfications(sales)
       track_metrics
       order
     rescue => e
-      Librato.increment 'order.create.failure'
       raise e
     end
 
@@ -97,7 +101,6 @@ module Orders
     end
 
     def track_metrics
-      Librato.increment 'order.create.success'
       MixpanelDelayedTracker.perform_later(user_id,
                                            'order_created',
                                            {})
@@ -188,7 +191,7 @@ module Orders
         payer:  {
           email:  user.email
         }
-      }.merge(payment_data)
+      }.merge(payment_data.except(:save_customer))
 
       create_audit(payment_transaction_id,
                    'attempting_to_charge_card',

@@ -1,0 +1,182 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.mercadopago.com/v1/customers?access_token=TEST-7996492241102187-020901-2125bf21d3eda6d5c1150a3ae949e743__LD_LB__-203200861
+    body:
+      encoding: UTF-8
+      string: '{"email":"john1@winterfell.com","name":"Rafael Alberto","last_name":"Chacon","identification":{"type":"CI","number":"17646706"}}'
+    headers:
+      User-Agent:
+      - MercadoPago Ruby SDK v0.3.4
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Date:
+      - Mon, 21 Nov 2016 06:18:16 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept,Accept-Encoding
+      Cache-Control:
+      - max-age=0
+      Etag:
+      - f01773435ed986a95599591820a408e3
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0d363f26-52ce-4bae-88c3-5b5a937ee11a
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=15724800
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Content-Type
+      Access-Control-Allow-Methods:
+      - PUT, GET, POST, DELETE, OPTIONS
+      Access-Control-Max-Age:
+      - '86400'
+    body:
+      encoding: UTF-8
+      string: '{"id":"207271966-8Twvet63yoRLqR","email":"john1@winterfell.com","first_name":null,"last_name":"Chacon","phone":{"area_code":null,"number":null},"identification":{"type":"CI","number":"17646706"},"address":{"id":null,"zip_code":null,"street_name":null,"street_number":null},"date_registered":null,"description":null,"date_created":"2016-11-21T02:18:16.736-04:00","date_last_updated":null,"metadata":{},"default_card":null,"default_address":null,"cards":[],"addresses":[],"live_mode":false}'
+    http_version: 
+  recorded_at: Mon, 21 Nov 2016 06:18:17 GMT
+- request:
+    method: post
+    uri: https://api.mercadopago.com/v1/customers/207271966-8Twvet63yoRLqR/cards?access_token=TEST-7996492241102187-020901-2125bf21d3eda6d5c1150a3ae949e743__LD_LB__-203200861
+    body:
+      encoding: UTF-8
+      string: '{"token":"287e6d7899cfb0ee51de5d8bcc12c311"}'
+    headers:
+      User-Agent:
+      - MercadoPago Ruby SDK v0.3.4
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Date:
+      - Mon, 21 Nov 2016 06:18:17 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept,Accept-Encoding
+      Cache-Control:
+      - max-age=0
+      Etag:
+      - 0ffb46eb61e90f2a0eaed7c8f6e922b6
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0b189128-ad4e-4c6f-8836-467941a7952c
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=15724800
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Content-Type
+      Access-Control-Allow-Methods:
+      - PUT, GET, POST, DELETE, OPTIONS
+      Access-Control-Max-Age:
+      - '86400'
+      Set-Cookie:
+      - TS0104622d=0119b547a2886826d4712584a3325645dceecee3bf61ec36319411889a45bf2b371f251fd593f6812b360e40bb2467e5e92fa3f9bf;
+        Path=/; Domain=.api.mercadopago.com
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"id":"1479709097772","customer_id":"207271966-8Twvet63yoRLqR","expiration_month":12,"expiration_year":2017,"first_six_digits":"450995","last_four_digits":"3704","payment_method":{"id":"visa","name":"visa","payment_type_id":"credit_card","thumbnail":"http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif","secure_thumbnail":"https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif"},"security_code":{"length":3,"card_location":"back"},"issuer":{"id":212,"name":"Visa"},"cardholder":{"name":"APRO
+        Rafael","identification":{"number":"17646706","type":"CI-V"}},"date_created":"2016-11-21T02:13:59.139-04:00","date_last_updated":"2016-11-21T02:14:08.658-04:00","live_mode":false}'
+    http_version: 
+  recorded_at: Mon, 21 Nov 2016 06:18:18 GMT
+- request:
+    method: get
+    uri: https://api.mercadopago.com/v1/customers/207271966-8Twvet63yoRLqR?access_token=TEST-7996492241102187-020901-2125bf21d3eda6d5c1150a3ae949e743__LD_LB__-203200861
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - MercadoPago Ruby SDK v0.3.4
+      Content-Type:
+      - application/json
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 21 Nov 2016 06:18:18 GMT
+      Content-Type:
+      - application/json;charset=UTF-8
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept,Accept-Encoding
+      Cache-Control:
+      - max-age=0
+      Etag:
+      - dda9861bf0378807adc7e57f3d8d66bf
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 056c9a6b-ad73-408b-b990-a47541e02785
+      X-Xss-Protection:
+      - 1; mode=block
+      Strict-Transport-Security:
+      - max-age=15724800
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Content-Type
+      Access-Control-Allow-Methods:
+      - PUT, GET, POST, DELETE, OPTIONS
+      Access-Control-Max-Age:
+      - '86400'
+      Set-Cookie:
+      - TS0104622d=0119b547a22a7a57f7a0b49f9646467f125b988f0282ee320071a3cf17f68ba4acf0220614271ce5e01dbcdaf034e13d5f170a8613;
+        Path=/; Domain=.api.mercadopago.com
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"id":"207271966-8Twvet63yoRLqR","email":"john1@winterfell.com","first_name":null,"last_name":"Chacon","phone":{"area_code":null,"number":null},"identification":{"type":"CI","number":"17646706"},"address":{"id":null,"zip_code":null,"street_name":null,"street_number":null},"date_registered":null,"description":null,"date_created":"2016-11-21T00:00:00.000-04:00","date_last_updated":"2016-11-21T00:00:00.000-04:00","metadata":{},"default_card":"1479709097772","default_address":null,"cards":[{"id":"1479709097772","customer_id":"207271966-8Twvet63yoRLqR","expiration_month":12,"expiration_year":2017,"first_six_digits":"450995","last_four_digits":"3704","payment_method":{"id":"visa","name":"visa","payment_type_id":"credit_card","thumbnail":"http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif","secure_thumbnail":"https://www.mercadopago.com/org-img/MP3/API/logos/visa.gif"},"security_code":{"length":3,"card_location":"back"},"issuer":{"id":212,"name":"Visa"},"cardholder":{"name":"APRO
+        Rafael","identification":{"number":"17646706","type":"CI-V"}},"date_created":"2016-11-21T02:13:59.139-04:00","date_last_updated":"2016-11-21T02:14:08.658-04:00"}],"addresses":[],"live_mode":false}'
+    http_version: 
+  recorded_at: Mon, 21 Nov 2016 06:18:18 GMT
+recorded_with: VCR 2.9.3
